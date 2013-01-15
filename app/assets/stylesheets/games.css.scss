@@ -1,0 +1,138 @@
+// Place all the styles related to the games controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #111;
+  background-image: url("mainback.jpg");
+}
+
+#main_wrapper {
+  position: relative;
+  width: 740px;
+  height: 580px;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 20px;
+  border: 10px solid black;
+}
+
+#game_wrapper {
+  position: relative;
+  width: 740px;
+  height: 580px;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 50px;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+}
+
+#alchemy_container {
+  width: 350px;
+  height: 350px;
+  position: absolute;
+  top: 181px;
+  left: 91px;
+}
+
+#target_back {
+  position: absolute;
+  top: 125px;
+  right: 105px;
+  width: 260px;
+  height: 460px;
+  background: white;
+  opacity: 0.7;
+  border-bottom: solid 3px black;
+  border-right: solid 3px black;
+  border-top-left-radius: 50px;
+}
+
+#target {
+  position: absolute;
+  top: 150px;
+  right: 125px;
+  text-align: center;
+  width: 220px;
+  height: 450px;
+}
+
+
+#writeup {
+  font-size: 11px;
+}
+
+#alchemy_center {
+  width: 80px;
+  height: 10px;
+  position: absolute;
+  left: 115px;
+  top: 125px;
+  cursor: pointer;
+}
+
+#alchemy_center img {
+  width: 155px;
+}
+
+#alchemy_center a {
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.field {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+}
+
+.alchemy_elements {
+  width: 80px;
+  cursor: pointer;
+}
+
+#back_button {
+  position: absolute;
+  left: 70px;
+  bottom: 70px;
+  cursor: pointer;
+}
+
+#portal {
+  position: absolute;
+  top: 251px;
+  left: 412px;
+  cursor: pointer;
+}
+
+#instruction {
+  position: absolute;
+  top: 260px;
+  left: 475px;
+  border-radius: 5px;
+  display: none;
+}
+
+#reward_table {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  //background: white;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.clue{
+  margin-bottom: 2px;
+  border-radius: 5px;
+}

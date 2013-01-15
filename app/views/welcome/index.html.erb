@@ -1,0 +1,20 @@
+<div id="main_wrapper" style="display:none;position: relative;">
+  <%= image_tag "title.jpg", :class => "background" %>
+  <%= link_to image_tag("portal.gif"), "#", :id => "portal" %>
+  <img id="instruction" src="/assets/click.jpg" alt="instruction">
+</div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            $('#main_wrapper').fadeIn("slow", function () {
+                setTimeout(function () {
+                    $('#instruction').fadeIn();
+                },1500);
+            });
+        }, 500);
+    })
+</script>
+

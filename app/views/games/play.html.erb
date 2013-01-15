@@ -1,0 +1,114 @@
+<div id="game_wrapper">
+  <%= image_tag "#{@theme}.jpg", :class => "background" %>
+
+  <div id="target_back"></div>
+  <div id="target">
+
+    <h2>
+      <%= @game.puzzle.name %>
+    </h2>
+
+    <div id="writeup">
+      <%= image_tag @game.puzzle.avatar.url(:original), :id => "target_img" %>
+      <br>
+      <br>
+    </div>
+    <table id="reward_table" cellpadding="0">
+      <tr>
+        <td><%= image_tag "wisdom.png" %></td>
+        <td><%= image_tag "techno.png" %></td>
+      </tr>
+      <tr>
+        <td>50</td>
+        <td>100</td>
+      </tr>
+    </table>
+    <fieldset style="bottom: 30px;position: absolute;background: white;border-radius: 5px;border:none;text-align: center;">
+      <div style="margin-bottom: 10px;font-weight: bold;">Enlightenment</div>
+      <%= image_tag "lore_#{@theme}.png", :class => "clue" %>
+      <%= image_tag "counter_#{@theme}.png", :class => "clue" %>
+      <%= image_tag "choice_#{@theme}.png", :class => "clue" %>
+    </fieldset>
+  </div>
+
+  <div id="alchemy_container">
+    <div id="alchemy_center"><%= image_tag "mixer_#{@theme}.png" %></div>
+  </div>
+
+  <%= image_tag "menu-off.gif", :id => "back_button" %>
+
+</div>
+
+<script type="text/javascript">
+    var alchemy_element_array = [];
+    var checker = "0000000";
+    alchemy_element_array = <%= raw @elements %>;
+
+    // replace the 'n'th character of 's' with 't'
+    function replaceAt(s, n, t) {
+        return s.substring(0, n) + t + s.substring(n + 1);
+    }
+
+
+    function createFields() {
+        $('.field').remove();
+        var container = $('#alchemy_container');
+
+        for (var i = 0; i < 8; i++) {
+            $('<div/>', {
+                'class':'field',
+                'html':'<a href="#" title=' + alchemy_element_array[i] + '><img src="/assets/elements/' + alchemy_element_array[i] + '-off.png" class="alchemy_elements" id="' + i + '"/></a>'
+            }).appendTo(container);
+        }
+    }
+
+    function distributeFields() {
+        var radius = 95;
+        var fields = $('.field'), container = $('#alchemy_container'),
+                width = container.width(), height = container.height(),
+                angle = 30, step = (2 * Math.PI) / fields.length;
+        fields.each(function () {
+            var x = Math.round(width / 2 + radius * Math.cos(angle) - $(this).width() / 2);
+            var y = Math.round(height / 2 + radius * Math.sin(angle) - $(this).height() / 2);
+            $(this).css({
+                left:x + 'px',
+                top:y + 'px'
+            });
+            angle += step;
+        });
+    }
+
+    $(function () {
+
+        createFields();
+        distributeFields();
+
+        $('.alchemy_elements').live('click', function () {
+            if ($(this).hasClass("img-swap")) {
+                this.src = this.src.replace("-on", "-off");
+                checker = replaceAt(checker, parseInt($(this).attr("id")), "0");
+            } else {
+                this.src = this.src.replace("-off", "-on");
+                checker = replaceAt(checker, parseInt($(this).attr("id")), "1");
+            }
+            $(this).toggleClass("img-swap");
+        });
+        $('#alchemy_center').click(function () {
+            if (checker == "<%= @game.combo %>") {
+                alert("ok", "<%= @game.combo %>");
+            }
+            else {
+                alert(checker, "<%= @game.combo %>");
+            }
+        });
+        $('#back_button').hover(
+                function () {
+                    this.src = this.src.replace("-off", "-on-<%= @theme %>");
+                },
+                function () {
+                    this.src = this.src.replace("-on-<%= @theme %>", "-off");
+                }
+        )
+
+    })
+</script>
