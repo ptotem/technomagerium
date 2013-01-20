@@ -7,6 +7,11 @@ class GamesController < ApplicationController
     @elements = t(:elements).keys.map { |c| t(:"elements.#{c}") }
   end
 
+  def take_counter_clue
+    @game=Game.find(params[:id])
+    render :text=> @game.puzzle.combo.scan("1").count
+  end
+
 
   # GET /games
   # GET /games.json

@@ -1,20 +1,44 @@
-<div id="main_wrapper" style="display:none;position: relative;">
-  <%= image_tag "title.jpg", :class => "background" %>
-  <%= link_to image_tag("portal.gif"), "#", :id => "portal" %>
-  <img id="instruction" src="/assets/click.jpg" alt="instruction">
-</div>
+<div id="main_wrapper">
+  <div id="launch_page">
+    <%= image_tag "title.jpg", :class => "background" %>
+    <img id="parchment" src="/assets/parchment.png" alt="parchment" class="sitename">
+    <img id="sitename" src="/assets/sitename.png" alt="the technomagerium" class="sitename">
+    <img id="catchphrase" src="/assets/catchphrase.png" alt="catchphrase" class="sitename">
+    <a href="#" id="entering">
+      <%= image_tag "portal.gif", :id => "portal" %>
+      <img id="instruction" src="/assets/click.jpg" alt="instruction">
+    </a>
+  </div>
+  <div id="welcome_note">
+    You have <%= current_user.power %> Power and <%= current_user.mana %> Mana
+  </div>
 
+</div>
 
 
 <script type="text/javascript">
     $(function () {
         setTimeout(function () {
-            $('#main_wrapper').fadeIn("slow", function () {
-                setTimeout(function () {
-                    $('#instruction').fadeIn();
-                },1500);
-            });
+            $('#main_wrapper').fadeIn("slow")
         }, 500);
+
+        $("#entering").click(function () {
+            $(this).fadeOut();
+            $('.background').fadeOut();
+            $('#catchphrase').fadeOut();
+            $('#parchment').animate({
+                "top":"0px",
+                "left":"0px",
+                "width":"740px"
+            });
+            $('#sitename').animate({
+                "top":"10px",
+                "left":"10px"
+            })
+            $('#welcome_note').fadeIn();
+
+        })
+
     })
 </script>
 

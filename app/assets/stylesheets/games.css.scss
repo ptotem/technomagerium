@@ -6,9 +6,10 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #111;
-  background-image: url("mainback.jpg");
+  background: #000;
 }
+
+/* Title Page */
 
 #main_wrapper {
   position: relative;
@@ -16,9 +17,43 @@ html, body {
   height: 580px;
   overflow: hidden;
   margin: 0 auto;
-  margin-top: 20px;
-  border: 10px solid black;
+  display: none;
 }
+
+.sitename {
+  position: absolute;
+  top: 150px;
+  left: 80px;
+  width: 300px;
+}
+
+#portal {
+  position: absolute;
+  top: 251px;
+  left: 412px;
+  cursor: pointer;
+}
+
+#instruction {
+  position: absolute;
+  top: 270px;
+  left: 225px;
+  border-radius: 5px;
+  width: 185px;
+  height: 30px;
+}
+
+#welcome_note {
+  position: absolute;
+  top: 270px;
+  left: 225px;
+  border-radius: 5px;
+  width: 185px;
+  height: 30px;
+  display: none;
+}
+
+/* Game Pages */
 
 #game_wrapper {
   position: relative;
@@ -38,32 +73,9 @@ html, body {
   width: 350px;
   height: 350px;
   position: absolute;
-  top: 181px;
-  left: 91px;
+  top: 183px;
+  left: 90px;
 }
-
-#target_back {
-  position: absolute;
-  top: 125px;
-  right: 105px;
-  width: 260px;
-  height: 460px;
-  background: white;
-  opacity: 0.7;
-  border-bottom: solid 3px black;
-  border-right: solid 3px black;
-  border-top-left-radius: 50px;
-}
-
-#target {
-  position: absolute;
-  top: 150px;
-  right: 125px;
-  text-align: center;
-  width: 220px;
-  height: 450px;
-}
-
 
 #writeup {
   font-size: 11px;
@@ -73,7 +85,7 @@ html, body {
   width: 80px;
   height: 10px;
   position: absolute;
-  left: 115px;
+  left: 114px;
   top: 125px;
   cursor: pointer;
 }
@@ -100,39 +112,247 @@ html, body {
 
 #back_button {
   position: absolute;
-  left: 70px;
-  bottom: 70px;
+  right: 70px;
+  top: 83px;
   cursor: pointer;
-}
-
-#portal {
-  position: absolute;
-  top: 251px;
-  left: 412px;
-  cursor: pointer;
-}
-
-#instruction {
-  position: absolute;
-  top: 260px;
-  left: 475px;
-  border-radius: 5px;
-  display: none;
 }
 
 #reward_table {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  //background: white;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 5px;
   margin: 0 auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
-.clue{
-  margin-bottom: 2px;
+#reward_table img {
+  vertical-align: middle;
+}
+
+#wallet {
+  position: absolute;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  top: 100px;
+  right: 155px;
+  width: 150px;
+}
+
+#wallet img {
+  vertical-align: middle;
+}
+
+.techno_text {
+  color: white;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000000;
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+}
+
+.modal-backdrop, .modal-backdrop.fade.in {
+  opacity: 0.8;
+  filter: alpha(opacity = 80);
+}
+
+.modal {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  z-index: 1050;
+  width: 560px;
+  margin-left: -280px;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  outline: none;
+}
+
+.modal.fade {
+  -webkit-transition: opacity .3s linear, top .3s ease-out;
+  -moz-transition: opacity .3s linear, top .3s ease-out;
+  -o-transition: opacity .3s linear, top .3s ease-out;
+  transition: opacity .3s linear, top .3s ease-out;
+  top: -25%;
+}
+
+.modal.fade.in {
+  top: 10%;
+}
+
+.modal-header {
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header .close {
+  margin-top: 2px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  line-height: 30px;
+}
+
+.modal-body {
+  position: relative;
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 15px;
+}
+
+.modal-form {
+  margin-bottom: 0;
+}
+
+.modal-footer {
+  padding: 14px 15px 15px;
+  margin-bottom: 0;
+  text-align: right;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: inset 0 1px 0 #ffffff;
+  -moz-box-shadow: inset 0 1px 0 #ffffff;
+  box-shadow: inset 0 1px 0 #ffffff;
+  *zoom: 1;
+}
+
+.modal-footer:before, .modal-footer:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.modal-footer:after {
+  clear: both;
+}
+
+.modal-footer .btn+.btn {
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+
+.modal-footer .btn-group .btn+.btn {
+  margin-left: -1px;
+}
+
+.modal-footer .btn-block+.btn-block {
+  margin-left: 0;
+}
+
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  -moz-transition: opacity 0.15s linear;
+  -o-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+}
+
+.fade.in {
+  opacity: 1;
+}
+
+#target_back {
+  position: absolute;
+  top: 165px;
+  right: 110px;
+  width: 270px;
+  height: 440px;
+  background: white;
+  opacity: 0.7;
+  border-bottom: solid 3px black;
+  border-right: solid 3px black;
+  border-top-left-radius: 50px;
+}
+
+#target {
+  position: absolute;
+  top: 190px;
+  right: 130px;
+  text-align: center;
+  width: 230px;
+  height: 420px;
+}
+
+#content_area {
+  position: relative;
+  width: 210px;
+  height: 160px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+#content_area img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.content_block {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 210px;
+  height: 160px;;
+  background: white;
+  border-radius: 10px;
+  font-size: 14px;
+  background: url("/assets/content_back.jpeg")
+}
+
+.content_block img {
+  vertical-align: middle;
+  width: 24px;
+}
+
+.cost_table {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.clue_button {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.clue {
   border-radius: 5px;
+  text-align: center;
+  margin: 0 auto;
+  cursor: pointer;
+  width: 64px;
+  position: relative;
+}
+
+.closing_cross {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 10px;
+  cursor: pointer;
 }

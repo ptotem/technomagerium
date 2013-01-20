@@ -9,6 +9,7 @@ Summoner::Application.routes.draw do
   devise_for :users
 
   match '/play/:id', :to=>"games#play", :as=>"play"
+  match 'games/:id/take_counter_clue', :to=>"games#take_counter_clue", :as=>"take_counter_clue"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
