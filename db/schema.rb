@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130114094840) do
+ActiveRecord::Schema.define(:version => 20130122173133) do
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20130114094840) do
     t.boolean  "solved"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "revealed"
   end
 
   create_table "puzzles", :force => true do |t|
@@ -30,9 +31,8 @@ ActiveRecord::Schema.define(:version => 20130114094840) do
     t.string   "combo"
     t.integer  "power_reward"
     t.integer  "mana_reward"
-    t.integer  "clue_cost_power"
-    t.integer  "clue_cost_mana"
     t.text     "lore"
+    t.string   "clue_cost_schema"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"

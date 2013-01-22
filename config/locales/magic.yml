@@ -11,4 +11,13 @@ magic:
     f: "death"
     g: "spirit"
     h: "time"
-
+  clue_cost_schema:
+    flat: "30|30|30"
+    count: "x|50|x"
+    lore: "50|x|x"
+    steep: "30|50|50"
+    cheap: "0|30|30"
+  cluespeak:
+    lore: "Study legend and lore, to divine the essence of the creation."
+    count: "Discover the number of elements required for the creation."
+    chance: "Know one of the elements required in the mix for the creation"

@@ -1,86 +1,47 @@
-<script type="text/javascript">
-
-    var checker = "0000000";
-
-    $(function () {
-        var alchemy_element_array = [];
-        alchemy_element_array = <%= raw @elements %>;
-        createFields(alchemy_element_array);
-        distributeFields(95, 55);
-        $('.alchemy_elements').live('click', switch_element);
-    })
-</script>
-
 <div id="game_wrapper">
   <%= image_tag "#{@theme}.jpg", :class => "background" %>
+
+  <!-- The current wallet of the player -->
   <div id="wallet" class="<%= @theme %>_text">
-    <%= current_user.mana %><%= image_tag "wisdom.png" %><%= image_tag "techno.png" %><%= current_user.power %>
+    <span id="magic_wallet"><%= current_user.mana %></span> <%= image_tag "magic.png" %><%= image_tag "techno.png" %>
+    <span id="techno_wallet"><%= current_user.power %></span>
   </div>
+
+  <!-- The Target to be achieved-->
   <div id="target_back"></div>
   <div id="target">
+
+    <!-- Name and Reward Value for the Target-->
     <div style="height:110px;">
       <h2 style="margin: 10px;">
         <%= @game.puzzle.name %>
         <div id="reward_table">
-          <%= @game.puzzle.mana_reward unless @game.puzzle.mana_reward==0 %><%= image_tag "wisdom.png" unless @game.puzzle.mana_reward==0 %><%= image_tag "techno.png" unless @game.puzzle.power_reward==0 %><%= @game.puzzle.power_reward unless @game.puzzle.power_reward==0 %>
+          <%= @game.puzzle.mana_reward unless @game.puzzle.mana_reward==0 %> <%= image_tag "magic.png" unless @game.puzzle.mana_reward==0 %><%= image_tag "techno.png" unless @game.puzzle.power_reward==0 %> <%= @game.puzzle.power_reward unless @game.puzzle.power_reward==0 %>
         </div>
       </h2>
     </div>
+
+    <!-- Content Area for displaying clues. Default is Target Image-->
     <div id="content_area">
-      <%= image_tag @game.puzzle.avatar.url(:original) %>
-      <div id="lore_content" class="content_block">
-        <div class="locked_block">
-          <span class="closing_cross" onclick="clue_deselect()">&times;</span><br>
-          <h3>Lore</h3>
+      <div class="target_image"><%= image_tag @game.puzzle.avatar.url(:original) %></div>
+      <div id="content_block">
+        <span class="closing_cross" onclick="clue_deselect()">&times;</span><br><br>
 
-          <div class="cost_table">
-            <%= @game.puzzle.mana_reward unless @game.puzzle.mana_reward==0 %>
-            <%= image_tag "wisdom.png" unless @game.puzzle.mana_reward==0 %>
-            <%= image_tag "techno.png" unless @game.puzzle.power_reward==0 %>
-            <%= @game.puzzle.power_reward unless @game.puzzle.power_reward==0 %>
-          </div>
-          <br>
-          <button class="clue_button">Research</button>
-        </div>
-      </div>
-      <div id="count_content" class="content_block">
-        <div class="locked_block">
-          <span class="closing_cross" onclick="clue_deselect()">&times;</span><br>
-          <h3>Count</h3>
-          <div class="cost_table">
-            <%= @game.puzzle.mana_reward unless @game.puzzle.mana_reward==0 %>
-            <%= image_tag "wisdom.png" unless @game.puzzle.mana_reward==0 %>
-            <%= image_tag "techno.png" unless @game.puzzle.power_reward==0 %>
-            <%= @game.puzzle.power_reward unless @game.puzzle.power_reward==0 %>
-          </div>
-          <br>
-          <button class="clue_button">Research</button>
-        </div>
-      </div>
-      <div id="chance_content" class="content_block">
-        <div class="locked_block">
-          <span class="closing_cross" onclick="clue_deselect()">&times;</span><br>
-
-          <h3>Chance</h3>
-
-          <div class="cost_table">
-            <%= @game.puzzle.mana_reward unless @game.puzzle.mana_reward==0 %>
-            <%= image_tag "wisdom.png" unless @game.puzzle.mana_reward==0 %>
-            <%= image_tag "techno.png" unless @game.puzzle.power_reward==0 %>
-            <%= @game.puzzle.power_reward unless @game.puzzle.power_reward==0 %>
-          </div>
-          <br>
-          <button class="clue_button">Research</button>
-        </div>
+        <div id="actual_content"></div>
       </div>
     </div>
-    <%= image_tag "lore.jpg", :id => "lore_button", :class => "clue", :onclick => "lore_clue_taken()" %>
-    <%= image_tag "count.jpg", :id => "count_button", :class => "clue", :onclick => "count_clue_taken(#{@game.id},'#{@theme}')" %>
-    <%= image_tag "chance.jpg", :id => "chance_button", :class => "clue", :onclick => "chance_clue_taken()" %>
+
+    <!-- Clue Buttons -->
+    <div id="clue_buttons">
+      <%= image_tag "lore#{@lock_status[0]}.jpg", :id => "lore", :class => "clue status#{@lock_status[0]}" %>
+      <%= image_tag "count#{@lock_status[1]}.jpg", :id => "count", :class => "clue status#{@lock_status[1]}" %>
+      <%= image_tag "chance#{@lock_status[2]}.jpg", :id => "chance", :class => "clue status#{@lock_status[2]}" %>
+    </div>
+
   </div>
 
   <div id="alchemy_container">
-    <div id="alchemy_center" onclick="check_combo(checker)"><%= image_tag "mixer_#{@theme}.png" %></div>
+    <div id="alchemy_center"><%= image_tag "mixer_#{@theme}.png" %></div>
   </div>
 
   <a data-backdrop="static" data-toggle="modal" href="#menu"><%= image_tag "menu-off-#{@theme}.gif", :id => "back_button" %></a>
@@ -95,4 +56,39 @@
     <a href="#" class="btn btn-danger" data-dismiss="modal">Return</a>
   </div>
 </div>
+
+<script type="text/javascript">
+
+    var checker = "00000000";
+
+    $(function () {
+        var alchemy_element_array = [];
+        alchemy_element_array = gon.elements;
+        createFields(alchemy_element_array);
+        distributeFields(95, 55);
+
+        $('#alchemy_center').on("click", function () {
+            check_combo(checker)
+        });
+
+        $.ajax({
+            url:"/games/" + gon.game_id + "/status",
+            type:"get",
+            success:function (returning_data) {
+                if (returning_data.split("||")[0] == 'true') {
+                    $.each(returning_data.split("||")[1].split(","), function (index, element) {
+                        $('#' + (parseInt(element)-1)).addClass("img-swap");
+                    });
+                    solved();
+                } else {
+                    $('.alchemy_elements').on('click', switch_element);
+                    $('.clue').on('click', function () {
+                        $('#actual_content').removeClass('lore_text');
+                        show_content($(this).attr("id"));
+                    });
+                }
+            }
+        });
+    })
+</script>
 

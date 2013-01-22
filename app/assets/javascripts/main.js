@@ -6,9 +6,69 @@
  * To change this template use File | Settings | File Templates.
  */
 
-//TODO: Check if the combo is completed
+function solved() {
+    var elems = $('.alchemy_elements:not(.img-swap)'), i = 0;
+    (function fadePlz() {
+        $(elems[i++]).fadeOut('fast', fadePlz);
+    })();
+    $('.clue').hide();
+    $('.closing_cross').hide();
+
+    $('#alchemy_center').fadeOut('slow', function () {
+        $('#alchemy_center img').remove();
+        $('.target_image').appendTo($('#alchemy_center'));
+        $('#alchemy_center').css({
+            "marginLeft":"4px",
+            "marginTop":"3px",
+            "width":"150px",
+            "height":"150px",
+            "border":"2px solid black",
+            "borderRadius":"50%"
+        });
+        $('#alchemy_center img').css({
+            "marginLeft":"-20px",
+            "marginTop":"-20px",
+            "width":"200px",
+            "height":"200px"
+        });
+        $('#alchemy_center').fadeIn("slow",function(){
+            $('#game_wrapper').append("<div class='complete'>Complete</div>")
+            $('.complete').animate({
+               "left":"+=200px"
+            },'fast')
+        });
+        $('.alchemy_elements').unbind("click");
+        $('.alchemy_elements').css("cursor","auto");
+        $('#alchemy_center').css("cursor","auto");
+        $('#alchemy_center').unbind("click");
+    });
+    $.ajax({
+        url:"/games/" + gon.game_id + "/clue_status/lore",
+        type:"get",
+        success:function (returning_data) {
+            $('#content_block').css("height", "250px");
+            $('#actual_content').css("height", "200px");
+            show_unlocked("lore", returning_data.split("||")[1]);
+        }
+    });
+
+}
+
+// Check if the combo is completed
 function check_combo(checker) {
-    alert(checker);
+    $.ajax({
+        url:"/games/" + gon.game_id + "/check/" + checker,
+        type:"post",
+        success:function (returning_data) {
+            if (returning_data.split("||")[0] == "y") {
+                solved();
+                $('#magic_wallet').text(returning_data.split("||")[1]);
+                $('#techno_wallet').text(returning_data.split("||")[2]);
+            } else {
+                alert("Try Again!!");
+            }
+        }
+    });
 }
 
 // Replace the 'n'th character of 's' with 't'
@@ -45,16 +105,6 @@ function distributeFields(radius, start_angle) {
     });
 }
 
-// User clicks on the Counter Clue
-function counter_clue_taken(game_id, theme) {
-    $.ajax({
-        url:"/games/" + game_id + "/take_counter_clue",
-        type:"post",
-        success:function (returning_data) {
-            $("#counter_block").find('img').attr('src', '/assets/' + returning_data + '_' + theme + ".png");
-        }})
-}
-
 function switch_element() {
     if ($(this).hasClass("img-swap")) {
         this.src = this.src.replace("-on", "-off");
@@ -68,18 +118,18 @@ function switch_element() {
 
 
 function clue_select(name) {
-    $('.content_block').hide();
+    $('#content_block').hide();
     if ($('.clue.active').length == 1) {
         $('.clue.active').animate({
             "width":"64px"
         }, "fast", function () {
             $('.clue').removeClass('active');
-            $('img#' + name + '_button.clue').addClass('active').animate({
+            $('img#' + name + '.clue').addClass('active').animate({
                 "width":"+=10px"
             }, "slow");
         });
     } else {
-        $('img#' + name + '_button.clue').addClass('active').animate({
+        $('img#' + name + '.clue').addClass('active').animate({
             "width":"+=10px"
         }, "slow");
     }
@@ -90,31 +140,111 @@ function clue_deselect() {
         "width":"64px"
     }, 'slow');
     $('.clue').removeClass('active');
-    $('.content_block').fadeOut();
+    $('#content_block').fadeOut();
 }
 
-function lore_clue_taken() {
-    if ($('img#lore_button.clue').hasClass('active')) {
+function show_locked(name) {
+    var index = 0;
+    if (name == "count") {
+        index = 1
+    } else {
+        if (name == "chance") {
+            index = 2
+        }
+    }
+
+    if ($('img#' + name + '.clue').hasClass('active')) {
         clue_deselect();
     } else {
-        clue_select('lore');
-        $('#lore_content').fadeIn('slow');
+        clue_select(name);
+        $('#actual_content').empty();
+        $('#actual_content').append(gon.clue_speak[index]);
+        $('#actual_content').append('<br/><button class="clue_button" onclick="unlock_clue(\'' + name + '\')">Buy</button> for ' + gon.clue_costs[index] + ' <img class="wallet_icon" src="/assets/' + gon.theme + '.png" alt="">');
+        $('#content_block').fadeIn('slow');
     }
 }
 
-function count_clue_taken() {
-    if ($('img#count_button.clue').hasClass('active')) {
+function show_unlocked(name, data) {
+    var index = 1;
+    if (name == "count") {
+        index = 2;
+    } else {
+        if (name == "chance") {
+            index = 3;
+        }
+    }
+
+    if ($('img#' + name + '.clue').hasClass('active')) {
         clue_deselect();
     } else {
-        clue_select('count');
-        $('#count_content').fadeIn('slow');
+        clue_select(name);
+        $('#actual_content').empty();
+        switch (index) {
+            case 1:
+                $('#actual_content').addClass("lore_text").append(data);
+                break;
+            case 2:
+                $('#actual_content').append('<img class="clue_image" src="/assets/' + data + '.png">');
+                break;
+            case 3:
+            {
+                $.each(data.split(","), function (index, value) {
+                    $('#actual_content').append('<img class="clue_image" src="/assets/elements/' + value + '-on.png">');
+                });
+                break;
+            }
+        }
+
+        $('#content_block').fadeIn('slow');
     }
 }
-function chance_clue_taken() {
-    if ($('img#chance_button.clue').hasClass('active')) {
-        clue_deselect();
-    } else {
-        clue_select('chance');
-        $('#chance_content').fadeIn('slow');
-    }
+
+// User clicks on the Counter Clue
+function unlock_clue(name) {
+    $.ajax({
+        url:"/games/" + gon.game_id + "/take_clue/" + name + "/" + gon.theme,
+        type:"post",
+        success:function (returning_data) {
+            var parsed_return = returning_data.split("||")
+            if (parsed_return[0] == "x") {
+                alert(parsed_return[1]);
+            } else {
+                $('#' + parsed_return[0] + '_wallet').html(parseInt($('#' + parsed_return[0] + '_wallet').text()) - parsed_return[1]);
+                $('#' + parsed_return[2]).attr('src', "/assets/" + parsed_return[2] + ".jpg");
+                $('#' + parsed_return[2]).removeClass('status_locked');
+                $('#actual_content').empty();
+                switch (parseInt(parsed_return[4])) {
+                    case 1:
+                        $('#actual_content').addClass('lore_text').append(parsed_return[3]);
+                        break;
+                    case 2:
+                        $('#actual_content').append('<img class="clue_image" src="/assets/' + parsed_return[3] + '.png">');
+                        break;
+                    case 3:
+                    {
+                        $.each(parsed_return[3].split(","), function (index, value) {
+                            $('#actual_content').append('<img class="clue_image" src="/assets/elements/' + value + '-on.png">');
+                        });
+                        break;
+                    }
+                }
+
+                $('#content_block').fadeIn('slow');
+            }
+        }})
 }
+
+function show_content(obj) {
+    $.ajax({
+        url:"/games/" + gon.game_id + "/clue_status/" + obj,
+        type:"get",
+        success:function (returning_data) {
+            if (returning_data.split("||")[0] == "false") {
+                show_locked(obj);
+            } else {
+                show_unlocked(obj, returning_data.split("||")[1]);
+            }
+        }
+    });
+}
+

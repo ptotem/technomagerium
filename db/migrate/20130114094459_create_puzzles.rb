@@ -6,9 +6,8 @@ class CreatePuzzles < ActiveRecord::Migration
       t.string :combo
       t.integer :power_reward
       t.integer :mana_reward
-      t.integer :clue_cost_power
-      t.integer :clue_cost_mana
       t.text :lore
+      t.string :clue_cost_schema
       t.has_attached_file :avatar
 
       t.timestamps
