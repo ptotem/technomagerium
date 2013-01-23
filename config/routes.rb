@@ -1,5 +1,7 @@
 Summoner::Application.routes.draw do
 
+  get "tomes/show"
+
   get "welcome/index"
 
   resources :games
@@ -14,6 +16,7 @@ Summoner::Application.routes.draw do
   match 'games/:id/check/:bitmask', :to=>"games#checker", :as=>"checker"
   match 'games/:id/status', :to=>"games#game_status", :as=>"game_status"
   match 'library', :to=>"welcome#library", :as=>"library"
+  match 'tomes/:id', :to=>"tomes#show", :as=>"tome_show"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
