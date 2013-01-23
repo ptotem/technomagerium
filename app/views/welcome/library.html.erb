@@ -1,147 +1,25 @@
 <div id="main_wrapper">
   <%= image_tag "library.jpg", :class => "absolute_background" %>
+  <div id="wallet" style="color: white;">
+    <span id="magic_wallet"><%= current_user.mana %></span> <%= image_tag "magic.png" %><%= image_tag "techno.png" %>
+    <span id="techno_wallet"><%= current_user.power %></span>
+  </div>
+  <%= link_to image_tag("menu-off.gif"),"/library" ,:id => "back_button" %>
   <ul class="tomes">
     <% Tome.all.each do |tome| %>
-        <li><%= image_tag tome.avatar.url %></li>
+        <li><%=link_to image_tag(tome.avatar.url), tome_show_path(tome) %></li>
     <% end %>
   </ul>
   <a href="#" class="next_round"><%= image_tag "rotate.png" %></a>
-  <a href="#" class="open_tome">
-    <button>Open Tome</button>
-  </a>
-
-  <div id="thebook">
-    <section class="main">
-      <div class="bb-custom-wrapper">
-        <%= image_tag "close.png", :onclick=>"$('.main').effect('drop','slow');$('.tomes').fadeIn();", :class => "closer pnbuttons" %>
-        <div id="bb-bookblock" class="bb-bookblock">
-          <% Tome.first.puzzles.each do |puzzle| %>
-              <div class="bb-item">
-                <table class="bb-table">
-                  <tr>
-                    <td><%= image_tag puzzle.avatar.url %></td>
-                    <td>
-                      <h2 style="margin: 10px;">
-                        <%= puzzle.name %>
-                        <div id="reward_table">
-                          <%= puzzle.mana_reward unless puzzle.mana_reward==0 %> <%= image_tag "magic.png" unless puzzle.mana_reward==0 %><%= image_tag "techno.png" unless puzzle.power_reward==0 %> <%= puzzle.power_reward unless puzzle.power_reward==0 %>
-                        </div>
-                        <% if @game=Game.find_by_puzzle_id_and_user_id(puzzle.id, current_user.id) %>
-                            <% if @game.solved %>
-                                <a href="/play/<%= puzzle.id %>">
-                                  <button>View This!</button>
-                                </a>
-                                <br>
-                                <%= image_tag "complete.png" %>
-                            <% else %>
-                                <a href="/play/<%= puzzle.id %>">
-                                  <button>Create This!</button>
-                                </a>
-                            <% end %>
-                        <% else %>
-                            <a href="/play/<%= puzzle.id %>">
-                              <button>Create This!</button>
-                            </a>
-                        <% end %>
-                      </h2>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-          <% end %>
-        </div>
-        <nav>
-          <a id="bb-nav-prev" class="pnbuttons" href="#" onclick="$('.pnbuttons').fadeOut(100).delay(1000).fadeIn()"><%= image_tag "prev.png" %></a>
-          <a id="bb-nav-next" class="pnbuttons" href="#" onclick="$('.pnbuttons').fadeOut(100).delay(1000).fadeIn()"><%= image_tag "next.png" %></a>
-        </nav>
-      </div>
-    </section>
-  </div>
 </div>
-
 
 <script type="text/javascript">
     $(function () {
         setTimeout(function () {
             $('#main_wrapper').fadeIn("slow");
-            $('.open_tome').on('click', function () {
-                $('.tomes').hide();
-                $('.main').show();
-            });
         }, 500);
         $('ul.tomes').roundabout({
             btnNext:".next_round"
         });
-
-        var Page = (function () {
-
-            var config = {
-                        $bookBlock:$('#bb-bookblock'),
-                        $navNext:$('#bb-nav-next'),
-                        $navPrev:$('#bb-nav-prev'),
-                        $navJump:$('#bb-nav-jump'),
-                        bb:$('#bb-bookblock').bookblock({
-                            speed:800,
-                            shadowSides:0.8,
-                            shadowFlip:0.7
-                        })
-                    },
-                    init = function () {
-
-                        initEvents();
-
-                    },
-                    initEvents = function () {
-
-                        var $slides = config.$bookBlock.children(),
-                                totalSlides = $slides.length;
-
-                        // add navigation events
-                        config.$navNext.on('click', function () {
-
-                            config.bb.next();
-                            return false;
-
-                        });
-
-                        config.$navPrev.on('click', function () {
-
-                            config.bb.prev();
-                            return false;
-
-                        });
-
-                        config.$navJump.on('click', function () {
-
-                            config.bb.jump(totalSlides);
-                            return false;
-
-                        });
-
-                        // add swipe events
-                        $slides.on({
-
-                            'swipeleft':function (event) {
-
-                                config.bb.next();
-                                return false;
-
-                            },
-                            'swiperight':function (event) {
-
-                                config.bb.prev();
-                                return false;
-
-                            }
-
-                        });
-
-                    };
-
-            return { init:init };
-
-        })();
-        Page.init();
-
     })
 </script>
