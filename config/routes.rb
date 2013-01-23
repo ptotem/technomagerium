@@ -13,6 +13,7 @@ Summoner::Application.routes.draw do
   match 'games/:id/clue_status/:name', :to=>"games#clue_status", :as=>"clue_status"
   match 'games/:id/check/:bitmask', :to=>"games#checker", :as=>"checker"
   match 'games/:id/status', :to=>"games#game_status", :as=>"game_status"
+  match 'library', :to=>"welcome#library", :as=>"library"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

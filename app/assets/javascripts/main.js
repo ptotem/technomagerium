@@ -31,15 +31,15 @@ function solved() {
             "width":"200px",
             "height":"200px"
         });
-        $('#alchemy_center').fadeIn("slow",function(){
+        $('#alchemy_center').fadeIn("slow", function () {
             $('#game_wrapper').append("<div class='complete'>Complete</div>")
             $('.complete').animate({
-               "left":"+=200px"
-            },'fast')
+                "left":"+=200px"
+            }, 'fast')
         });
         $('.alchemy_elements').unbind("click");
-        $('.alchemy_elements').css("cursor","auto");
-        $('#alchemy_center').css("cursor","auto");
+        $('.alchemy_elements').css("cursor", "auto");
+        $('#alchemy_center').css("cursor", "auto");
         $('#alchemy_center').unbind("click");
     });
     $.ajax({
@@ -235,16 +235,87 @@ function unlock_clue(name) {
 }
 
 function show_content(obj) {
-    $.ajax({
-        url:"/games/" + gon.game_id + "/clue_status/" + obj,
-        type:"get",
-        success:function (returning_data) {
-            if (returning_data.split("||")[0] == "false") {
-                show_locked(obj);
-            } else {
-                show_unlocked(obj, returning_data.split("||")[1]);
+    if (!$("#" + obj).hasClass('status_disabled')) {
+        $.ajax({
+            url:"/games/" + gon.game_id + "/clue_status/" + obj,
+            type:"get",
+            success:function (returning_data) {
+                if (returning_data.split("||")[0] == "false") {
+                    show_locked(obj);
+                } else {
+                    show_unlocked(obj, returning_data.split("||")[1]);
+                }
             }
-        }
-    });
+        });
+    }
 }
+
+var Page = (function () {
+
+    var config = {
+            $bookBlock:$('#bb-bookblock'),
+            $navNext:$('#bb-nav-next'),
+            $navPrev:$('#bb-nav-prev'),
+            $navJump:$('#bb-nav-jump'),
+            bb:$('#bb-bookblock').bookblock({
+                speed:800,
+                shadowSides:0.8,
+                shadowFlip:0.7
+            })
+        },
+        init = function () {
+
+            initEvents();
+
+        },
+        initEvents = function () {
+
+            var $slides = config.$bookBlock.children(),
+                totalSlides = $slides.length;
+
+            // add navigation events
+            config.$navNext.on('click', function () {
+
+                config.bb.next();
+                return false;
+
+            });
+
+            config.$navPrev.on('click', function () {
+
+                config.bb.prev();
+                return false;
+
+            });
+
+            config.$navJump.on('click', function () {
+
+                config.bb.jump(totalSlides);
+                return false;
+
+            });
+
+            // add swipe events
+            $slides.on({
+
+                'swipeleft':function (event) {
+
+                    config.bb.next();
+                    return false;
+
+                },
+                'swiperight':function (event) {
+
+                    config.bb.prev();
+                    return false;
+
+                }
+
+            });
+
+        };
+
+    return { init:init };
+
+})();
 

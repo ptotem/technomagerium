@@ -1,17 +1,36 @@
 <div id="main_wrapper">
   <div id="launch_page">
     <%= image_tag "title.jpg", :class => "background" %>
-    <img id="parchment" src="/assets/parchment.png" alt="parchment" class="sitename">
+    <img id="parchment" src="/assets/parchment.png" alt="parchment" class="parchment">
+    <img id="catchphrase" src="/assets/catchphrase.png" alt="catchphrase" class="catchphrase">
     <img id="sitename" src="/assets/sitename.png" alt="the technomagerium" class="sitename">
-    <img id="catchphrase" src="/assets/catchphrase.png" alt="catchphrase" class="sitename">
     <a href="#" id="entering">
       <%= image_tag "portal.gif", :id => "portal" %>
       <img id="instruction" src="/assets/click.jpg" alt="instruction">
     </a>
   </div>
   <div id="welcome_note">
-    You have <%= current_user.power %> Power and <%= current_user.mana %> Mana
+    <% if current_user.sign_in_count==0 %>
+        You have <%= current_user.power %> Power and <%= current_user.mana %> Mana
+    <% else %>
+        <%= image_tag "creatome.gif", :style => "float:left; margin-left:0px;margin-right:20px;margin-top:15px;width:222px;border-radius:10px" %>
+        <br>
+        Everything has an end. And the universe was no exception.
+        <br>
+        <br>
+        And so it came to pass, that in the last days of the universe, I stood before the giant amber gates of
+        the library at the edge of creation. Here dwelt the Mystic and the Mechanic,
+        the ones charged to create everything anew. And I knew I was welcome, for I was
+        the one they had waited an eternity for.
+        <br>
+        <br>
+        <span style="font-size: 24px;font-weight: bold">For I was the bearer of the Creatomes, the seeds of creation...</span>
+    <% end %>
   </div>
+  <div id="welcome_menu">
+    <%= link_to image_tag("start.png"), library_path %>
+  </div>
+
 
 </div>
 
@@ -27,15 +46,17 @@
             $('.background').fadeOut();
             $('#catchphrase').fadeOut();
             $('#parchment').animate({
-                "top":"0px",
-                "left":"0px",
-                "width":"740px"
+                "top":"50px",
+                "left":"50px",
+                "width":"740px",
+                "height":"560px"
             });
             $('#sitename').animate({
-                "top":"10px",
-                "left":"10px"
+                "top":"80px",
+                "left":"100px"
             })
-            $('#welcome_note').fadeIn();
+            $('#welcome_note').fadeIn('slow');
+            $('#welcome_menu').fadeIn('slow');
 
         })
 

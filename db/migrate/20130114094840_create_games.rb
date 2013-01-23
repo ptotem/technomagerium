@@ -3,10 +3,10 @@ class CreateGames < ActiveRecord::Migration
     create_table :games do |t|
       t.integer :user_id
       t.integer :puzzle_id
-      t.boolean :lore
-      t.boolean :counter
-      t.boolean :revelation
-      t.boolean :solved
+      t.boolean :lore, :default=>false
+      t.boolean :counter, :default=>false
+      t.boolean :revelation, :default=>false
+      t.boolean :solved, :default=>false
 
       t.timestamps
     end

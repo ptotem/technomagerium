@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122173133) do
+ActiveRecord::Schema.define(:version => 20130123193304) do
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20130122173133) do
     t.datetime "avatar_updated_at"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "tome_id"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -53,6 +54,17 @@ ActiveRecord::Schema.define(:version => 20130122173133) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "tomes", :force => true do |t|
+    t.string   "name"
+    t.integer  "completed"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.boolean  "admin",                  :default => false

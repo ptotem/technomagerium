@@ -44,17 +44,8 @@
     <div id="alchemy_center"><%= image_tag "mixer_#{@theme}.png" %></div>
   </div>
 
-  <a data-backdrop="static" data-toggle="modal" href="#menu"><%= image_tag "menu-off-#{@theme}.gif", :id => "back_button" %></a>
+  <%= link_to image_tag("menu-off-#{@theme}.gif"),"/library" ,:id => "back_button" %>
 
-</div>
-
-<div class="modal hide fade" id="menu">
-  <div class="modal-body">
-    <h2>Technomagerium</h2>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn btn-danger" data-dismiss="modal">Return</a>
-  </div>
 </div>
 
 <script type="text/javascript">
@@ -62,33 +53,40 @@
     var checker = "00000000";
 
     $(function () {
+
         var alchemy_element_array = [];
         alchemy_element_array = gon.elements;
-        createFields(alchemy_element_array);
-        distributeFields(95, 55);
 
-        $('#alchemy_center').on("click", function () {
-            check_combo(checker)
-        });
+        setTimeout(function () {
+            $('#game_wrapper').fadeIn('slow', function () {
+                createFields(alchemy_element_array);
+                distributeFields(95, 55);
 
-        $.ajax({
-            url:"/games/" + gon.game_id + "/status",
-            type:"get",
-            success:function (returning_data) {
-                if (returning_data.split("||")[0] == 'true') {
-                    $.each(returning_data.split("||")[1].split(","), function (index, element) {
-                        $('#' + (parseInt(element)-1)).addClass("img-swap");
-                    });
-                    solved();
-                } else {
-                    $('.alchemy_elements').on('click', switch_element);
-                    $('.clue').on('click', function () {
-                        $('#actual_content').removeClass('lore_text');
-                        show_content($(this).attr("id"));
-                    });
-                }
-            }
-        });
+                $('#alchemy_center').on("click", function () {
+                    check_combo(checker)
+                });
+
+
+                $.ajax({
+                    url:"/games/" + gon.game_id + "/status",
+                    type:"get",
+                    success:function (returning_data) {
+                        if (returning_data.split("||")[0] == 'true') {
+                            $.each(returning_data.split("||")[1].split(","), function (index, element) {
+                                $('#' + (parseInt(element) - 1)).addClass("img-swap");
+                            });
+                            solved();
+                        } else {
+                            $('.alchemy_elements').on('click', switch_element);
+                            $('.clue').on('click', function () {
+                                $('#actual_content').removeClass('lore_text');
+                                show_content($(this).attr("id"));
+                            });
+                        }
+                    }
+                });
+            });
+        }, 500);
     })
 </script>
 
