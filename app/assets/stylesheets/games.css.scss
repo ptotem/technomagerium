@@ -22,42 +22,41 @@ a:active, a:focus {
   overflow: hidden;
   margin: 0 auto;
   display: none;
-  padding: 50px;
 }
 
 .parchment {
   position: absolute;
-  top: 200px;
-  left: 130px;
+  top: 150px;
+  left: 80px;
   width: 300px;
   height: 240px;
 }
 
 .sitename {
   position: absolute;
-  top: 180px;
-  left: 150px;
+  top: 130px;
+  left: 100px;
   width: 250px;
 }
 
 .catchphrase {
   position: absolute;
-  top: 320px;
-  left: 170px;
+  top: 270px;
+  left: 120px;
   width: 240px;
 }
 
 #portal {
   position: absolute;
-  top: 301px;
-  left: 462px;
+  top: 251px;
+  left: 412px;
   cursor: pointer;
 }
 
 #instruction {
   position: absolute;
-  top: 317px;
-  left: 275px;
+  top: 267px;
+  left: 225px;
   border-radius: 5px;
   width: 185px;
   height: 30px;
@@ -77,7 +76,7 @@ a:active, a:focus {
 #welcome_menu {
   position: absolute;
   top: 120px;
-  right: 160px;
+  right: 110px;
   border-radius: 5px;
   display: none;
   font-size: 14px;
@@ -95,7 +94,6 @@ a:active, a:focus {
   height: 580px;
   overflow: hidden;
   margin: 0 auto;
-  padding: 50px;
   display: none;
 }
 
@@ -115,8 +113,8 @@ a:active, a:focus {
   width: 350px;
   height: 350px;
   position: absolute;
-  top: 183px;
-  left: 90px;
+  top: 133px;
+  left: 40px;
 }
 
 #alchemy_center {
@@ -149,8 +147,15 @@ a:active, a:focus {
 
 #back_button {
   position: absolute;
+  right: 20px;
+  top: 33px;
+  cursor: pointer;
+}
+
+#library_back_button {
+  position: absolute;
   right: 70px;
-  top: 83px;
+  top: 65px;
   cursor: pointer;
 }
 
@@ -172,10 +177,21 @@ a:active, a:focus {
   font-size: 18px;
   font-weight: bold;
   text-align: left;
-  top: 100px;
+  top: 50px;
+  right: 105px;
+}
+#library_wallet {
+  position: absolute;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  top: 86px;
   right: 155px;
 }
 
+#library_wallet img {
+  vertical-align: middle;
+}
 #wallet img {
   vertical-align: middle;
 }
@@ -186,8 +202,8 @@ a:active, a:focus {
 
 #target_back {
   position: absolute;
-  top: 165px;
-  right: 110px;
+  top: 115px;
+  right: 60px;
   width: 270px;
   height: 430px;
   background: white;
@@ -199,8 +215,8 @@ a:active, a:focus {
 
 #target {
   position: absolute;
-  top: 190px;
-  right: 130px;
+  top: 140px;
+  right: 80px;
   text-align: center;
   width: 230px;
   height: 420px;
@@ -280,12 +296,13 @@ img.wallet_icon {
 
 .complete {
   background: none repeat scroll 0 0 #000000;
-  bottom: 70px;
+  bottom: 50px;
   color: white;
   font-size: 36px;
-  padding: 20px 40px 20px 20px;
+  padding: 20px 20px 20px 20px;
   position: absolute;
   left: -200px;
+  border-radius: 10px;
 }
 
 .roundabout-holder {
@@ -308,14 +325,14 @@ img.wallet_icon {
 
 .tomes {
   position: absolute;
-  top: 200px;
-  left: 70px;
+  top: 150px;
+  left: 20px;
 }
 
 .next_round {
   position: absolute;
-  top: 380px;
-  left: 370px;
+  top: 330px;
+  left: 320px;
 }
 
 .open_tome {

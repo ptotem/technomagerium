@@ -1,10 +1,15 @@
+<!--TODO: Add How to Play -->
+<!--TODO: Compress Image Sizes -->
+<!--TODO: Set Initial Wealth Values -->
+<!--TODO: Integrate with Facebook Login -->
+
 <div id="main_wrapper">
   <%= image_tag "library.jpg", :class => "absolute_background" %>
-  <div id="wallet" style="color: white;">
+  <div id="library_wallet" style="color: white;">
     <span id="magic_wallet"><%= current_user.mana %></span> <%= image_tag "magic.png" %><%= image_tag "techno.png" %>
     <span id="techno_wallet"><%= current_user.power %></span>
   </div>
-  <%= link_to image_tag("menu-off.gif"),"/library" ,:id => "back_button" %>
+  <%= link_to image_tag("menu-off.gif"),"/library" ,:id => "library_back_button" %>
   <ul class="tomes">
     <% Tome.all.each do |tome| %>
         <li><%=link_to image_tag(tome.avatar.url), tome_show_path(tome) %></li>
