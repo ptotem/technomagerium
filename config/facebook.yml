@@ -1,0 +1,4 @@
+development:
+ app_id: 135450493285811
+ secret_key: 2896033cae2b1ce1d396ac41c7ef8fe2
+ callback_url: http://creatomes.ptotemy.com/
