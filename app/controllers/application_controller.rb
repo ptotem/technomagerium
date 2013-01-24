@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def parse_facebook_cookies
    @facebook_cookies = Koala::Facebook::OAuth.new.get_user_info_from_cookie(cookies)
-   @graph = Koala::Facebook::GraphAPI.new(@facebook_cookies["access_token"])
+   #@graph = Koala::Facebook::GraphAPI.new(@facebook_cookies["access_token"])
   end
 
   def set_locale
