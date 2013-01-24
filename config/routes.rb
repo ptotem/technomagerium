@@ -10,7 +10,7 @@ Summoner::Application.routes.draw do
 
   devise_for :users, :skip => [:sessions], :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"}
   as :user do
-    get 'signin' => 'users/omniauth_callbacks_controller#passthru', :as => :new_user_session
+    get 'signin' => 'users/omniauth_callbacks#passthru', :as => :new_user_session
     post 'signin' => 'devise/sessions#create', :as => :user_session
     delete 'signout' => 'devise/sessions#destroy', :as => :destroy_user_session
   end
