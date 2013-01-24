@@ -8,9 +8,12 @@ Summoner::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  get "/users/sign_in", :to => "users/omniauth_callbacks#passthru"
-  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"}
-
+  devise_for :users, :skip => [:sessions], :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"}
+  as :user do
+    get 'signin' => 'users/omniauth_callbacks_controller#passthru', :as => :new_user_session
+    post 'signin' => 'devise/sessions#create', :as => :user_session
+    delete 'signout' => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
 
   match '/play/:id', :to => "games#play", :as => "play"
   match 'games/:id/take_clue/:name/:theme', :to => "games#take_clue", :as => "take_clue"
