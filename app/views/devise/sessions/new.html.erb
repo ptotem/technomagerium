@@ -1,17 +1,19 @@
 <h2>Sign in</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+    <div><%= f.label :email %>
+      <br/>
+      <%= f.email_field :email %></div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+    <div><%= f.label :password %>
+      <br/>
+      <%= f.password_field :password %></div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+    <% if devise_mapping.rememberable? -%>
+        <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+    <% end -%>
 
-  <div><%= f.submit "Sign in" %></div>
+    <div><%= f.submit "Sign in" %></div>
 <% end %>
 
 <div id="fb-root"></div>
@@ -19,18 +21,19 @@
 <%= render "devise/shared/links" %>
 
 <script type="text/javascript">
- FB.init({
- appId  : '<%= Facebook::APP_ID %>',
- status : true, // check login status
- cookie : true, // enable cookies to allow the server to access the session
- xfbml  : true  // parse XFBML
- });
+    FB.init({
+        appId:'<%= Facebook::APP_ID %>',
+        status:true, // check login status
+        cookie:true, // enable cookies to allow the server to access the session
+        xfbml:true  // parse XFBML
+    });
 
- FB.login(function(response) {
- if (response.session) {
- location.href = '/'
- } else {
- // user cancelled login
- }
-});
+    FB.login(function (response) {
+        if (response.session) {
+            location.href = '/'
+            alert("ok");
+        } else {
+            // user cancelled login
+        }
+    });
 </script>
