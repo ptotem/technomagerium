@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery
   before_filter :set_locale
   before_filter :parse_facebook_cookies
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
 
   def parse_facebook_cookies
    #@facebook_cookies = Koala::Facebook::OAuth.new.get_user_info_from_cookie(cookies)
