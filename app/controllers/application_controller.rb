@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
 
   def parse_facebook_cookies
     @facebook_cookies ||= Koala::Facebook::OAuth.new("135450493285811", "2896033cae2b1ce1d396ac41c7ef8fe2").get_user_info_from_cookie(cookies)
-    redirect_to root_url
     # If you've setup a configuration file as shown above then you can just do
     # @facebook_cookies ||= Koala::Facebook::OAuth.new.get_user_info_from_cookie(cookies)
   end
