@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
 
   def parse_facebook_cookies
-   @facebook_cookies = Koala::Facebook::OAuth.new.get_user_info_from_cookie(cookies)
+   #@facebook_cookies = Koala::Facebook::OAuth.new.get_user_info_from_cookie(cookies)
    #@graph = Koala::Facebook::GraphAPI.new(@facebook_cookies["access_token"])
   end
 
