@@ -189,6 +189,8 @@ DEPENDENCIES
   devise
   gon
   jquery-rails
+  oauth2
+  omniauth
   omniauth-facebook
   paperclip
   rails (= 3.2.11)
