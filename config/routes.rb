@@ -8,10 +8,9 @@ Summoner::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
+  get "/users/sign_in", :to => "users/omniauth_callbacks#passthru"
   devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"}
-  devise_scope :user do
-    get "sign_in", :to => "users/omniauth_callbacks_controller#passthru"
-  end
+
 
   match '/play/:id', :to => "games#play", :as => "play"
   match 'games/:id/take_clue/:name/:theme', :to => "games#take_clue", :as => "take_clue"
