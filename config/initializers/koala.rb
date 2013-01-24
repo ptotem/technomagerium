@@ -1,5 +1,5 @@
 module Facebook
-  CONFIG = YAML.load_file(Rails.root + "/config/facebook.yml")[Rails.env]
+  CONFIG = YAML.load_file(Rails.root + "config/facebook.yml")[Rails.env]
   APP_ID = CONFIG['app_id']
   SECRET = CONFIG['secret_key']
   CALLBACK_URL = CONFIG['callback_url']
