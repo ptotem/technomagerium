@@ -12,6 +12,9 @@ gem 'paperclip'
 gem 'thin'
 gem 'gon'
 gem 'koala'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'oauth2'
 
 # Gems used only for assets and not required
 # in production environments by default.
