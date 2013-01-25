@@ -37,8 +37,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.string :authentication_token
 
       ## Game Data
-      t.integer :power, :default => 10
-      t.integer :mana, :default => 100
+      t.integer :power, :default => 1000
+      t.integer :mana, :default => 1000
       t.integer :score, :default => 0
 
       t.timestamps

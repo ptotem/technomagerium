@@ -20,6 +20,7 @@ Summoner::Application.routes.draw do
   match 'library', :to=>"welcome#library", :as=>"library"
   match 'tomes/:id', :to=>"tomes#show", :as=>"tome_show"
   match 'policies/privacy', :to=>"general#privacy"
+  match 'policies/termsofservice', :to=>"general#tos"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
