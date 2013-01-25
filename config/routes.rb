@@ -19,6 +19,7 @@ Summoner::Application.routes.draw do
   match 'games/:id/status', :to=>"games#game_status", :as=>"game_status"
   match 'library', :to=>"welcome#library", :as=>"library"
   match 'tomes/:id', :to=>"tomes#show", :as=>"tome_show"
+  match 'instructions', :to=>"tomes#tutorial", :as=>"tutorial"
   match 'policies/privacy', :to=>"general#privacy"
   match 'policies/termsofservice', :to=>"general#tos"
 

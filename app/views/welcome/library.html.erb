@@ -61,6 +61,7 @@
     </div>
     <%= link_to image_tag("menu-off.gif"), "#", :onclick => "$('#tomeset').hide();$('#welcome_note').fadeIn();", :id => "library_back_button" %>
     <ul class="tomes">
+      <li><%= link_to image_tag(Tome.first.avatar.url), tutorial_path %></li>
       <% Tome.all.each do |tome| %>
           <li><%= link_to image_tag(tome.avatar.url), tome_show_path(tome) %></li>
       <% end %>
