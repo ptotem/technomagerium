@@ -103,13 +103,15 @@ a:active, a:focus {
 #welcome_note {
   position: absolute;
   top: 70px;
-  left: 100px;
+  left: 70px;
   border-radius: 5px;
   font-size: 14px;
   width: 520px;
   text-align: justify;
-  background: white;
+  background: url("/assets/launcherback.jpg");
+  background-size: 100% 100%;
   padding: 30px;
+  color: white;
 }
 
 #tomeset {
