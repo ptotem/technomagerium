@@ -159,7 +159,7 @@ function show_locked(name) {
         clue_select(name);
         $('#actual_content').empty();
         $('#actual_content').append(gon.clue_speak[index]);
-        $('#actual_content').append('<br/><button class="clue_button" onclick="unlock_clue(\'' + name + '\')">Buy</button> for ' + gon.clue_costs[index] + ' <img class="wallet_icon" src="/assets/' + gon.theme + '.png" alt="">');
+        $('#actual_content').append('<br/><button class="clue_button styled_button" onclick="unlock_clue(\'' + name + '\')">Buy</button> for ' + gon.clue_costs[index] + ' <img class="wallet_icon" src="/assets/' + gon.theme + '.png" alt="">');
         $('#content_block').fadeIn('slow');
     }
 }

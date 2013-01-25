@@ -20,18 +20,18 @@
                         <% if @game=Game.find_by_puzzle_id_and_user_id(puzzle.id, current_user.id) %>
                             <% if @game.solved %>
                                 <a href="/play/<%= puzzle.id %>">
-                                  <button>View This!</button>
+                                  <button class="styled_button">View This!</button>
                                 </a>
                                 <br>
                                 <%= image_tag "complete.png" %>
                             <% else %>
                                 <a href="/play/<%= puzzle.id %>">
-                                  <button>Create This!</button>
+                                  <button class="styled_button">Create This!</button>
                                 </a>
                             <% end %>
                         <% else %>
                             <a href="/play/<%= puzzle.id %>">
-                              <button>Create This!</button>
+                              <button class="styled_button">Create This!</button>
                             </a>
                         <% end %>
                       </h2>
