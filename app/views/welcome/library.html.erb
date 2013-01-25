@@ -10,13 +10,18 @@
     <%# if current_user.sign_in_count==0 %>
     <%#= image_tag "creatome.gif", :style => "float:left; margin-left:0px;margin-right:20px;margin-top:15px;width:222px;border-radius:10px" %>
     <!--<br>-->
-    <div style="float:right;width: 40%; text-align: right;">
-      <img src="/assets/sitename-white.png" alt="the creatomes" style="width: 100%">
-      <br>
-      <button class="styled_button" onclick="$('#welcome_note').hide();$('#tomeset').fadeIn();">Library</button>
-    </div>
 
-    <div style="width:50%; background: black; opacity: 0.8; padding: 20px;">
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=135450493285811";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <div style="width:50%; background: black; opacity: 0.8; padding: 20px;float:right;border-radius: 5px;">
       Everything has an end. And the universe was no exception.
       <br>
       <br>
@@ -31,6 +36,19 @@
       <br>
     </div>
 
+    <div style="float:left;width: 40%; text-align: left;">
+      <img src="/assets/sitename-white.png" alt="the creatomes" style="width: 100%">
+      <div style="padding: 10px;background: #000000;border-radius: 5px; ">
+        <fb:like href="http://apps.facebook.com/135450493285811" send="true" layout="button_count" width="420" show_faces="false" font="verdana" colorscheme="dark" action="recommend"></fb:like>
+      </div>
+      <br>
+      <br>
+      <button class="styled_button" onclick="$('#welcome_note').hide();$('#tomeset').fadeIn();">Enter</button>
+
+
+    </div>
+
+
     <%= @profile %>
     <%= @friends %>
     <%# end %>
@@ -41,7 +59,7 @@
       <span id="magic_wallet"><%= current_user.mana %></span> <%= image_tag "magic.png" %><%= image_tag "techno.png" %>
       <span id="techno_wallet"><%= current_user.power %></span>
     </div>
-    <%= link_to image_tag("menu-off.gif"), "#",:onclick=>"$('#tomeset').hide();$('#welcome_note').fadeIn();", :id => "library_back_button" %>
+    <%= link_to image_tag("menu-off.gif"), "#", :onclick => "$('#tomeset').hide();$('#welcome_note').fadeIn();", :id => "library_back_button" %>
     <ul class="tomes">
       <% Tome.all.each do |tome| %>
           <li><%= link_to image_tag(tome.avatar.url), tome_show_path(tome) %></li>
