@@ -6,6 +6,19 @@
  * To change this template use File | Settings | File Templates.
  */
 
+function preload(images) {
+    if (document.images) {
+        var i = 0;
+        var imageArray = new Array();
+        imageArray = images.split(',');
+        var imageObj = new Image();
+        for (i = 0; i <= imageArray.length - 1; i++) {
+            //document.write('<img src="' + imageArray[i] + '" />');// Write to page (uncomment to check images)
+            imageObj.src = imageArray[i];
+        }
+    }
+}
+
 function solved() {
     var elems = $('.alchemy_elements:not(.img-swap)'), i = 0;
     (function fadePlz() {
@@ -80,12 +93,14 @@ function replaceAt(s, n, t) {
 function createFields(alchemy_element_array) {
     $('.field').remove();
     var container = $('#alchemy_container');
+    var imageObj = new Image();
 
     for (var i = 0; i < 8; i++) {
         $('<div/>', {
             'class':'field',
             'html':'<a href="#" title=' + alchemy_element_array[i] + '><img src="/assets/elements/' + alchemy_element_array[i] + '-off.png" class="alchemy_elements" id="' + i + '"/></a>'
         }).appendTo(container);
+        imageObj.src='/assets/elements/' + alchemy_element_array[i] + '-on.png';
     }
 }
 
@@ -218,7 +233,7 @@ function unlock_clue(name) {
                         $('#actual_content').addClass('lore_text').append(parsed_return[3]);
                         break;
                     case 2:
-                        $('#actual_content').append('<img class="clue_image" src="/assets/' + parsed_return[3]+'_'+ parsed_return[0] + '.png">');
+                        $('#actual_content').append('<img class="clue_image" src="/assets/' + parsed_return[3] + '_' + parsed_return[0] + '.png">');
                         break;
                     case 3:
                     {
