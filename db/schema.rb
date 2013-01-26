@@ -11,27 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123193304) do
+ActiveRecord::Schema.define(:version => 20130123192904) do
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
     t.integer  "puzzle_id"
-    t.boolean  "lore"
-    t.boolean  "counter"
-    t.boolean  "revelation"
-    t.boolean  "solved"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "lore",       :default => false
+    t.boolean  "counter",    :default => false
+    t.boolean  "revelation", :default => false
+    t.boolean  "solved",     :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.string   "revealed"
   end
 
   create_table "puzzles", :force => true do |t|
-    t.string   "theme"
+    t.integer  "tome_id"
     t.string   "name"
     t.string   "combo"
     t.integer  "power_reward"
     t.integer  "mana_reward"
     t.text     "lore"
+    t.text     "explanation"
     t.string   "clue_cost_schema"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
@@ -39,7 +40,6 @@ ActiveRecord::Schema.define(:version => 20130123193304) do
     t.datetime "avatar_updated_at"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.integer  "tome_id"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -57,13 +57,19 @@ ActiveRecord::Schema.define(:version => 20130123193304) do
 
   create_table "tomes", :force => true do |t|
     t.string   "name"
-    t.integer  "completed"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.string   "theme"
+    t.string   "elements"
+    t.boolean  "completed"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "cover_page_file_name"
+    t.string   "cover_page_content_type"
+    t.integer  "cover_page_file_size"
+    t.datetime "cover_page_updated_at"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -78,8 +84,8 @@ ActiveRecord::Schema.define(:version => 20130123193304) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "power",                  :default => 10
-    t.integer  "mana",                   :default => 100
+    t.integer  "power",                  :default => 1000
+    t.integer  "mana",                   :default => 1000
     t.integer  "score",                  :default => 0
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
