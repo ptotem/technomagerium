@@ -10,12 +10,11 @@ class GamesController < ApplicationController
 
     @cluestat=[@game.lore, @game.counter, @game.revelation]
 
-    @theme=@game.puzzle.theme
+    @theme=@game.puzzle.tome.theme
     gon.game_id=@game.id
     gon.theme=@theme
 
-    I18n.locale = @theme
-    gon.elements=t(:elements).keys.map { |c| t(:"elements.#{c}") }
+    gon.elements=@game.puzzle.tome.elements.split(",")
     @clue_cost = t(:"clue_cost_schema.#{@game.puzzle.clue_cost_schema}").split("|")
     if @game.solved?
       @lock_status=["", "", ""]
