@@ -6,11 +6,9 @@
       <div class="bb-custom-wrapper">
         <%= link_to image_tag("close.png"), library_path, :class => "closer pnbuttons" %>
         <div id="bb-bookblock" class="bb-bookblock">
-              <div class="bb-item"><%= image_tag "instructions/instructions-1.jpg" %></div>
-              <div class="bb-item"><%= image_tag "instructions/instructions-2.jpg" %></div>
-              <div class="bb-item"><%= image_tag "instructions/instructions-3.jpg" %></div>
-              <div class="bb-item"><%= image_tag "instructions/instructions-4.jpg" %></div>
-              <div class="bb-item"><%= image_tag "instructions/instructions-5.jpg" %></div>
+          <% @tome.elements.to_i.times do |i| %>
+              <div class="bb-item"><%= image_tag "knowledge/#{@tome.name.downcase}/#{@tome.name.downcase}_#{i+1}.jpg" %></div>
+          <% end %>
         </div>
         <nav>
           <a id="bb-nav-prev" class="pnbuttons" href="#" onclick="$('.pnbuttons').fadeOut(100).delay(1000).fadeIn()"><%= image_tag "prev.png" %></a>

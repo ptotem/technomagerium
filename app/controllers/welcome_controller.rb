@@ -4,6 +4,7 @@ class WelcomeController < ApplicationController
 
   def library
     @puzzles=Puzzle.all
+    @tomes=Tome.all
 
     @graph = Koala::Facebook::API.new("AAAB7MQaJdbMBAAwYykwBEbOh4Lsq1PWFlt2TQkoHidhAvtLlxca1gJCbOp8pkpNx6PvhDr5EHuJjNCwmt90UQJnKvL9ZCGIZB9kWlJCwZDZD")
 

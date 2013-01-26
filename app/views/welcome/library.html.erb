@@ -38,6 +38,7 @@
 
     <div style="float:left;width: 40%; text-align: left;">
       <img src="/assets/sitename-white.png" alt="the creatomes" style="width: 100%">
+
       <div style="padding: 10px;background: #000000;border-radius: 5px; ">
         <fb:like href="http://apps.facebook.com/135450493285811" send="true" layout="button_count" width="420" show_faces="false" font="verdana" colorscheme="dark" action="recommend"></fb:like>
       </div>
@@ -61,9 +62,12 @@
     </div>
     <%= link_to image_tag("menu-off.gif"), "#", :onclick => "$('#tomeset').hide();$('#welcome_note').fadeIn();", :id => "library_back_button" %>
     <ul class="tomes">
-      <li><%= link_to image_tag(Tome.first.avatar.url), tutorial_path %></li>
       <% Tome.all.each do |tome| %>
-          <li><%= link_to image_tag(tome.avatar.url), tome_show_path(tome) %></li>
+          <% if tome.theme.blank? %>
+              <li><%= link_to image_tag(tome.avatar.url), knowledge_path(tome) %></li>
+          <% else %>
+              <li><%= link_to image_tag(tome.avatar.url), tome_show_path(tome) %></li>
+          <% end %>
       <% end %>
     </ul>
     <a href="#" class="next_round"><%= image_tag "rotate.png" %></a>
