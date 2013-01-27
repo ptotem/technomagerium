@@ -7,6 +7,21 @@
         <%= link_to image_tag("close.png"), library_path, :class => "closer pnbuttons" %>
         <div id="bb-bookblock" class="bb-bookblock">
           <div class="bb-item"><%= image_tag @tome.cover_page.url %></div>
+          <div class="bb-item">
+            <table class="bb-table">
+              <tr>
+                <td></td>
+                <td>
+                  <h2>Table of Contents</h2>
+                  <ul style="list-style-type:none;margin-left: -30px;">
+                    <% @tome.puzzles.each_with_index do |puzzle, index| %>
+                        <li><%= link_to puzzle.name, "#", :onclick => "flip_the_pages('#{index+1}')" %></li>
+                    <% end %>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </div>
           <% @tome.puzzles.each do |puzzle| %>
               <div class="bb-item">
                 <table class="bb-table">
@@ -54,6 +69,7 @@
 
 
 <script type="text/javascript">
+    var config;
     $(function () {
         setTimeout(function () {
             $('#main_wrapper').fadeIn("slow");
@@ -61,7 +77,7 @@
 
         var Page = (function () {
 
-            var config = {
+            config = {
                         $bookBlock:$('#bb-bookblock'),
                         $navNext:$('#bb-nav-next'),
                         $navPrev:$('#bb-nav-prev'),
@@ -130,4 +146,10 @@
         Page.init();
 
     })
+
+    function flip_the_pages(index) {
+            config.bb.jump(parseInt(index)+2);
+    }
+
+
 </script>
