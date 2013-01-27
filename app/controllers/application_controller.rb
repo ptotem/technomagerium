@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  #TODO: before_filter :authenticate_user!
+ before_filter :authenticate_user!
   before_filter :set_locale
 
   def set_locale

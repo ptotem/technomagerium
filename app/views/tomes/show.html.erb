@@ -6,6 +6,7 @@
       <div class="bb-custom-wrapper">
         <%= link_to image_tag("close.png"), library_path, :class => "closer pnbuttons" %>
         <div id="bb-bookblock" class="bb-bookblock">
+          <div class="bb-item"><%= image_tag @tome.cover_page.url %></div>
           <% @tome.puzzles.each do |puzzle| %>
               <div class="bb-item">
                 <table class="bb-table">
@@ -19,11 +20,12 @@
                         </div>
                         <% if @game=Game.find_by_puzzle_id_and_user_id(puzzle.id, current_user.id) %>
                             <% if @game.solved %>
+
+                                <div style="font-size: 14px;padding: 10px;"><%= raw @game.puzzle.explanation %></div>
+                                <br>
                                 <a href="/play/<%= puzzle.id %>">
                                   <button class="styled_button">View This!</button>
                                 </a>
-                                <br>
-                                <%= image_tag "complete.png" %>
                             <% else %>
                                 <a href="/play/<%= puzzle.id %>">
                                   <button class="styled_button">Create This!</button>
