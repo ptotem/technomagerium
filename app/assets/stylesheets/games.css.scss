@@ -60,6 +60,7 @@ a:active, a:focus {
   overflow: hidden;
   margin: 0 auto;
   display: none;
+  border-radius: 20px;
 }
 
 .parchment {
@@ -72,7 +73,7 @@ a:active, a:focus {
 
 .sitename {
   position: absolute;
-  top: 130px;
+  top: 230px;
   left: 100px;
   width: 250px;
 }
@@ -85,10 +86,16 @@ a:active, a:focus {
 }
 
 #portal {
+  padding: 20px;
+  padding-right: 60px;
+  background: black;
+  opacity: 0.8;
+  border-radius: 10px;
+  color: white;
+  font-size: 36px;
   position: absolute;
-  top: 251px;
-  left: 412px;
-  cursor: pointer;
+  right: -10px;
+  top: 320px;
 }
 
 #instruction {
