@@ -78,7 +78,7 @@ function check_combo(checker) {
                 $('#magic_wallet').text(returning_data.split("||")[1]);
                 $('#techno_wallet').text(returning_data.split("||")[2]);
             } else {
-                alert("Try Again!!");
+                $('#game_wrapper').prepend("<span class='callout'><img src='/assets/callout.png'></span>")
             }
         }
     });

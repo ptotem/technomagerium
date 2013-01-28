@@ -1,4 +1,3 @@
-
 <div id="game_wrapper">
   <%= image_tag "#{@theme}.jpg", :class => "background" %>
 
@@ -45,7 +44,7 @@
     <div id="alchemy_center"><%= image_tag "mixer_#{@theme}.png" %></div>
   </div>
 
-  <%= link_to image_tag("menu-off-#{@theme}.gif"), tome_show_path(@game.puzzle.tome.id),:id => "back_button" %>
+  <%= link_to image_tag("menu-off-#{@theme}.gif"), tome_show_path(@game.puzzle.tome.id), :id => "back_button" %>
 
 </div>
 
@@ -60,13 +59,13 @@
 
         setTimeout(function () {
             $('#game_wrapper').fadeIn('slow', function () {
+
+                // Create the circle of elements
+
                 createFields(alchemy_element_array);
                 distributeFields(95, 55);
 
-                $('#alchemy_center').on("click", function () {
-                    check_combo(checker)
-                });
-
+                // Set up the game as finished if the game has been completed
 
                 $.ajax({
                     url:"/games/" + gon.game_id + "/status",
@@ -86,6 +85,18 @@
                         }
                     }
                 });
+
+                // Check for the combination once the center is clicked
+
+                $('#alchemy_center').on("click", function () {
+                    $('#alchemy_center').animate({
+                        rotate:'720deg'
+                    }, 2000, function () {
+                        check_combo(checker);
+                    });
+                });
+
+
             });
         }, 500);
     })

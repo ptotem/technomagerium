@@ -231,6 +231,7 @@ a:active, a:focus {
   text-align: left;
   top: 50px;
   right: 105px;
+  color:white;
 }
 
 #library_wallet {
@@ -261,7 +262,6 @@ a:active, a:focus {
   width: 270px;
   height: 430px;
   background: white;
-  opacity: 0.8;
   border-bottom: solid 3px black;
   border-right: solid 3px black;
   border-top-left-radius: 50px;
@@ -394,4 +394,10 @@ img.wallet_icon {
   position: absolute;
   top: 80px;
   left: 370px;
+}
+
+.callout {
+  top:20px;
+  left:220px;
+  position: absolute;
 }
