@@ -56,7 +56,7 @@ function solved() {
         $('#alchemy_center').unbind("click");
     });
     $.ajax({
-        url:"/games/" + gon.game_id + "/clue_status/lore",
+        url:"/games/" + gon.game_id + "/clue_status/explanation",
         type:"get",
         success:function (returning_data) {
             $('#content_block').css("height", "250px");
@@ -78,7 +78,12 @@ function check_combo(checker) {
                 $('#magic_wallet').text(returning_data.split("||")[1]);
                 $('#techno_wallet').text(returning_data.split("||")[2]);
             } else {
-                $('#game_wrapper').prepend("<span class='callout'><img src='/assets/callout.png'></span>")
+                $('#game_wrapper').prepend("<span class='callout' id='nowork'><img src='/assets/callout.png'></span>");
+                setTimeout(function () {
+                    $('#nowork').fadeOut('fast', function () {
+                        $(this).remove();
+                    });
+                }, 2000);
             }
         }
     });

@@ -113,6 +113,8 @@ class GamesController < ApplicationController
         render :text => "#{@game.counter}||#{@game.puzzle.combo.scan("1").count if @game.counter}_#{@game.puzzle.tome.theme if @game.counter}"
       when "chance"
         render :text => "#{@game.revelation}||#{@game.revealed if @game.revelation}"
+      when "explanation"
+        render :text => "#{@game.solved}||#{@game.puzzle.explanation if @game.solved}"
     end
   end
 
