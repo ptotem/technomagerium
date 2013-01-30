@@ -95,7 +95,7 @@ function check_combo(checker) {
                 solved();
                 $('#magic_wallet').text(returning_data.split("||")[1]);
                 $('#techno_wallet').text(returning_data.split("||")[2]);
-                $('#game_wrapper').prepend("<span class='callout' id='nowork'><img src='/assets/donecallout.png'></span>");
+//                $('#game_wrapper').prepend("<span class='callout' id='nowork'><img src='/assets/donecallout.png'></span>");
             } else {
                 $('#game_wrapper').prepend("<span class='callout' id='nowork'><img src='/assets/callout.png'></span>");
                 setTimeout(function () {
