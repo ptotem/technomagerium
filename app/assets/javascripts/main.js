@@ -49,7 +49,7 @@ function solved() {
             $('.complete').animate({
                 "left":"+=200px"
             }, 'fast', function () {
-                $('#game_wrapper').append("<div class='next_puzzle'><img src='/assets/menu-off-magic.gif'><img src='/assets/next_puzzle.gif'></div>")
+                $('#game_wrapper').append("<div class='next_puzzle'><img src='/assets/tome_menu.gif'><img src='/assets/next_puzzle.gif'></div>")
                 $('#back_button').fadeOut();
                 $('.next_puzzle').animate({
                     "right":"+=310px"
