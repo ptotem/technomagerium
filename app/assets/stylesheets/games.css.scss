@@ -299,7 +299,7 @@ a:active, a:focus {
   height: 165px;;
   background: white;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: 16px;
   background: url("/assets/content_back.jpeg");
 }
 
@@ -329,6 +329,7 @@ img.wallet_icon {
   font-size: 24px;
   font-weight: bold;
   margin-right: 10px;
+  margin-bottom: 2px;
   cursor: pointer;
 }
 
@@ -338,16 +339,15 @@ img.wallet_icon {
 
 .lore_text {
   padding-left: 10px;
-  padding-right: 10px;
   height: 100px;
-  overflow: auto;
-  font-size: 12px;
+  overflow: hidden;
+  font-size: 14px;
 }
 
 #actual_content {
-  overflow: auto;
   height: 100px;
-  padding: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
 }
 
 .complete {
@@ -358,6 +358,15 @@ img.wallet_icon {
   padding: 20px 20px 20px 20px;
   position: absolute;
   left: -200px;
+  border-radius: 10px;
+}
+
+.next_puzzle {
+  bottom: 50px;
+  color: white;
+  font-size: 36px;
+  position: absolute;
+  right: -200px;
   border-radius: 10px;
 }
 

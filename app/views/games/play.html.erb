@@ -12,7 +12,7 @@
   <div id="target">
 
     <!-- Name and Reward Value for the Target-->
-    <div style="height:110px;">
+    <div id="puzzlename" style="height:110px;">
       <h2 style="margin: 10px;">
         <%= @game.puzzle.name %>
         <div id="reward_table">
@@ -25,7 +25,7 @@
     <div id="content_area">
       <div class="target_image"><%= image_tag @game.puzzle.avatar.url(:original) %></div>
       <div id="content_block">
-        <span class="closing_cross" onclick="clue_deselect()">&times;</span><br><br>
+        <span class="closing_cross" onclick="clue_deselect()">&times;</span><br>
 
         <div id="actual_content"></div>
       </div>

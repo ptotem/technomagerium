@@ -48,7 +48,14 @@ function solved() {
             $('#game_wrapper').append("<div class='complete'>Complete</div>")
             $('.complete').animate({
                 "left":"+=200px"
-            }, 'fast')
+            }, 'fast', function () {
+                $('#game_wrapper').append("<div class='next_puzzle'><img src='/assets/menu-off-magic.gif'><img src='/assets/next_puzzle.gif'></div>")
+                $('#back_button').fadeOut();
+                $('.next_puzzle').animate({
+                    "right":"+=310px"
+                }, 'fast');
+            });
+
         });
         $('.alchemy_elements').unbind("click");
         $('.alchemy_elements').css("cursor", "auto");
@@ -59,9 +66,20 @@ function solved() {
         url:"/games/" + gon.game_id + "/clue_status/explanation",
         type:"get",
         success:function (returning_data) {
-            $('#content_block').css("height", "250px");
             $('#actual_content').css("height", "200px");
             show_unlocked("lore", returning_data.split("||")[1]);
+            $('#target_back').fadeOut();
+            $('#reward_table').fadeOut();
+            $('#content_block').css({
+                "height":"250px",
+                "backgroundImage":"none",
+                "color":"white",
+                "marginTop":"-60px",
+                "fontWeight":"bold"
+            });
+            $('#puzzlename').animate({
+                'color':'white'
+            });
         }
     });
 
@@ -77,6 +95,7 @@ function check_combo(checker) {
                 solved();
                 $('#magic_wallet').text(returning_data.split("||")[1]);
                 $('#techno_wallet').text(returning_data.split("||")[2]);
+                $('#game_wrapper').prepend("<span class='callout' id='nowork'><img src='/assets/donecallout.png'></span>");
             } else {
                 $('#game_wrapper').prepend("<span class='callout' id='nowork'><img src='/assets/callout.png'></span>");
                 setTimeout(function () {
