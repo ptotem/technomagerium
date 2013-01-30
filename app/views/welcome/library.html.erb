@@ -5,53 +5,14 @@
 
 <div id="main_wrapper">
   <%= image_tag "library.jpg", :class => "absolute_background" %>
-  <div id="welcome_note">
-    <%# if current_user.sign_in_count==0 %>
-    <%#= image_tag "creatome.gif", :style => "float:left; margin-left:0px;margin-right:20px;margin-top:15px;width:222px;border-radius:10px" %>
-    <!--<br>-->
-
-    <div style="width:50%; background: black; opacity: 0.8; padding: 20px;float:right;border-radius: 5px;">
-      Everything has an end. And the universe was no exception.
-      <br>
-      <br>
-      And so it came to pass, that in the last days of the universe, I stood before the giant amber gates of
-      the library at the edge of creation. Here dwelt the Mystic and the Mechanic,
-      the ones charged to create everything anew. And I knew I was welcome, for I was
-      the one they had waited an eternity for.
-      <br>
-      <br>
-      <span style="font-size: 24px;font-weight: bold">For I was the bearer of the Creatomes, the seeds of creation...</span>
-      <br>
-      <br>
-    </div>
-
-    <div style="float:left;width: 40%; text-align: left;">
-      <img src="/assets/sitename-white.png" alt="the creatomes" style="width: 100%">
-
-      <div style="padding: 10px;background: #000000;border-radius: 5px; ">
-        <fb:like send="true" layout="button_count" width="420" show_faces="false" font="verdana" colorscheme="dark" action="recommend"></fb:like>
-      </div>
-      <br>
-      <br>
-      <button class="styled_button" onclick="$('#welcome_note').hide();$('#tomeset').fadeIn();">Enter</button>
-
-
-    </div>
-
-
-    <%= @profile %>
-    <%= @friends %>
-    <%# end %>
-  </div>
-
   <div id="tomeset">
     <div id="library_wallet" style="color: white;">
       <span id="magic_wallet"><%= current_user.mana %></span> <%= image_tag "magic.png" %><%= image_tag "techno.png" %>
       <span id="techno_wallet"><%= current_user.power %></span>
     </div>
-    <%= link_to image_tag("menu-off.gif"), "#", :onclick => "$('#tomeset').hide();$('#welcome_note').fadeIn();", :id => "library_back_button" %>
+    <%#= link_to image_tag("menu-off.gif"), "#", :onclick => "$('#tomeset').hide();$('#welcome_note').fadeIn();", :id => "library_back_button" %>
     <ul class="tomes">
-      <% Tome.all.each do |tome| %>
+      <% Tome.where('openable=?', true).all.each do |tome| %>
           <% if tome.theme.blank? %>
               <li><%= link_to image_tag(tome.avatar.url), knowledge_path(tome) %></li>
           <% else %>
