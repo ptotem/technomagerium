@@ -1,9 +1,54 @@
 <div id="main_wrapper">
   <div id="launch_page">
     <%= image_tag "title.jpg", :class => "background" %>
-    <a href="/users/auth/facebook" id="entering">
-      <span id="portal"><%= image_tag "portal.gif", :style => "vertical-align:middle;margin-right:20px;" %>Start</span>
+    <a href="#" id="entering" onclick="open_sesame()">
+            <span id="portal">
+              <table>
+                <tr>
+                  <td style="vertical-align: top;text-align: center">
+                    <span id="starter"><%= image_tag "portal.gif", :style => "vertical-align:middle;margin-right:20px;" %>
+                      Start</span>
+                  </td>
+                  <td>
+                    <div id="prologue" style="display: none; font-size:16px;padding: 10px;">
+                      Dust.
+                      <br>
+                      <br>
+                      That was all that remained. The universe, his beautiful creation, had ended. So utterly and
+                      completely,
+                      that it
+                      was like it never existed.
+                      <br>
+                      <br>
+                      The Creator sighed. He had really hoped it would last longer than a few aeons this time around.
+                      But his
+                      creation
+                      had disappointed him. Over the ages, he had allowed the Races knowledge, in the hope that they
+                      would be
+                      creators
+                      themselves. But in that knowledge, the Races only saw power. Power that bred greed, a greed
+                      which couldn't be
+                      contained. The struggle to gain control of the universe had led to the creation of
+                      unfathomable
+                      weapons,
+                      and unending wars. Until all that was left was empty space and the dust of once
+                      powerful Races
+                      floating around the universe.
+                      <br>
+                      <br>
+                      Dust. The Creator walked slowly once again to the abandoned library at the edge of time. Dust was
+                      enough
+                      to start
+                      with...
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+            </span>
+
     </a>
+    <%= link_to image_tag("gate.png"), '/users/auth/facebook', :style => "position:absolute;right:40px;bottom:40px;display:none;", :id=>"gate" %>
   </div>
 </div>
 
@@ -12,9 +57,25 @@
         setTimeout(function () {
             $('#main_wrapper').fadeIn("slow")
         }, 500);
-    })
-</script>
+    });
 
+    function open_sesame() {
+        $('#starter').fadeOut('slow');
+        $('#portal').animate({
+            "left":"-10px"
+        }, function () {
+            $('#portal').animate({
+                "bottom":"160px",
+                "height":"330px",
+                "opacity":"0.95"
+            }, function () {
+                $('#prologue').fadeIn();
+                $('#gate').show();
+            })
+        })
+    }
+
+</script>
 
 
 
