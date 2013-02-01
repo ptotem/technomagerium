@@ -13,8 +13,8 @@
                 <% else %>
                     <table class="bb-table-story">
                       <tr>
-                        <td><%= story_page.progress.split('|p|')[0] %></td>
-                        <td><%= story_page.progress.split('|p|')[1] %></td>
+                        <td><%= raw story_page.progress.split('|p|')[0] %></td>
+                        <td><%= raw story_page.progress.split('|p|')[1] %></td>
                       </tr>
                     </table>
                 <% end %>

@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
       StoryPage.create!(user_id: id, num: (@last_page+index+1), progress: e)
     end
     @next_tome=Tome.find_by_sequence(2)
-    StoryPage.create!(user_id: id, num: 1, progress: @tome.id, chapter_break: true)
+    StoryPage.create!(user_id: id, num: 1, progress: @next_tome.id, chapter_break: true)
     @last_page=self.story_pages.last.num
     @next_tome.beginning.split("||").each_with_index do |e, index|
       StoryPage.create!(user_id: id, num: (@last_page+index+1), progress: e)
