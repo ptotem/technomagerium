@@ -203,13 +203,25 @@
     background-size: 100% 100%;
     text-align: center;
 }
+.bb-table-story {
+    width: 100%;
+    height: 100%;
+    background: url(/assets/story_pages.jpg);
+    background-size: 100% 100%;
+    text-align: left;
+}
 
 .bb-table td{
     width:50%;
 }
 
-.bb-table td.text_matter{
+.bb-table-story td{
+    vertical-align: top;
     padding:20px;
+    padding-top:50px;
+    padding-bottom:0px;
+    width:50%;
+    font-size: 14px;
 }
 
 .closer{

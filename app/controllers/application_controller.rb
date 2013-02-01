@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    library_path(current_user.user_state.tome.chapter)
+    library_path(current_user.user_state.tome.chapter rescue 1)
   end
 
 
