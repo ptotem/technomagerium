@@ -129,6 +129,15 @@ class GamesController < ApplicationController
         @tome_completion = @game.tome.puzzles.count - @user.games.where('tome_id=? and solved=?', @game.tome, true).count
         if @tome_completion == 0
           UserState.create!(user_id: @user.id, tome_id: @game.tome.id)
+          @last_page=StoryPage.find_by_user_id(@user.id).last.num
+          @game.tome.progress.split("|c|")[0].split("||").each_with_index do |e, index|
+            StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)
+          end
+          StoryPage.create!(user_id: @user.id, num: (StoryPage.find_by_user_id(@user.id).last.num+1), progress: @game.tome.progress.split("|c|")[1])
+          @last_page=StoryPage.find_by_user_id(@user.id).last.num
+          @game.tome.progress.split("|c|")[2].split("||").each_with_index do |e, index|
+            StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)
+          end
         end
       end
       @user.mana+=@game.puzzle.mana_reward

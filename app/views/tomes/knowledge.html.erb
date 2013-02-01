@@ -4,10 +4,12 @@
   <div id="thebook">
     <section class="main">
       <div class="bb-custom-wrapper">
-        <%= link_to image_tag("close.png"), library_path, :class => "closer pnbuttons" %>
+        <%= link_to image_tag("close.png"), library_path(@tome.chapter), :class => "closer pnbuttons" %>
         <div id="bb-bookblock" class="bb-bookblock">
-          <% @tome.elements.to_i.times do |i| %>
-              <div class="bb-item"><%= image_tag "knowledge/#{@tome.name.downcase}/#{@tome.name.downcase}_#{i+1}.jpg" %></div>
+          <% @story_pages.each do |story_page| %>
+              <div class="bb-item">
+                <!--TODO:Write the logic for showing the story here-->
+              </div>
           <% end %>
         </div>
         <nav>

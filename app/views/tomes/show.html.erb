@@ -11,7 +11,7 @@
   <div id="thebook">
     <section class="main">
       <div class="bb-custom-wrapper">
-        <%= link_to image_tag("close.png"), library_path, :class => "closer pnbuttons" %>
+        <%= link_to image_tag("close.png"), library_path(@tome.chapter), :class => "closer pnbuttons" %>
         <div id="bb-bookblock" class="bb-bookblock">
           <div class="bb-item"><%= image_tag @tome.cover_page.url %></div>
           <div class="bb-item">

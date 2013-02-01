@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :admin, :power, :mana, :score
 
   has_many :games, :dependent => :destroy
+  has_many :story_pages, :dependent => :destroy
   has_one :user_state
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)

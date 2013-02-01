@@ -4,8 +4,8 @@ class WelcomeController < ApplicationController
 
   def library
     @puzzles=Puzzle.all
-    @last_tome=current_user.user_state.tome
-    @tomes=Tome.all.where("chapter=?", params[:chapter]).select{|t| (t.sequence<(@last_tome.sequence+2))}
+    @last_tome=current_user.user_state.tome rescue 0
+    @tomes=Tome.where("chapter=?", params[:chapter]).all.select{|t| (t.sequence<((@last_tome.sequence rescue 0) +2))}.map{|t| t}
 
     gon.help_on = ((current_user.sign_in_count == 1) ? false : true)
 
