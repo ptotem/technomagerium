@@ -5,7 +5,12 @@ class WelcomeController < ApplicationController
   def library
     @puzzles=Puzzle.all
     @last_tome=current_user.user_state.tome
-    @tomes=Tome.where("chapter=?", params[:chapter]).all.select{|t| (t.sequence<((@last_tome.sequence) +1))}.map{|t| t}
+    if current_user.admin
+      @tomes=Tome.all
+    else
+      @tomes=Tome.where("chapter=?", params[:chapter]).all.select{|t| (t.sequence<((@last_tome.sequence) +1))}.map{|t| t}
+    end
+
 
     gon.help_on = ((current_user.sign_in_count == 1 and current_user) ? true : false)
 
