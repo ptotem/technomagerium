@@ -50,8 +50,6 @@
 
 <script type="text/javascript">
 
-    var checker = "00000000";
-
     $(function () {
 
         var alchemy_element_array = [];
@@ -92,7 +90,7 @@
                     $('#alchemy_center').animate({
                         rotate:'720deg'
                     }, 2000, function () {
-                        check_combo(checker);
+                        check_combo(gon.checker);
                     });
                 });
 

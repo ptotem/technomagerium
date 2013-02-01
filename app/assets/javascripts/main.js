@@ -147,10 +147,10 @@ function distributeFields(radius, start_angle) {
 function switch_element() {
     if ($(this).hasClass("img-swap")) {
         this.src = this.src.replace("-on", "-off");
-        checker = replaceAt(checker, parseInt($(this).attr("id")), "0");
+        gon.checker = replaceAt(gon.checker, parseInt($(this).attr("id")), "0");
     } else {
         this.src = this.src.replace("-off", "-on");
-        checker = replaceAt(checker, parseInt($(this).attr("id")), "1");
+        gon.checker = replaceAt(gon.checker, parseInt($(this).attr("id")), "1");
     }
     $(this).toggleClass("img-swap");
 }

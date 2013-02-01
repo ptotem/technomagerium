@@ -8,7 +8,7 @@ class GamesController < ApplicationController
       @game=Game.find_by_puzzle_id_and_user_id(params[:id], current_user.id)
     end
 
-    @radius_array=[95,95,95,95,95,95,95,95,95,95,95,95]
+    @radius_array=[95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95]
     @cluestat=[@game.lore, @game.counter, @game.revelation]
 
     @theme=@game.puzzle.tome.theme
@@ -19,8 +19,15 @@ class GamesController < ApplicationController
     gon.count=@game.puzzle.tome.elements.split(",").count
     gon.radius=@radius_array[@game.puzzle.tome.elements.split(",").count-4]
 
+    @gamechecker=""
+    @game.puzzle.tome.elements.split(",").count.times do
+      @gamechecker+"0"
+    end
+    gon.checker=@gamechecker
+
+
     @clue_cost = t(:"clue_cost_schema.#{@game.puzzle.clue_cost_schema}").split("|")
-    @clue_cost.each_with_index do |c,index|
+    @clue_cost.each_with_index do |c, index|
       if c=="0"
         case index
           when 0
