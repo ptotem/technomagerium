@@ -4,7 +4,9 @@ class WelcomeController < ApplicationController
 
   def library
     @puzzles=Puzzle.all
-    @tomes=Tome.all
+    @last_tome=current_user.user_state.tome
+    @tomes=Tome.all.where("chapter=?", params[:chapter]).select{|t| (t.sequence<(@last_tome.sequence+2))}
+
     gon.help_on = ((current_user.sign_in_count == 1) ? false : true)
 
     @graph = Koala::Facebook::API.new("AAAB7MQaJdbMBAAwYykwBEbOh4Lsq1PWFlt2TQkoHidhAvtLlxca1gJCbOp8pkpNx6PvhDr5EHuJjNCwmt90UQJnKvL9ZCGIZB9kWlJCwZDZD")

@@ -120,15 +120,21 @@ class GamesController < ApplicationController
 
   def checker
     @game=Game.find(params[:id])
+    @user=@game.user
     @bitmask=params[:bitmask]
     if @bitmask==@game.puzzle.combo
       @game.lore=true
       @game.solved=true
-      @game.save
-      @user=@game.user
+      if @game.save
+        @tome_completion = @game.tome.puzzles.count - @user.games.where('tome_id=? and solved=?', @game.tome, true).count
+        if @tome_completion == 0
+          UserState.create!(user_id: @user.id, tome_id: @game.tome.id)
+        end
+      end
       @user.mana+=@game.puzzle.mana_reward
       @user.power+=@game.puzzle.power_reward
       @user.save
+
       render :text => "y||#{@user.mana}||#{@user.power}"
     else
       render :text => "n"
@@ -137,7 +143,7 @@ class GamesController < ApplicationController
 
   def game_status
     @game=Game.find(params[:id])
-    @response=@game.puzzle.combo.split(//).each_with_index.map{ |c, index| (c=='1') ? index+1 : 0 }.select{|e| e!=0}.join(",")
+    @response=@game.puzzle.combo.split(//).each_with_index.map { |c, index| (c=='1') ? index+1 : 0 }.select { |e| e!=0 }.join(",")
     render :text => "#{@game.solved}||#{@response}"
 
   end

@@ -19,7 +19,7 @@
     <div id="help_arrow"><%= image_tag "arrowe.png" %></div>
 
     <ul class="tomes">
-      <% Tome.where('openable=?', true).all.each do |tome| %>
+      <% @tomes.each do |tome| %>
           <% if tome.theme.blank? %>
               <li><%= link_to image_tag(tome.avatar.url), knowledge_path(tome) %></li>
           <% else %>
