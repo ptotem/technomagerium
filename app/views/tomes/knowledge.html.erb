@@ -6,9 +6,38 @@
       <div class="bb-custom-wrapper">
         <%= link_to image_tag("close.png"), library_path(@tome.chapter), :class => "closer pnbuttons" %>
         <div id="bb-bookblock" class="bb-bookblock">
+          <% if @tome.chapter==1 %>
+              <div class="bb-item">
+                <table class="bb-table">
+                  <tr>
+                    <td class="text_matter">
+                      Dust.
+
+                      That was all that remained. The universe, his beautiful creation, had ended. So utterly and
+                      completely, that it was like it never existed.
+
+                      The Creator sighed. He had really hoped it would last longer than a few aeons this time around.
+                      But his creation had disappointed him. Over the ages, he had allowed the Races knowledge, in the
+                      hope that they would be creators themselves. But in that knowledge, the Races only saw power. That
+                      power had bred greed, and greed can't be contained…
+                    </td>
+                    <td class="text_matter">
+                      War was waged across space and dimensions and
+                      many great leaders of great and mighty races had foreseen and foretold the worst. Many had tried
+                      their best to delay the end, but in the end it had been to no avail. Centuries of struggle to gain
+                      control of the universe had led to the creation of unfathomable weapons, weapons that destroyed
+                      all life and creation. Until all that was left was empty space and the dust of once powerful Races
+                      floating around the universe.
+
+                      Dust. The Creator walked slowly once again to the abandoned library at the edge of time. Dust was
+                      enough to start with...
+                    </td>
+                  </tr>
+                </table>
+              </div>
+          <% end %>
           <% @story_pages.each do |story_page| %>
               <div class="bb-item">
-                <!--TODO:Write the logic for showing the story here-->
                 <% if story_page.chapter_break %>
                     <%= image_tag Tome.find(story_page.progress).cover_page.url %>
                 <% else %>
