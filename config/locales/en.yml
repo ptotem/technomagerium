@@ -1,6 +1,7 @@
 en:
   hello: "Hello World"
   clue_cost_schema:
+    free: "0|0|0"
     none: "x|x|x"
     flat: "30|30|30"
     count: "x|50|x"
