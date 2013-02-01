@@ -8,7 +8,7 @@ class GamesController < ApplicationController
       @game=Game.find_by_puzzle_id_and_user_id(params[:id], current_user.id)
     end
 
-    @radius_array=[95,95,95,95,95,95,95,95,95,95,95]
+    @radius_array=[95,95,95,95,95,95,95,95,95,95,95,95]
     @cluestat=[@game.lore, @game.counter, @game.revelation]
 
     @theme=@game.puzzle.tome.theme
