@@ -119,7 +119,7 @@ function createFields(alchemy_element_array) {
     var container = $('#alchemy_container');
     var imageObj = new Image();
 
-    for (var i = 0; i < 8; i++) {
+    for (var i = 0; i < gon.count; i++) {
         $('<div/>', {
             'class':'field',
             'html':'<a href="#" title=' + alchemy_element_array[i] + '><img src="/assets/elements/' + alchemy_element_array[i] + '-off.png" class="alchemy_elements" id="' + i + '"/></a>'
@@ -198,7 +198,7 @@ function show_locked(name) {
         clue_select(name);
         $('#actual_content').empty();
         $('#actual_content').append(gon.clue_speak[index]);
-        $('#actual_content').append('<br/><button class="clue_button styled_button" onclick="unlock_clue(\'' + name + '\')">Buy</button> for ' + gon.clue_costs[index] + ' <img class="wallet_icon" src="/assets/' + gon.theme + '.png" alt="">');
+        $('#actual_content').append('<br/><button class="clue_button styled_button" onclick="unlock_clue(\'' + name + '\')">Buy</button> for ' + gon.clue_costs[index] + ' <img class="wallet_icon" src="/assets/' + gon.costs_in + '.png" alt="">');
         $('#content_block').fadeIn('slow');
     }
 }
