@@ -10,6 +10,9 @@
               <div class="bb-item">
                 <% if story_page.chapter_break %>
                     <%= image_tag Tome.find(story_page.progress).cover_page.url %>
+                    <div style="bottom:100px;right:100px;">
+                      <%= link_to image_tag("skipper.png"), "#" %>
+                    </div>
                 <% else %>
                     <table class="bb-table-story">
                       <tr>

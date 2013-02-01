@@ -11,8 +11,7 @@ class WelcomeController < ApplicationController
       @tomes=Tome.where("chapter=?", params[:chapter]).all.select{|t| (t.sequence<((@last_tome.sequence) +1))}.map{|t| t}
     end
 
-
-    gon.help_on = ((current_user.sign_in_count == 1 and current_user) ? true : false)
+    gon.help_on = ((current_user.sign_in_count == 1 and @last_tome.sequence==1) ? true : false)
 
     @graph = Koala::Facebook::API.new("AAAB7MQaJdbMBAAwYykwBEbOh4Lsq1PWFlt2TQkoHidhAvtLlxca1gJCbOp8pkpNx6PvhDr5EHuJjNCwmt90UQJnKvL9ZCGIZB9kWlJCwZDZD")
 
