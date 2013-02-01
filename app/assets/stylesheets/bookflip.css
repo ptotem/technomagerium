@@ -208,6 +208,10 @@
     width:50%;
 }
 
+.bb-table td.text_matter{
+    padding:20px;
+}
+
 .closer{
     position: absolute;
     top:0px;

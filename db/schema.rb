@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123192904) do
+ActiveRecord::Schema.define(:version => 20130201010423) do
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20130123192904) do
     t.datetime "avatar_updated_at"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.boolean  "manacost"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -55,6 +56,14 @@ ActiveRecord::Schema.define(:version => 20130123192904) do
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
+  create_table "story_pages", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "num"
+    t.text     "progress"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "tomes", :force => true do |t|
     t.string   "name"
     t.string   "theme"
@@ -68,8 +77,19 @@ ActiveRecord::Schema.define(:version => 20130123192904) do
     t.string   "cover_page_content_type"
     t.integer  "cover_page_file_size"
     t.datetime "cover_page_updated_at"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                                                                                                                                                                            :null => false
+    t.datetime "updated_at",                                                                                                                                                                            :null => false
+    t.integer  "sequence"
+    t.boolean  "openable"
+    t.integer  "chapter",                 :default => 1
+    t.text     "progress",                :default => "Put in story ending here paginated by ||. End subchapter with |c|. Write subchapter heading. Start next chapter with |c| and paginated with ||"
+  end
+
+  create_table "user_states", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "tome_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

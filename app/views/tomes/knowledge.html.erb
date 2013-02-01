@@ -9,6 +9,16 @@
           <% @story_pages.each do |story_page| %>
               <div class="bb-item">
                 <!--TODO:Write the logic for showing the story here-->
+                <% if story_page.chapter_break %>
+                    <%= image_tag Tome.find(story_page.progress).cover_page.url %>
+                <% else %>
+                    <table class="bb-table">
+                      <tr>
+                        <td class="text_matter"><%= story_page.progress.split('|p|')[0] %></td>
+                        <td class="text_matter"><%= story_page.progress.split('|p|')[1] %></td>
+                      </tr>
+                    </table>
+                <% end %>
               </div>
           <% end %>
         </div>
