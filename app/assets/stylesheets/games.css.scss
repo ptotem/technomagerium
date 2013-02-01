@@ -96,6 +96,7 @@ a:active, a:focus {
   position: absolute;
   right: -10px;
   bottom: 160px;
+  overflow: hidden;
 }
 
 #instruction {
@@ -237,8 +238,8 @@ a:active, a:focus {
   font-size: 18px;
   font-weight: bold;
   text-align: left;
-  top: 86px;
-  right: 155px;
+  top: 71px;
+  right: 55px;
 }
 
 #library_wallet img {
@@ -247,6 +248,15 @@ a:active, a:focus {
 
 #wallet img {
   vertical-align: middle;
+}
+
+.library_help{
+  padding: 20px;
+  background: white;
+  color: black;
+  opacity: 0.9;
+  z-index: 99999999;
+  position: relative;
 }
 
 .techno_text {

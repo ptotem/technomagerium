@@ -1,16 +1,23 @@
-<!--TODO: Add How to Play -->
-<!--TODO: Compress Image Sizes -->
-<!--TODO: Set Initial Wealth Values -->
-<!--TODO: Integrate with Facebook Login -->
+<style type="text/css">
 
+    #help_arrow {
+        position: absolute;
+        top: 320px;
+        left: -100px;
+    }
+
+</style>
 <div id="main_wrapper">
   <%= image_tag "library.jpg", :class => "absolute_background" %>
   <div id="tomeset">
     <div id="library_wallet" style="color: white;">
       <span id="magic_wallet"><%= current_user.mana %></span> <%= image_tag "magic.png" %><%= image_tag "techno.png" %>
       <span id="techno_wallet"><%= current_user.power %></span>
+      <span id="help" style="cursor:pointer;"><%= image_tag "help.png", :onclick => "$('#help_arrow').show();show_help()" %></span>
     </div>
-    <%#= link_to image_tag("menu-off.gif"), "#", :onclick => "$('#tomeset').hide();$('#welcome_note').fadeIn();", :id => "library_back_button" %>
+
+    <div id="help_arrow"><%= image_tag "arrowe.png" %></div>
+
     <ul class="tomes">
       <% Tome.where('openable=?', true).all.each do |tome| %>
           <% if tome.theme.blank? %>
@@ -27,10 +34,43 @@
 <script type="text/javascript">
     $(function () {
         setTimeout(function () {
-            $('#main_wrapper').fadeIn("slow");
+            $('#main_wrapper').fadeIn("slow", function () {
+                if (gon.help_on) {
+                    show_help();
+                }
+            });
         }, 500);
         $('ul.tomes').roundabout({
             btnNext:".next_round"
         });
-    })
+    });
+    function show_help() {
+        $('#help_arrow').animate({
+            'left':"200px"
+        }, 1000, "easeOutBounce", function () {
+            $('#help_arrow').append('<div class="library_help">Click on the spinner to rotate through the tomes</div>');
+            $('.library_help').delay(2000).fadeOut("slow", function () {
+                $('#help_arrow').animate({
+                    'top':"150px"
+                }, 1000, "easeOutBounce", function () {
+                    $('#help_arrow').append('<div class="library_help">Click on a tome when it is in the center to open it</div>');
+                    $('.library_help').delay(2000).fadeOut("slow", function () {
+                        $('#help_arrow').animate({
+                            'top':"40px",
+                            'left':"340px"
+                        }, function () {
+                            $('.library_help').empty().append('<div class="library_help">This is your current mana store. You gain mana by solving the tomes. You can spend this mana to buy clues when you get stuck on a creation puzzle.</div>').show();
+                            $('#help_arrow').delay(4000).fadeOut("slow", function () {
+                                $('#help_arrow').css({
+                                    'top':"320px",
+                                    'left':"-100px"
+                                });
+                                $('.library_help').remove();
+                            });
+                        })
+                    });
+                })
+            });
+        });
+    }
 </script>
