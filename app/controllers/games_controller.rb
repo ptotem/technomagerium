@@ -9,6 +9,7 @@ class GamesController < ApplicationController
     end
 
     @radius_array=[95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95]
+    @element_radius_array=[80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80]
     @cluestat=[@game.lore, @game.counter, @game.revelation]
 
     @theme=@game.puzzle.tome.theme
@@ -18,10 +19,11 @@ class GamesController < ApplicationController
     gon.elements=@game.puzzle.tome.elements.split(",")
     gon.count=@game.puzzle.tome.elements.split(",").count
     gon.radius=@radius_array[@game.puzzle.tome.elements.split(",").count-4]
+    gon.element_radius=@element_radius_array[@game.puzzle.tome.elements.split(",").count-4]
 
     @gamechecker=""
     @game.puzzle.tome.elements.split(",").count.times do
-      @gamechecker+"0"
+      @gamechecker<<"0"
     end
     gon.checker=@gamechecker
 
