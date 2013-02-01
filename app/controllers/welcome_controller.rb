@@ -4,10 +4,10 @@ class WelcomeController < ApplicationController
 
   def library
     @puzzles=Puzzle.all
-    @last_tome=current_user.user_state.tome rescue 0
-    @tomes=Tome.where("chapter=?", params[:chapter]).all.select{|t| (t.sequence<((@last_tome.sequence rescue 0) +1))}.map{|t| t}
+    @last_tome=current_user.user_state.tome
+    @tomes=Tome.where("chapter=?", params[:chapter]).all.select{|t| (t.sequence<((@last_tome.sequence) +1))}.map{|t| t}
 
-    gon.help_on = ((current_user.sign_in_count == 1) ? true : false)
+    gon.help_on = ((current_user.sign_in_count == 1 and current_user) ? true : false)
 
     @graph = Koala::Facebook::API.new("AAAB7MQaJdbMBAAwYykwBEbOh4Lsq1PWFlt2TQkoHidhAvtLlxca1gJCbOp8pkpNx6PvhDr5EHuJjNCwmt90UQJnKvL9ZCGIZB9kWlJCwZDZD")
 
