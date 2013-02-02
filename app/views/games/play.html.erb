@@ -56,13 +56,17 @@
         alchemy_element_array = gon.elements;
 
         setTimeout(function () {
-            $('.alchemy_elements').css('width',gon.element_radius);
             $('#game_wrapper').fadeIn('slow', function () {
 
                 // Create the circle of elements
 
+                $('.field').css('width', gon.radius*2);
+                $('.field').css('height', gon.radius*2);
+
                 createFields(alchemy_element_array);
-                distributeFields(gon.radius, 55);
+                distributeFields(55);
+
+                $('.alchemy_elements').css('width', gon.radius);
 
                 // Set up the game as finished if the game has been completed
 

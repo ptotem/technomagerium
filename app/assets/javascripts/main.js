@@ -129,13 +129,15 @@ function createFields(alchemy_element_array) {
 }
 
 // Distribute the elements around the circle
-function distributeFields(radius, start_angle) {
+function distributeFields(start_angle) {
     var fields = $('.field'), container = $('#alchemy_container'),
         width = container.width(), height = container.height(),
-        angle = start_angle, step = (2 * Math.PI) / fields.length;
+        angle = start_angle, step = (2 * Math.PI) / fields.length,
+        centerx = width / 2, centery = height / 2, radius=width/2-gon.radius;
+
     fields.each(function () {
-        var x = Math.round(width / 2 + radius * Math.cos(angle) - $(this).width() / 2);
-        var y = Math.round(height / 2 + radius * Math.sin(angle) - $(this).height() / 2);
+        var x = Math.round(centerx + radius * Math.cos(angle) - $(this).width() / 2);
+        var y = Math.round(centery + radius * Math.sin(angle) - $(this).height() / 2);
         $(this).css({
             left:x + 'px',
             top:y + 'px'
