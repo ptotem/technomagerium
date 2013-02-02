@@ -1,3 +1,13 @@
+<% if request.url=="http://localhost:3000/users/sign_in" %>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+        <div><%= f.email_field :email, :placeholder => "Enter email id" %></div>
+
+        <div><%= f.password_field :password, :placeholder => "Enter password" %></div>
+        <br>
+        <div><%= f.submit "Sign in", :class => "btn btn-primary btn-large" %></div>
+    <% end %>
+<% end %>
+
 <div id="main_wrapper">
   <div id="launch_page">
     <%= image_tag "title.jpg", :class => "background" %>
@@ -43,6 +53,7 @@
     <%= link_to image_tag("gate.png"), '/users/auth/facebook', :style => "position:absolute;right:40px;bottom:10px;display:none;", :id => "gate" %>
   </div>
 </div>
+
 
 <script type="text/javascript">
     $(function () {

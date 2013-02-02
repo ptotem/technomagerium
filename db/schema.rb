@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201010423) do
+ActiveRecord::Schema.define(:version => 20130201071057) do
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
@@ -60,8 +60,9 @@ ActiveRecord::Schema.define(:version => 20130201010423) do
     t.integer  "user_id"
     t.integer  "num"
     t.text     "progress"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "chapter_break", :default => false
   end
 
   create_table "tomes", :force => true do |t|

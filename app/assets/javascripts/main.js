@@ -133,10 +133,16 @@ function distributeFields(start_angle) {
     var fields = $('.field'), container = $('#alchemy_container'),
         width = container.width(), height = container.height(),
         angle = start_angle, step = (2 * Math.PI) / fields.length,
-        centerx = width / 2, centery = height / 2, radius = width / 2 - gon.radius / 2;
+        field_side = (width * Math.sin(Math.PI / fields.length)) / (1+Math.sin(Math.PI / fields.length)),
+        centerx = width / 2, centery = height / 2, radius = (width - field_side) / 2;
 
-    $('.field').css('width', gon.radius);
-    $('.field').css('height', gon.radius);
+
+    $('.field').css({
+        'width':field_side,
+        'height':field_side
+    });
+    $('.alchemy_elements').css('width', field_side);
+
 
     fields.each(function () {
         var x = Math.round(centerx + radius * Math.cos(angle) - $(this).width() / 2);
