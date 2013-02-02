@@ -122,7 +122,7 @@ function createFields(alchemy_element_array) {
     for (var i = 0; i < gon.count; i++) {
         $('<div/>', {
             'class':'field',
-            'html':'<a href="#" title=' + alchemy_element_array[i] + '><img src="/assets/elements/' + alchemy_element_array[i] + '-off.png" class="alchemy_elements" id="' + i + '"/></a>'
+            'html':'<a href="#" ><img src="/assets/elements/' + alchemy_element_array[i] + '-off.png" class="alchemy_elements" id="' + i + '"/></a>'
         }).appendTo(container);
         imageObj.src = '/assets/elements/' + alchemy_element_array[i] + '-on.png';
     }
