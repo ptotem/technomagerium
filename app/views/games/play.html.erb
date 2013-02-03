@@ -5,6 +5,8 @@
   <div id="wallet" class="<%= @theme %>_text">
     <span id="magic_wallet"><%= current_user.mana %></span> <%= image_tag "magic.png" %><%= image_tag "techno.png" %>
     <span id="techno_wallet"><%= current_user.power %></span>
+    <span id="help" style="cursor:pointer;"><%= image_tag "help.png", :onclick => "$('#help_arrow').show();show_help()" %></span>
+    <span id="back_off" style="cursor:pointer;"><%= link_to image_tag("tome.png"), tome_show_path(@game.puzzle.tome.id) %></span>
   </div>
 
   <!-- The Target to be achieved-->
@@ -43,9 +45,6 @@
   <div id="alchemy_container">
     <div id="alchemy_center"><%= image_tag "mixer_#{@theme}.png" %></div>
   </div>
-
-  <%= link_to image_tag("tome_menu.gif"), tome_show_path(@game.puzzle.tome.id), :id => "back_button" %>
-
 </div>
 
 <script type="text/javascript">
