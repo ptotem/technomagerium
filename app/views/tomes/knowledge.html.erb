@@ -60,6 +60,11 @@
 
                         initEvents();
 
+                        if (gon.jump_to_end == true) {
+                            var $slides = config.$bookBlock.children(),
+                                    totalSlides = $slides.length;
+                            config.bb.jump(totalSlides);
+                        }
                     },
                     initEvents = function () {
 
@@ -112,6 +117,5 @@
 
         })();
         Page.init();
-
     })
 </script>
