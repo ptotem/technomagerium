@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 
   def create_story_pages
     @tome=Tome.first
-    UserState.create!(user_id: id, tome_id: @tome.id)
+    UserState.create!(user_id: id, tome_id: @tome.id, bookmark: 0)
     StoryPage.create!(user_id: id, num: 1, progress: @tome.id, chapter_break: true)
     @last_page=self.story_pages.last.num
     @tome.ending.split("||").each_with_index do |e, index|
@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
       StoryPage.all.each do |p|
         p.destroy
       end
-      UserState.create!(user_id: id, tome_id: Tome.all.last.id)
+      UserState.create!(user_id: id, tome_id: Tome.all.last.id, bookmark: 0)
       @tome=Tome.first
       StoryPage.create!(user_id: id, num: 1, progress: @tome.id, chapter_break: true)
       @last_page=self.story_pages.last.num

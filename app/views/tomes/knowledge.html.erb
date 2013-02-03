@@ -10,7 +10,11 @@
               <div class="bb-item">
                 <% if story_page.chapter_break %>
                     <%= image_tag Tome.find(story_page.progress).cover_page.url %>
-                    <% unless Tome.find(story_page.progress).beginning.blank? %>
+                    <% if Tome.find(story_page.progress).beginning.blank? %>
+                        <% unless current_user.user_state.bookmark==0 %>
+                            <%= link_to image_tag("bookmark.png"), "#", :style => "position:absolute;bottom:20px;right:100px;", :id => "bookmark" %>
+                        <% end %>
+                    <% else %>
                         <%= link_to image_tag("skipper.png"), "/creatomes/#{@next_tome.id}", :style => "position:absolute;bottom:100px;right:100px;" %>
                     <% end %>
                 <% else %>
@@ -49,7 +53,7 @@
                         $bookBlock:$('#bb-bookblock'),
                         $navNext:$('#bb-nav-next'),
                         $navPrev:$('#bb-nav-prev'),
-                        $navJump:$('#bb-nav-jump'),
+                        $navJump:$('#bookmark'),
                         bb:$('#bb-bookblock').bookblock({
                             speed:800,
                             shadowSides:0.8,
@@ -57,14 +61,7 @@
                         })
                     },
                     init = function () {
-
                         initEvents();
-
-                        if (gon.jump_to_end == true) {
-                            var $slides = config.$bookBlock.children(),
-                                    totalSlides = $slides.length;
-                            config.bb.jump(totalSlides);
-                        }
                     },
                     initEvents = function () {
 
@@ -88,7 +85,7 @@
 
                         config.$navJump.on('click', function () {
 
-                            config.bb.jump(totalSlides);
+                            config.bb.jump(gon.bookmark);
                             return false;
 
                         });

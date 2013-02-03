@@ -144,7 +144,7 @@ class GamesController < ApplicationController
           if @puzzle_count==@game_count
             @redirection="/library/#{@game.puzzle.tome.chapter+1}"
           else
-            @redirection="/knowledge/#{Tome.where('chapter=?', @game.puzzle.tome.chapter).where(theme: "").first.id}/end"
+            @redirection="/knowledge/#{Tome.where('chapter=?', @game.puzzle.tome.chapter).where(theme: "").first.id}"
           end
           unless current_user.user_state.tome==Tome.find_by_sequence(@game.puzzle.tome.sequence+1)
             current_user.user_state.tome_id=Tome.find_by_sequence(@game.puzzle.tome.sequence+1).id
