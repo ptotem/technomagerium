@@ -137,7 +137,26 @@ class GamesController < ApplicationController
       when "chance"
         render :text => "#{@game.revelation}||#{@game.revealed if @game.revelation}"
       when "explanation"
-        render :text => "#{@game.solved}||#{@game.puzzle.explanation if @game.solved}"
+        @tome_completion = @game.puzzle.tome.puzzles.count - current_user.games.where('solved=?', true).map { |g| g.puzzle }.select { |p| p.tome_id==@game.puzzle.tome.id }.count
+        if @tome_completion==0
+          @redirection="/library/#{@game.puzzle.tome.chapter+1}"
+        else
+          @incomplete_puzzles=(@game.puzzle.tome.puzzles - current_user.games.where('solved=?', true).map { |g| g.puzzle }.select { |p| p.tome_id==@game.puzzle.tome.id }.map { |p| p }).sort
+          if (@game.puzzle.sequence+1)>@incomplete_puzzles.map{|p| p.sequence}.max
+            @redirection="/play/#{@incomplete_puzzles.first.id}"
+          else
+            @target=@game.puzzle.sequence
+            greater_than = []
+            @incomplete_puzzles.map { |p| p.sequence }.each do |elmt|
+              if elmt > @target
+                greater_than << elmt
+              end
+            end
+            @redirection="/play/#{Puzzle.find_by_sequence(greater_than.min).id}"
+          end
+        end
+
+        render :text => "#{@game.solved}||#{@game.puzzle.explanation if @game.solved}||#{@redirection if @game.solved}"
     end
   end
 

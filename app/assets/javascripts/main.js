@@ -48,13 +48,7 @@ function solved() {
             $('#game_wrapper').append("<div class='complete'>Complete</div>")
             $('.complete').animate({
                 "left":"+=200px"
-            }, 'fast', function () {
-                $('#game_wrapper').append("<div class='next_puzzle'><img src='/assets/tome_menu.gif'><img src='/assets/next_puzzle.gif'></div>")
-                $('#back_button').fadeOut();
-                $('.next_puzzle').animate({
-                    "right":"+=310px"
-                }, 'fast');
-            });
+            }, 'fast');
 
         });
         $('.alchemy_elements').unbind("click");
@@ -66,6 +60,7 @@ function solved() {
         url:"/games/" + gon.game_id + "/clue_status/explanation",
         type:"get",
         success:function (returning_data) {
+
             $('#actual_content').css("height", "200px");
             show_unlocked("lore", returning_data.split("||")[1]);
             $('#target_back').fadeOut();
@@ -80,6 +75,10 @@ function solved() {
             $('#puzzlename').animate({
                 'color':'white'
             });
+            $('#game_wrapper').append("<div class='next_puzzle'><a href='"+returning_data.split("||")[2]+"'><img src='/assets/continue.png'></a></div>")
+            $('.next_puzzle').animate({
+                "right":"145px"
+            }, 'fast');
         }
     });
 
@@ -133,7 +132,7 @@ function distributeFields(start_angle) {
     var fields = $('.field'), container = $('#alchemy_container'),
         width = container.width(), height = container.height(),
         angle = start_angle, step = (2 * Math.PI) / fields.length,
-        field_side = (width * Math.sin(Math.PI / fields.length)) / (1+Math.sin(Math.PI / fields.length)),
+        field_side = (width * Math.sin(Math.PI / fields.length)) / (1 + Math.sin(Math.PI / fields.length)),
         centerx = width / 2, centery = height / 2, radius = (width - field_side) / 2;
 
 

@@ -1,5 +1,5 @@
 class Puzzle < ActiveRecord::Base
-  attr_accessible :combo, :name, :lore, :avatar, :power_reward, :mana_reward, :clue_cost_schema, :tome_id, :manacost, :explanation
+  attr_accessible :combo, :name, :lore, :avatar, :power_reward, :mana_reward, :clue_cost_schema, :tome_id, :manacost, :explanation,:sequence
   has_many :games, :dependent => :destroy
   has_attached_file :avatar
   belongs_to :tome

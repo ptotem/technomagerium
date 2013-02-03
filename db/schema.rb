@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201071057) do
+ActiveRecord::Schema.define(:version => 20130203133808) do
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20130201071057) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.boolean  "manacost"
+    t.integer  "sequence"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -78,12 +79,14 @@ ActiveRecord::Schema.define(:version => 20130201071057) do
     t.string   "cover_page_content_type"
     t.integer  "cover_page_file_size"
     t.datetime "cover_page_updated_at"
-    t.datetime "created_at",                                                                                                                                                                            :null => false
-    t.datetime "updated_at",                                                                                                                                                                            :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.integer  "sequence"
+    t.boolean  "open"
     t.boolean  "openable"
     t.integer  "chapter",                 :default => 1
-    t.text     "progress",                :default => "Put in story ending here paginated by ||. End subchapter with |c|. Write subchapter heading. Start next chapter with |c| and paginated with ||"
+    t.text     "beginning"
+    t.text     "ending"
   end
 
   create_table "user_states", :force => true do |t|
