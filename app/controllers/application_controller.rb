@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
     else
       library_path(current_user.user_state.tome.chapter)
     end
-
   end
-
 
 end

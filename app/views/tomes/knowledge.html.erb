@@ -1,5 +1,5 @@
 <div id="main_wrapper">
-  <%= image_tag "library.jpg", :class => "absolute_background" %>
+  <%= image_tag "library.jpg", :class => "absolute_background", :style => "opacity:0.5" %>
 
   <div id="thebook">
     <section class="main">
@@ -10,7 +10,7 @@
               <div class="bb-item">
                 <% if story_page.chapter_break %>
                     <%= image_tag Tome.find(story_page.progress).cover_page.url %>
-                    <% if Tome.find(story_page.progress).beginning.blank? %>
+                    <% if Tome.find(story_page.progress).theme.blank? %>
                         <% unless current_user.user_state.bookmark==0 %>
                             <%= link_to image_tag("bookmark.png"), "#", :style => "position:absolute;bottom:20px;right:100px;", :id => "bookmark" %>
                         <% end %>
@@ -39,7 +39,6 @@
     </section>
   </div>
 </div>
-
 
 <script type="text/javascript">
     $(function () {

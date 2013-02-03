@@ -1,68 +1,40 @@
-<style type="text/css">
-  a {
-      text-decoration: none;
-      font-weight: bold;
-      color:black;
-  }
-</style>
 <div id="main_wrapper">
   <%= image_tag "library.jpg", :class => "absolute_background", :style => "opacity:0.5" %>
 
+  <!--TODO: Give a way for admin to see a book-->
   <div id="thebook">
     <section class="main">
       <div class="bb-custom-wrapper">
         <%= link_to image_tag("close.png"), library_path(@tome.chapter), :class => "closer pnbuttons" %>
         <div id="bb-bookblock" class="bb-bookblock">
-          <div class="bb-item">
-            <table class="bb-table">
-              <tr>
-                <td></td>
-                <td>
-                  <h2>Table of Contents</h2>
-                  <ul style="list-style-type:none;margin-left: -30px;">
-                    <% @tome.puzzles.each_with_index do |puzzle, index| %>
-                        <li><%= link_to puzzle.name, "#", :onclick => "flip_the_pages('#{index}')" %></li>
-                    <% end %>
-                  </ul>
-                </td>
-              </tr>
-            </table>
-          </div>
-          <% @tome.puzzles.each do |puzzle| %>
-              <div class="bb-item">
-                <table class="bb-table">
-                  <tr>
-                    <td><%= image_tag puzzle.avatar.url %></td>
-                    <td>
-                      <h2 style="margin: 10px;">
-                        <%= puzzle.name %>
-                        <div id="reward_table">
-                          <%= puzzle.mana_reward unless puzzle.mana_reward==0 %> <%= image_tag "magic.png" unless puzzle.mana_reward==0 %><%= image_tag "techno.png" unless puzzle.power_reward==0 %> <%= puzzle.power_reward unless puzzle.power_reward==0 %>
-                        </div>
-                        <% if @game=Game.find_by_puzzle_id_and_user_id(puzzle.id, current_user.id) %>
-                            <% if @game.solved %>
-
-                                <div style="font-size: 14px;padding: 10px;"><%= raw @game.puzzle.explanation %></div>
-                                <br>
-                                <a href="/play/<%= puzzle.id %>">
-                                  <button class="styled_button">View This!</button>
-                                </a>
-                            <% else %>
-                                <a href="/play/<%= puzzle.id %>">
-                                  <button class="styled_button">Create This!</button>
-                                </a>
-                            <% end %>
-                        <% else %>
-                            <a href="/play/<%= puzzle.id %>">
-                              <button class="styled_button">Create This!</button>
-                            </a>
-                        <% end %>
-                      </h2>
-                    </td>
-                  </tr>
-                </table>
-              </div>
+          <% @tome.beginning.split("||").each do |story_page| %>
+              <% unless story_page=="|p|" %>
+                  <div class="bb-item">
+                    <table class="bb-table-story">
+                      <tr>
+                        <td><%= raw story_page.split('|p|')[0] %></td>
+                        <td><%= raw story_page.split('|p|')[1] %></td>
+                      </tr>
+                    </table>
+                  </div>
+              <% end %>
           <% end %>
+          <% @tome.ending.split("||").each do |story_page| %>
+              <% unless story_page=="|p|" %>
+                  <div class="bb-item">
+                    <table class="bb-table-story">
+                      <tr>
+                        <td><%= raw story_page.split('|p|')[0] %></td>
+                        <td><%= raw story_page.split('|p|')[1] %></td>
+                      </tr>
+                    </table>
+                  </div>
+              <% end %>
+          <% end %>
+
+          <div class="bb-item" id="next_pager">
+            <a href="/creatomes/<%= @next_tome.id %>"><%= image_tag "continue_page.jpg" %></a>
+          </div>
         </div>
         <nav>
           <a id="bb-nav-prev" class="pnbuttons" href="#" onclick="$('.pnbuttons').fadeOut(100).delay(1000).fadeIn()"><%= image_tag "prev.png" %></a>
@@ -73,9 +45,7 @@
   </div>
 </div>
 
-
 <script type="text/javascript">
-    var config;
     $(function () {
         setTimeout(function () {
             $('#main_wrapper').fadeIn("slow");
@@ -83,11 +53,11 @@
 
         var Page = (function () {
 
-            config = {
+            var config = {
                         $bookBlock:$('#bb-bookblock'),
                         $navNext:$('#bb-nav-next'),
                         $navPrev:$('#bb-nav-prev'),
-                        $navJump:$('#bb-nav-jump'),
+                        $navJump:$('#bookmark'),
                         bb:$('#bb-bookblock').bookblock({
                             speed:800,
                             shadowSides:0.8,
@@ -95,9 +65,7 @@
                         })
                     },
                     init = function () {
-
                         initEvents();
-
                     },
                     initEvents = function () {
 
@@ -121,7 +89,7 @@
 
                         config.$navJump.on('click', function () {
 
-                            config.bb.jump(totalSlides);
+                            config.bb.jump(gon.bookmark);
                             return false;
 
                         });
@@ -150,12 +118,5 @@
 
         })();
         Page.init();
-
     })
-
-    function flip_the_pages(index) {
-            config.bb.jump(parseInt(index)+2);
-    }
-
-
 </script>

@@ -14,4 +14,11 @@ class TomesController < ApplicationController
     @story_pages=current_user.story_pages.all
     gon.bookmark = current_user.user_state.bookmark
   end
+
+  def admin
+    @tome=Tome.find(params[:id])
+    @next_tome=Tome.find_by_sequence(@tome.sequence+1)
+    @story_pages=current_user.story_pages.all
+    gon.bookmark = current_user.user_state.bookmark
+  end
 end

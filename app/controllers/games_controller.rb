@@ -182,18 +182,28 @@ class GamesController < ApplicationController
           @tome_completion = @game.puzzle.tome.puzzles.count - @user.games.where('solved=?', true).map { |g| g.puzzle }.select { |p| p.tome_id==@game.puzzle.tome.id }.count
           if @tome_completion == 0
             @last_page=StoryPage.find_all_by_user_id(@user.id).last.num rescue 0
-            @game.puzzle.tome.ending.split("||").each_with_index do |e, index|
+            paginate_story(@game.puzzle.tome.ending,128).split("||").each_with_index do |e, index|
               StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)
-            end
-            if Tome.find_by_sequence_and_chapter(@game.puzzle.tome.sequence+1, @game.puzzle.tome.chapter).blank?
-              StoryPage.create!(user_id: @user.id, num: (StoryPage.find_all_by_user_id(@user.id).last.num+1), progress: "<div class='chapter_end'><a href='/library/#{(@game.puzzle.tome.chapter+1)}'>Next Chapter</a></div>")
             end
             StoryPage.create!(user_id: @user.id, num: (StoryPage.find_all_by_user_id(@user.id).last.num+1 rescue 1), progress: (@game.puzzle.tome.sequence+1))
             @last_page=StoryPage.find_all_by_user_id(@user.id).last.num
             @next_tome=Tome.find_by_sequence_and_chapter(@game.puzzle.tome.sequence+1, @game.puzzle.tome.chapter)
-            @game.puzzle.tome.beginning.split("||").each_with_index do |e, index|
+            paginate_story(@game.puzzle.tome.ending,128).beginning.split("||").each_with_index do |e, index|
               StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)
             end
+
+            #@game.puzzle.tome.ending.split("||").each_with_index do |e, index|
+            #  StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)
+            #end
+            #if Tome.find_by_sequence_and_chapter(@game.puzzle.tome.sequence+1, @game.puzzle.tome.chapter).blank?
+            #  StoryPage.create!(user_id: @user.id, num: (StoryPage.find_all_by_user_id(@user.id).last.num+1), progress: "<div class='chapter_end'><a href='/library/#{(@game.puzzle.tome.chapter+1)}'>Next Chapter</a></div>")
+            #end
+            #StoryPage.create!(user_id: @user.id, num: (StoryPage.find_all_by_user_id(@user.id).last.num+1 rescue 1), progress: (@game.puzzle.tome.sequence+1))
+            #@last_page=StoryPage.find_all_by_user_id(@user.id).last.num
+            #@next_tome=Tome.find_by_sequence_and_chapter(@game.puzzle.tome.sequence+1, @game.puzzle.tome.chapter)
+            #@game.puzzle.tome.beginning.split("||").each_with_index do |e, index|
+            #  StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)
+            #end
           end
         end
         @user.mana+=@game.puzzle.mana_reward
