@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130203202801) do
+ActiveRecord::Schema.define(:version => 20130204095101) do
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"
@@ -79,14 +79,15 @@ ActiveRecord::Schema.define(:version => 20130203202801) do
     t.string   "cover_page_content_type"
     t.integer  "cover_page_file_size"
     t.datetime "cover_page_updated_at"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.integer  "sequence"
     t.boolean  "open"
     t.boolean  "openable"
     t.integer  "chapter",                 :default => 1
     t.text     "beginning"
     t.text     "ending"
+    t.boolean  "manual_freeze",           :default => false
   end
 
   create_table "user_states", :force => true do |t|
