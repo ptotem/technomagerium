@@ -33,43 +33,48 @@ class User < ActiveRecord::Base
   after_save :admin_privileges
 
   def create_story_pages
-    @tome=Tome.first
-    UserState.create!(user_id: id, tome_id: @tome.id, bookmark: 0)
-    StoryPage.create!(user_id: id, num: 1, progress: @tome.id, chapter_break: true)
-    @last_page=self.story_pages.last.num
-    @tome.ending.split("||").each_with_index do |e, index|
-      StoryPage.create!(user_id: id, num: (@last_page+index+1), progress: e)
-    end
-    @next_tome=Tome.find_by_sequence(2)
-    StoryPage.create!(user_id: id, num: 1, progress: @next_tome.id, chapter_break: true)
-    @last_page=self.story_pages.last.num
-    @next_tome.beginning.split("||").each_with_index do |e, index|
-      StoryPage.create!(user_id: id, num: (@last_page+index+1), progress: e)
-    end
-  end
-
-  def admin_privileges
-    if self.admin
-      StoryPage.all.each do |p|
-        p.destroy
-      end
-      UserState.create!(user_id: id, tome_id: Tome.all.last.id, bookmark: 0)
+    unless User.all.count<2
       @tome=Tome.first
+      UserState.create!(user_id: id, tome_id: @tome.id, bookmark: 0)
       StoryPage.create!(user_id: id, num: 1, progress: @tome.id, chapter_break: true)
       @last_page=self.story_pages.last.num
       @tome.ending.split("||").each_with_index do |e, index|
         StoryPage.create!(user_id: id, num: (@last_page+index+1), progress: e)
       end
-      Tome.all[1..-1].each_with_index do |tome, index|
+      @next_tome=Tome.find_by_sequence(2)
+      StoryPage.create!(user_id: id, num: 1, progress: @next_tome.id, chapter_break: true)
+      @last_page=self.story_pages.last.num
+      @next_tome.beginning.split("||").each_with_index do |e, index|
+        StoryPage.create!(user_id: id, num: (@last_page+index+1), progress: e)
+      end
+    end
+  end
+
+  def admin_privileges
+    unless User.all.count<2
+
+      if self.admin
+        StoryPage.all.each do |p|
+          p.destroy
+        end
+        UserState.create!(user_id: id, tome_id: Tome.all.last.id, bookmark: 0)
+        @tome=Tome.first
+        StoryPage.create!(user_id: id, num: 1, progress: @tome.id, chapter_break: true)
         @last_page=self.story_pages.last.num
-        StoryPage.create!(user_id: id, num: @last_page+1, progress: tome.id, chapter_break: true)
-        @last_page=self.story_pages.last.num
-        tome.beginning.split("||").each_with_index do |e, index|
+        @tome.ending.split("||").each_with_index do |e, index|
           StoryPage.create!(user_id: id, num: (@last_page+index+1), progress: e)
         end
-        @last_page=self.story_pages.last.num
-        tome.ending.split("||").each_with_index do |e, index|
-          StoryPage.create!(user_id: id, num: (@last_page+index+1), progress: e)
+        Tome.all[1..-1].each_with_index do |tome, index|
+          @last_page=self.story_pages.last.num
+          StoryPage.create!(user_id: id, num: @last_page+1, progress: tome.id, chapter_break: true)
+          @last_page=self.story_pages.last.num
+          tome.beginning.split("||").each_with_index do |e, index|
+            StoryPage.create!(user_id: id, num: (@last_page+index+1), progress: e)
+          end
+          @last_page=self.story_pages.last.num
+          tome.ending.split("||").each_with_index do |e, index|
+            StoryPage.create!(user_id: id, num: (@last_page+index+1), progress: e)
+          end
         end
       end
     end

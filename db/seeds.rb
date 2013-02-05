@@ -7,4 +7,3 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create!(:email=>'admin@ptotem.com',:password=>'p20o20e13',:password_confirmation=>'p20o20e13',:admin=>true)
-User.create!(:email=>'arijit@ptotem.com',:password=>'pppppp',:password_confirmation=>'pppppp',:admin=>false)
