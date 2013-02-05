@@ -18,7 +18,7 @@ class Tome < ActiveRecord::Base
       pieces=[]
       #TODO: Widow and Orphan Protection
       pages.times do |s|
-        pieces<<self.beginning.gsub(/\r?\n/, "<br/><br/>").split(/\s+/, n*(s+1)+1)[n*s...n*(s+1)].join(' ')
+        pieces<<self.beginning.gsub(/\r?\n/, "<br/>").split(/\s+/, n*(s+1)+1)[n*s...n*(s+1)].join(' ')
       end
       result=""
       pieces.each_with_index do |piece, index|
@@ -37,7 +37,7 @@ class Tome < ActiveRecord::Base
       pages=(word_count/n).ceil+1
       pieces=[]
       pages.times do |s|
-        pieces<<self.ending.gsub(/\r?\n/, "<br/><br/>").split(/\s+/, n*(s+1)+1)[n*s...n*(s+1)].join(' ')
+        pieces<<self.ending.gsub(/\r?\n/, "<br/>").split(/\s+/, n*(s+1)+1)[n*s...n*(s+1)].join(' ')
       end
       result=""
       pieces.each_with_index do |piece, index|
