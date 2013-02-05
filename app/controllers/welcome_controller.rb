@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
 
   def library
     @puzzles=Puzzle.all
-    if current_user.user_state.tome.nil?
+    if current_user.user_state.nil?
       UserState.create!(user_id: id, tome_id: @tome.id, bookmark: 0)
     end
     @last_tome=current_user.user_state.tome
