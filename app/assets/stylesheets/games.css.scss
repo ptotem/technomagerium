@@ -122,7 +122,6 @@ a:active, a:focus {
   color: white;
 }
 
-
 #welcome_menu {
   position: absolute;
   top: 70px;
@@ -232,7 +231,7 @@ a:active, a:focus {
   text-align: left;
   top: 35px;
   right: 35px;
-  color:white;
+  color: white;
 }
 
 #library_wallet {
@@ -252,13 +251,15 @@ a:active, a:focus {
   vertical-align: middle;
 }
 
-.library_help{
+.library_help {
   padding: 20px;
-  background: white;
+  background: url(/assets/help_back.jpg);
   color: black;
-  opacity: 0.9;
   z-index: 99999999;
   position: relative;
+  width:200px;
+  border: 5px solid black;
+  border-radius: 10px;
 }
 
 .techno_text {
@@ -381,8 +382,8 @@ img.wallet_icon {
   cursor: pointer
 }
 
-.next_puzzle img{
-  width:100px;
+.next_puzzle img {
+  width: 100px;
   border-radius: 10px;
 }
 
@@ -423,7 +424,17 @@ img.wallet_icon {
 }
 
 .callout {
-  top:20px;
-  left:220px;
+  top: 20px;
+  left: 220px;
   position: absolute;
+}
+
+#clues_instruction {
+  position: absolute;
+  top: 75px;
+  left: 50px;
+  border:5px solid black;
+  border-radius: 10px;
+  width:640px;
+  height: 467px;
 }

@@ -1,5 +1,16 @@
+<style type="text/css">
+
+    #help_arrow {
+        position: absolute;
+        top: 320px;
+        left: -100px;
+        z-index: 9999999;
+    }
+
+</style>
 <div id="game_wrapper">
   <%= image_tag "#{@theme}.jpg", :class => "background" %>
+  <div id="help_arrow"><%= image_tag "arrowne.png" %></div>
 
   <!-- The current wallet of the player -->
   <div id="wallet" class="<%= @theme %>_text">
@@ -48,6 +59,68 @@
 </div>
 
 <script type="text/javascript">
+
+    function show_help() {
+        $("#help").fadeOut(function () {
+            $('#help_arrow').animate({
+                'left':"400px",
+                'top':"170px"
+            }, 1000, "easeOutBounce", function () {
+                $('#help_arrow').append('<div class="library_help">You are trying to create this item...</div>');
+                $('.library_help').delay(2000).fadeOut("slow", function () {
+                    $('.library_help').remove();
+                    $('#help_arrow').animate({
+                        'top':$('#alchemy_container').position().top + 150,
+                        'left':$('#alchemy_container').position().left + 150
+                    }, 1000, "easeOutBounce", function () {
+                        $('#help_arrow').append('<div class="library_help">Click on two or more elements that you think will combine to give it...</div>');
+                        var img = $("#0");
+                        img.attr("src", img.attr("src").replace("-off", "-on"));
+                        $('.library_help').delay(2000).fadeOut("slow", function () {
+                            $('.library_help').remove();
+                            $('#help_arrow').animate({
+                                'top':$('#alchemy_container').position().top + 150,
+                                'left':$('#alchemy_container').position().left + 75
+                            }, function () {
+                                $('#help_arrow').append('<div class="library_help">Press the circle in the center of the elements to combine the ones you have selected.</div>');
+                                $('#alchemy_center').animate({
+                                    rotate:"720deg"
+                                }, '2000', function () {
+                                    $('#game_wrapper').prepend("<span class='callout' id='nowork'><img src='/assets/callout.png'></span>");
+                                    setTimeout(function () {
+                                        $('#nowork').fadeOut('fast', function () {
+                                            $(this).remove();
+                                        });
+                                    }, 2000);
+                                    var img = $("#0");
+                                    img.attr("src", img.attr("src").replace("-on", "-off"));
+                                    $('.library_help').delay(2000).fadeOut("slow", function () {
+                                        $('.library_help').remove();
+                                        $('#help_arrow').animate({
+                                            'top':$('#target').position().top + 300,
+                                            'left':$('#target').position().left - 50
+                                        },  function () {
+                                            $('#help_arrow').append('<div class="library_help">If you get stuck, you can always take these clues. Sometime they are free, but mostly they cost mana to buy.</div>');
+                                            $('.library_help').css("top", "-200px");
+                                            $('#help_arrow').delay(4000).fadeOut("slow", function () {
+                                                $('#help_arrow').css({
+                                                    'top':"320px",
+                                                    'left':"-100px"
+                                                });
+                                                $('.library_help').remove();
+                                                $('#game_wrapper').append("<div id='clues_instruction' onclick='$(this).remove()'><img src='/assets/clue_instructions.jpg'></div>");
+                                                $("#help").show();
+                                            });
+                                        });
+                                    });
+                                })
+                            })
+                        });
+                    })
+                });
+            });
+        });
+    }
 
     $(function () {
 
