@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   after_save :admin_privileges
 
   def create_story_pages
-    unless User.all.count<2
+    unless Tome.first.nil?
       @tome=Tome.first
       UserState.create!(user_id: id, tome_id: @tome.id, bookmark: 0)
       StoryPage.create!(user_id: id, num: 1, progress: @tome.id, chapter_break: true)
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   end
 
   def admin_privileges
-    unless User.all.count<2
+    unless Tome.first.nil?
 
       if self.admin
         StoryPage.all.each do |p|
