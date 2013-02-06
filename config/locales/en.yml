@@ -6,7 +6,8 @@ en:
     flat: "30|30|30"
     count: "x|50|x"
     lore: "50|x|x"
-    steep: "30|50|50"
+    flatplus: "30|50|50"
+    steep: "50|50|50"
     cheap: "0|30|30"
   cluespeak:
     lore: "Study legend and lore, to divine the essence of the creation."
