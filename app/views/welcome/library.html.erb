@@ -60,7 +60,7 @@
                                 'top':"40px",
                                 'left':"340px"
                             }, function () {
-                                $('.library_help').empty().append('<div class="library_help">This is your current mana store. You gain mana by solving the tomes. You can spend this mana to buy clues when you get stuck on a creation puzzle.</div>').show();
+                                $('#help_arrow').append('<div class="library_help">This is your current mana store. You gain mana by solving the tomes. You can spend this mana to buy clues when you get stuck on a creation puzzle.</div>');
                                 $('#help_arrow').delay(4000).fadeOut("slow", function () {
                                     $('#help_arrow').css({
                                         'top':"320px",

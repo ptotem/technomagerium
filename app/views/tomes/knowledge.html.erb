@@ -37,7 +37,9 @@
         </nav>
       </div>
     </section>
-    <%= link_to image_tag("encyclopedia.png", :style => "position:absolute;right:-60px;top:240px;"), creatopedia_path(@tome) %>
+    <% unless EncyclopediaEntry.first.blank? %>
+        <%= link_to image_tag("encyclopedia.png", :style => "position:absolute;right:-60px;top:240px;"), creatopedia_path(@tome) %>
+    <% end %>
   </div>
 
 
