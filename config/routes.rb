@@ -9,6 +9,7 @@ Summoner::Application.routes.draw do
   resources :games
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  mount RailsAdminImport::Engine => '/rails_admin_import', :as => 'rails_admin_import'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 

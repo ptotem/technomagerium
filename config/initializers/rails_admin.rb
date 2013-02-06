@@ -7,7 +7,7 @@ RailsAdmin.config do |config|
   ################  Global configuration  ################
 
   # Set the admin name here (optional second array element will appear in red). For example:
-  config.main_app_name = ['Summoner', 'Admin']
+  config.main_app_name = ['Creatomes', 'Admin']
   # or for a more dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
@@ -35,6 +35,26 @@ RailsAdmin.config do |config|
   # Label methods for model instances:
   # config.label_methods << :description # Default is [:name, :title]
 
+  config.actions do
+    # root actions
+    dashboard # mandatory
+
+    # collection actions
+    index # mandatory
+    new
+    export
+    import
+    history_index
+    bulk_delete
+
+    # member actions
+    show
+    edit
+    delete
+    history_show
+    show_in_app
+  end
+
 
   ################  Model configuration  ################
 
@@ -51,7 +71,6 @@ RailsAdmin.config do |config|
   # Anyway, here is how RailsAdmin saw your application's models when you ran the initializer:
 
 
-
   ###  Element  ###
 
   # config.model 'Element' do
@@ -59,7 +78,6 @@ RailsAdmin.config do |config|
   #   # You can copy this to a 'rails_admin do ... end' block inside your element.rb model definition
 
   #   # Found associations:
-
 
 
   #   # Found columns:
@@ -102,7 +120,6 @@ RailsAdmin.config do |config|
   #   # You can copy this to a 'rails_admin do ... end' block inside your user.rb model definition
 
   #   # Found associations:
-
 
 
   #   # Found columns:
