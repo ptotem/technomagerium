@@ -257,7 +257,7 @@ a:active, a:focus {
   color: black;
   z-index: 99999999;
   position: relative;
-  width:200px;
+  width: 200px;
   border: 5px solid black;
   border-radius: 10px;
 }
@@ -433,8 +433,49 @@ img.wallet_icon {
   position: absolute;
   top: 75px;
   left: 50px;
-  border:5px solid black;
+  border: 5px solid black;
   border-radius: 10px;
-  width:640px;
+  width: 640px;
   height: 467px;
+}
+
+.creatoentry {
+  padding: 5px;
+  background: white;
+  border: 2px solid black;
+}
+
+.creatoentry_title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.blocky {
+  float: left;
+  width: 18px;
+  height: 18px;
+  border: 1px solid black;
+}
+
+.blocky_back {
+  width: 100px;
+  height: 10px;
+  border: 1px solid black;
+  position: relative
+}
+
+.red {
+  background: #8f141a
+}
+
+.yellow {
+  background: #ffae41
+}
+
+.blue {
+  background: #88a8ff
+}
+
+.green {
+  background: #c1c24b
 }

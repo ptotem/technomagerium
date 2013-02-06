@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204095101) do
+ActiveRecord::Schema.define(:version => 20130206071128) do
+
+  create_table "encyclopedia_entries", :force => true do |t|
+    t.integer  "puzzle_id"
+    t.integer  "attack"
+    t.integer  "defense"
+    t.integer  "magic"
+    t.integer  "speed"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "games", :force => true do |t|
     t.integer  "user_id"

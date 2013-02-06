@@ -1,7 +1,7 @@
 <div id="main_wrapper">
   <%= image_tag "library.jpg", :class => "absolute_background", :style => "opacity:0.5" %>
 
-  <div id="thebook">
+  <div id="thestorybook">
     <section class="main">
       <div class="bb-custom-wrapper">
         <%= link_to image_tag("close.png"), library_path(@tome.chapter), :class => "closer pnbuttons" %>
@@ -37,7 +37,10 @@
         </nav>
       </div>
     </section>
+    <%= link_to image_tag("encyclopedia.png", :style => "position:absolute;right:-60px;top:240px;"), creatopedia_path(@tome) %>
   </div>
+
+
 </div>
 
 <script type="text/javascript">

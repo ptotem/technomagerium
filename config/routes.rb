@@ -1,5 +1,8 @@
 Summoner::Application.routes.draw do
 
+  resources :encyclopedia_entries
+
+
   get "general/privacy"
 
   get "tomes/show"
@@ -14,16 +17,17 @@ Summoner::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   match '/play/:id', :to=>"games#play", :as=>"play"
-  match 'games/:id/take_clue/:name/:theme', :to=>"games#take_clue", :as=>"take_clue"
-  match 'games/:id/clue_status/:name', :to=>"games#clue_status", :as=>"clue_status"
-  match 'games/:id/check/:bitmask', :to=>"games#checker", :as=>"checker"
-  match 'games/:id/status', :to=>"games#game_status", :as=>"game_status"
-  match 'library/:chapter', :to=>"welcome#library", :as=>"library"
-  match 'creatomes/:id', :to=>"tomes#show", :as=>"tome_show"
-  match 'knowledge/:id', :to=>"tomes#knowledge", :as=>"knowledge"
-  match 'seetome/:id', :to=>"tomes#admin", :as=>"knowledge_admin"
-  match 'policies/privacy', :to=>"general#privacy"
-  match 'policies/termsofservice', :to=>"general#tos"
+  match '/games/:id/take_clue/:name/:theme', :to=>"games#take_clue", :as=>"take_clue"
+  match '/games/:id/clue_status/:name', :to=>"games#clue_status", :as=>"clue_status"
+  match '/games/:id/check/:bitmask', :to=>"games#checker", :as=>"checker"
+  match '/games/:id/status', :to=>"games#game_status", :as=>"game_status"
+  match '/library/:chapter', :to=>"welcome#library", :as=>"library"
+  match '/creatomes/:id', :to=>"tomes#show", :as=>"tome_show"
+  match '/creatopedia/:id', :to=>"tomes#creatopedia", :as=>"creatopedia"
+  match '/knowledge/:id', :to=>"tomes#knowledge", :as=>"knowledge"
+  match '/seetome/:id', :to=>"tomes#admin", :as=>"knowledge_admin"
+  match '/policies/privacy', :to=>"general#privacy"
+  match '/policies/termsofservice', :to=>"general#tos"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

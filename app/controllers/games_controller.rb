@@ -114,7 +114,12 @@ class GamesController < ApplicationController
           @theme=="magic" ? @game.user.mana-=@cost : @game.user.power-=@cost
           @status=@cost
           @bitmask=@game.puzzle.combo.split(//).map { |c| c.to_i }
-          @response=@game.puzzle.tome.elements.split(",").select.with_index { |e, i| @bitmask[i] == 1 }.sample(Random.rand(2)+1).join(",")
+          if @bitmask.sum>2
+            @response=@game.puzzle.tome.elements.split(",").select.with_index { |e, i| @bitmask[i] == 1 }.sample(Random.rand(2)+1).join(",")
+          else
+            @response=@game.puzzle.tome.elements.split(",").select.with_index { |e, i| @bitmask[i] == 1 }.sample
+          end
+
           @game.revealed=@response
           @game.save
           @game.user.save

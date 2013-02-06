@@ -17,6 +17,12 @@
     left: 30px;
 }
 
+#thestorybook {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
 .main {
     width: 90%;
     margin: 0 auto;
@@ -203,6 +209,7 @@
     background-size: 100% 100%;
     text-align: center;
 }
+
 .bb-table-story {
     width: 100%;
     height: 100%;
@@ -211,22 +218,53 @@
     text-align: left;
 }
 
-.bb-table td{
-    width:50%;
+.bb-table-creatopedia {
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+    text-align: left;
 }
 
-.bb-table-story td{
+.bb-table-creatopedia td {
     vertical-align: top;
-    padding:20px;
-    padding-top:50px;
-    padding-bottom:0px;
-    width:50%;
+    padding: 10px;
+    font-size: 12px;
+    /*border: 1px solid black;*/
+    /*border-radius:10px;*/
+}
+
+.creatoentry_image{
+  width:90px;
+  float:left;
+}
+
+.creatoentry_stats td{
+    margin: 0;
+    padding: 0;
+}
+
+.creatoentry_stats tr{
+    margin: 0;
+    padding: 0;
+}
+
+.bb-table td {
+    width: 50%;
+}
+
+.bb-table-story td {
+    vertical-align: top;
+    padding: 20px;
+    padding-top: 50px;
+    padding-bottom: 0px;
+    width: 50%;
     font-size: 14px;
 }
 
-.closer{
+.closer {
     position: absolute;
-    top:0px;
-    right:0px;
+    top: 5px;
+    right: 15px;
     z-index: 999;
 }

@@ -1,0 +1,165 @@
+<style type="text/css">
+    .bb-item {
+        background: url(/assets/creatoback.jpg);
+        background-size: 100% 100%;
+    }
+</style>
+<div id="main_wrapper">
+  <%= image_tag "library.jpg", :class => "absolute_background", :style => "opacity:0.5" %>
+
+  <div id="thestorybook">
+    <section class="main">
+      <div class="bb-custom-wrapper">
+        <%= link_to image_tag("close.png"), library_path(@tome.chapter), :class => "closer pnbuttons" %>
+        <div id="bb-bookblock" class="bb-bookblock">
+          <% @pages.each do |entries| %>
+              <div class="bb-item">
+                <table class="bb-table-creatopedia">
+                  <% entries.each do |entry| %>
+                      <tr>
+                        <td style="border-bottom: 1px solid #96641e">
+                          <div class="creatoentry_title"><%= entry.puzzle.name %></div>
+                          <%= image_tag entry.puzzle.avatar.url, :class => "creatoentry_image" %>
+                        </td>
+                        <td style="border-bottom: 1px solid #96641e">
+                          <br>
+                          <table class="creatoentry_stats">
+                            <tr>
+                              <td>Attack</td>
+                              <td>
+                                <div class="blocky_back">
+                                  <% entry.attack.times do |b| %>
+                                      <span class="blocky red"></span>
+                                  <% end %>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Defense</td>
+                              <td>
+                                <div class="blocky_back">
+                                  <% entry.defense.times do |b| %>
+                                      <span class="blocky yellow"></span>
+                                  <% end %>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Speed</td>
+                              <td>
+                                <div class="blocky_back">
+                                  <% entry.speed.times do |b| %>
+                                      <span class="blocky green"></span>
+                                  <% end %>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Magic</td>
+                              <td>
+                                <div class="blocky_back">
+                                  <% entry.magic.times do |b| %>
+                                      <span class="blocky blue"></span>
+                                  <% end %>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td style="border-bottom: 1px solid #96641e">
+                          <br>
+
+                          <div class="creatoentry_note"><%= entry.description %></div>
+
+                        </td>
+                      </tr>
+                  <% end %>
+                </table>
+              </div>
+          <% end %>
+        </div>
+        <nav>
+          <a id="bb-nav-prev" class="pnbuttons" href="#" onclick="$('.pnbuttons').fadeOut(100).delay(1000).fadeIn()"><%= image_tag "prev.png" %></a>
+          <a id="bb-nav-next" class="pnbuttons" href="#" onclick="$('.pnbuttons').fadeOut(100).delay(1000).fadeIn()"><%= image_tag "next.png" %></a>
+        </nav>
+      </div>
+    </section>
+    <%= link_to image_tag("story_tab.png", :style => "position:absolute;right:-60px;top:240px;"), knowledge_path(@tome) %>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            $('#main_wrapper').fadeIn("slow");
+        }, 500);
+
+        var Page = (function () {
+
+            var config = {
+                        $bookBlock:$('#bb-bookblock'),
+                        $navNext:$('#bb-nav-next'),
+                        $navPrev:$('#bb-nav-prev'),
+                        $navJump:$('#bookmark'),
+                        bb:$('#bb-bookblock').bookblock({
+                            speed:800,
+                            shadowSides:0.8,
+                            shadowFlip:0.7
+                        })
+                    },
+                    init = function () {
+                        initEvents();
+                    },
+                    initEvents = function () {
+
+                        var $slides = config.$bookBlock.children(),
+                                totalSlides = $slides.length;
+
+                        // add navigation events
+                        config.$navNext.on('click', function () {
+
+                            config.bb.next();
+                            return false;
+
+                        });
+
+                        config.$navPrev.on('click', function () {
+
+                            config.bb.prev();
+                            return false;
+
+                        });
+
+                        config.$navJump.on('click', function () {
+
+                            config.bb.jump(gon.bookmark);
+                            return false;
+
+                        });
+
+                        // add swipe events
+                        $slides.on({
+
+                            'swipeleft':function (event) {
+
+                                config.bb.next();
+                                return false;
+
+                            },
+                            'swiperight':function (event) {
+
+                                config.bb.prev();
+                                return false;
+
+                            }
+
+                        });
+
+                    };
+
+            return { init:init };
+
+        })();
+        Page.init();
+    })
+</script>
