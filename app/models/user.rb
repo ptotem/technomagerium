@@ -33,6 +33,9 @@ class User < ActiveRecord::Base
   after_save :admin_privileges
 
   def create_story_pages
+    self.mana=0
+    self.power=0
+    self.save
     unless Tome.all.count<2
       @tome=Tome.first
       UserState.create!(user_id: id, tome_id: @tome.id, bookmark: 0)

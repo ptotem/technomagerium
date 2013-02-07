@@ -22,8 +22,8 @@
                   <ul style="list-style-type:none;margin-left: -30px;">
                     <% @tome.puzzles.each_with_index do |puzzle, index| %>
                         <li><%= link_to puzzle.name, "#", :onclick => "flip_the_pages('#{index}')" %>
-                          <%= unless puzzle.games.where(user_id: current_user.id).first.blank? %>
-                              <%= if puzzle.games.where(user_id: current_user.id).first.solved %>
+                          <% unless puzzle.games.where(user_id: current_user.id).first.blank? %>
+                              <% if puzzle.games.where(user_id: current_user.id).first.solved %>
                                   <%= image_tag("complete.png", :style => "vertical-align:middle; width:32px") %>
                               <% end %>
                           <% end %>
