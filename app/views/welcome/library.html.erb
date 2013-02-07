@@ -45,7 +45,7 @@
         });
     });
     function show_help() {
-        $("#help").fadeOut(function () {
+        $("#help").animate({"opacity":"0"},function () {
             $('#help_arrow').animate({
                 'left':"200px"
             }, 1000, "easeOutBounce", function () {
@@ -67,7 +67,7 @@
                                         'left':"-100px"
                                     });
                                     $('.library_help').remove();
-                                    $("#help").show();
+                                    $("#help").css("opacity","1");
                                 });
                             })
                         });
