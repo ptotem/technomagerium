@@ -267,7 +267,7 @@ function unlock_clue(name) {
                         $('#actual_content').addClass('lore_text').append(parsed_return[3]);
                         break;
                     case 2:
-                        $('#actual_content').append('<img class="clue_image" src="/assets/' + parsed_return[3] + '_' + parsed_return[0] + '.png">');
+                        $('#actual_content').append('<img class="clue_image" src="/assets/' + parsed_return[3] + '_magic.png">');
                         break;
                     case 3:
                     {

@@ -13,7 +13,7 @@
     <div id="library_wallet" style="color: white;">
       <span id="magic_wallet"><%= current_user.mana %></span> <%= image_tag "magic.png" %><%= image_tag "techno.png" %>
       <span id="techno_wallet"><%= current_user.power %></span>
-      <span id="help" style="cursor:pointer;"><%= image_tag "help.png", :onclick => "$('#help_arrow').show();show_help()" %></span>
+      <span id="help" style="cursor:pointer;"><%= image_tag "help.png", :onclick => "show_help()" %></span>
     </div>
 
     <div id="help_arrow"><%= image_tag "arrowe.png" %></div>
@@ -45,8 +45,8 @@
         });
     });
     function show_help() {
-        $("#help").animate({"opacity":"0"},function () {
-            $('#help_arrow').animate({
+        $("#help").animate({"opacity":"0"}, function () {
+            $('#help_arrow').show().animate({
                 'left':"200px"
             }, 1000, "easeOutBounce", function () {
                 $('#help_arrow').append('<div class="library_help">Click on the spinner to rotate through the tomes</div>');
@@ -62,12 +62,16 @@
                             }, function () {
                                 $('#help_arrow').append('<div class="library_help">This is your current mana store. You gain mana by solving the tomes. You can spend this mana to buy clues when you get stuck on a creation puzzle.</div>');
                                 $('#help_arrow').delay(4000).fadeOut("slow", function () {
-                                    $('#help_arrow').css({
+                                    $('#help_arrow').animate({
                                         'top':"320px",
                                         'left':"-100px"
+                                    }, function () {
+                                        $('.library_help').remove();
+                                        setTimeout(function () {
+                                            $("#help").css("opacity", "1");
+                                        }, 2000);
+
                                     });
-                                    $('.library_help').remove();
-                                    $("#help").css("opacity","1");
                                 });
                             })
                         });

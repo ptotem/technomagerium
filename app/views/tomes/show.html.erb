@@ -21,7 +21,7 @@
                   <h2>Table of Contents</h2>
                   <ul style="list-style-type:none;margin-left: -30px;">
                     <% @tome.puzzles.each_with_index do |puzzle, index| %>
-                        <li><%= link_to puzzle.name, "#", :onclick => "flip_the_pages('#{index}')" %></li>
+                        <li><%= link_to puzzle.name, "#", :onclick => "flip_the_pages('#{index}')" %><%= image_tag("complete.png", :style => "vertical-align:middle; width:32px") if puzzle.games.where(user_id: current_user.id).first.solved %></li>
                     <% end %>
                   </ul>
                 </td>

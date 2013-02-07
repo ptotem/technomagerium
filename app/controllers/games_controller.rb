@@ -34,6 +34,15 @@ class GamesController < ApplicationController
             @game.counter=true
           when 2
             @game.revelation=true
+            @bitmask=@game.puzzle.combo.split(//).map { |c| c.to_i }
+            if @bitmask.sum>2
+              @response=@game.puzzle.tome.elements.split(",").select.with_index { |e, i| @bitmask[i] == 1 }.sample(Random.rand(2)+1).join(",")
+            else
+              @response=@game.puzzle.tome.elements.split(",").select.with_index { |e, i| @bitmask[i] == 1 }.sample
+            end
+            if @game.revealed.blank?
+              @game.revealed=@response
+            end
         end
       end
       @game.save
@@ -88,6 +97,9 @@ class GamesController < ApplicationController
           @game.user.save
           @status=@cost
           @response=@game.puzzle.lore
+          if @theme=="genesis" or @theme=="magic" or @theme=="summoner" or @theme=="mother" or @theme=="warmonger"
+            @theme="magic"
+          end
         else
           @status="You do not have enough resources to buy this"
           @theme="x"
@@ -97,11 +109,14 @@ class GamesController < ApplicationController
         @cost=@clue_costs[1]
         if (@game.puzzle.manacost and @cost <= @game.user.mana) or (!@game.puzzle.manacost and @cost <= @game.user.power)
           @game.counter=true
-          @theme=="magic" ? @game.user.mana-=@cost : @game.user.power-=@cost
+          @game.puzzle.manacost ? @game.user.mana-=@cost : @game.user.power-=@cost
           @game.save
           @game.user.save
           @status=@cost
           @response=@game.puzzle.combo.scan("1").count
+          if @theme=="genesis" or @theme=="magic" or @theme=="summoner" or @theme=="mother" or @theme=="warmonger"
+            @theme="magic"
+          end
         else
           @status="You do not have enough resources to buy this"
           @theme="x"
@@ -111,7 +126,7 @@ class GamesController < ApplicationController
         @cost=@clue_costs[2]
         if (@game.puzzle.manacost and @cost <= @game.user.mana) or (!@game.puzzle.manacost and @cost <= @game.user.power)
           @game.revelation=true
-          @theme=="magic" ? @game.user.mana-=@cost : @game.user.power-=@cost
+          @game.puzzle.manacost ? @game.user.mana-=@cost : @game.user.power-=@cost
           @status=@cost
           @bitmask=@game.puzzle.combo.split(//).map { |c| c.to_i }
           if @bitmask.sum>2
@@ -119,10 +134,12 @@ class GamesController < ApplicationController
           else
             @response=@game.puzzle.tome.elements.split(",").select.with_index { |e, i| @bitmask[i] == 1 }.sample
           end
-
           @game.revealed=@response
           @game.save
           @game.user.save
+          if @theme=="genesis" or @theme=="magic" or @theme=="summoner" or @theme=="mother" or @theme=="warmonger"
+            @theme="magic"
+          end
         else
           @status="You do not have enough resources to buy this"
           @theme="x"
@@ -138,7 +155,7 @@ class GamesController < ApplicationController
       when "lore"
         render :text => "#{@game.lore}||#{@game.puzzle.lore if @game.lore}"
       when "count"
-        render :text => "#{@game.counter}||#{@game.puzzle.combo.scan("1").count if @game.counter}_#{@game.puzzle.tome.theme if @game.counter}"
+        render :text => "#{@game.counter}||#{@game.puzzle.combo.scan("1").count if @game.counter}_magic"
       when "chance"
         render :text => "#{@game.revelation}||#{@game.revealed if @game.revelation}"
       when "explanation"
@@ -190,7 +207,7 @@ class GamesController < ApplicationController
             @game.puzzle.tome.ending.split("||").each_with_index do |e, index|
               StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)
             end
-            StoryPage.create!(user_id: @user.id, num: (StoryPage.find_all_by_user_id(@user.id).last.num+1 rescue 1), progress: (@game.puzzle.tome.sequence+1))
+            StoryPage.create!(user_id: @user.id, num: (StoryPage.find_all_by_user_id(@user.id).last.num+1 rescue 1), progress: (@game.puzzle.tome.sequence+1), chapter_break: true)
             @last_page=StoryPage.find_all_by_user_id(@user.id).last.num
             @next_tome=Tome.find_by_sequence_and_chapter(@game.puzzle.tome.sequence+1, @game.puzzle.tome.chapter)
             @next_tome.beginning.split("||").each_with_index do |e, index|
