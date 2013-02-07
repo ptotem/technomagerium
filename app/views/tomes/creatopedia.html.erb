@@ -3,6 +3,10 @@
         background: url(/assets/creatoback.jpg);
         background-size: 100% 100%;
     }
+
+    .iconic {
+        width: 40px;
+    }
 </style>
 <div id="main_wrapper">
   <%= image_tag "library.jpg", :class => "absolute_background", :style => "opacity:0.5" %>
@@ -72,7 +76,7 @@
                           <div class="creatoentry_note"><%= entry.description %></div>
                           <% @bitmask=entry.puzzle.combo.split(//).map { |c| c.to_i } %>
                           <% entry.puzzle.tome.elements.split(",").select.with_index { |e, i| @bitmask[i] == 1 }.each do |elmt| %>
-                              <%= image_tag "/assets/elements/#{elmt}-small.png", :style=>"width:40px" %>
+                              <%= image_tag "/assets/elements/#{elmt}-off.png", :class => "iconic" %>
                           <% end %>
                         </td>
                       </tr>
@@ -164,5 +168,16 @@
 
         })();
         Page.init();
+
+        $('img.iconic').load(
+                function () {
+                    $(this).data('height', this.height);
+                    $(this).data('width', this.width);
+                }).bind('mouseenter mouseleave', function (e) {
+                    $(this).stop().animate({
+                        height:$(this).data('height') * (e.type === 'mouseenter' ? 2 : 1),
+                        width:$(this).data('width') * (e.type === 'mouseenter' ? 2 : 1)
+                    });
+                });
     })
 </script>
