@@ -207,9 +207,9 @@ class GamesController < ApplicationController
             @game.puzzle.tome.ending.split("||").each_with_index do |e, index|
               StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)
             end
-            StoryPage.create!(user_id: @user.id, num: (StoryPage.find_all_by_user_id(@user.id).last.num+1 rescue 1), progress: (@game.puzzle.tome.sequence+1), chapter_break: true)
-            @last_page=StoryPage.find_all_by_user_id(@user.id).last.num
             unless Tome.find_all_by_chapter(@game.puzzle.tome.chapter).map { |t| t.sequence }.max== @game.puzzle.tome.sequence
+              StoryPage.create!(user_id: @user.id, num: (StoryPage.find_all_by_user_id(@user.id).last.num+1 rescue 1), progress: (@game.puzzle.tome.sequence+1), chapter_break: true)
+              @last_page=StoryPage.find_all_by_user_id(@user.id).last.num
               @next_tome=Tome.find_by_sequence_and_chapter(@game.puzzle.tome.sequence+1, @game.puzzle.tome.chapter)
               @next_tome.beginning.split("||").each_with_index do |e, index|
                 StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)

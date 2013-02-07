@@ -70,7 +70,10 @@
                           <br>
 
                           <div class="creatoentry_note"><%= entry.description %></div>
-
+                          <% @bitmask=entry.puzzle.combo.split(//).map { |c| c.to_i } %>
+                          <% entry.puzzle.tome.elements.split(",").select.with_index { |e, i| @bitmask[i] == 1 }.each do |elmt| %>
+                              <%= image_tag "/assets/elements/#{elmt}-small.png", :style=>"width:40px" %>
+                          <% end %>
                         </td>
                       </tr>
                   <% end %>
