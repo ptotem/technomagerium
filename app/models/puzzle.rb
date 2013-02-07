@@ -6,7 +6,7 @@ class Puzzle < ActiveRecord::Base
   belongs_to :tome
 
   def clue_cost_schema_enum
-    ['none', 'steep', 'cheap', 'flat','count','lore' ]
+    ['none', 'steep', 'cheap', 'flat','count','lore','free','flatplus' ]
   end
 
 end
