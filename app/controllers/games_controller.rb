@@ -187,8 +187,14 @@ class GamesController < ApplicationController
             @redirection="/play/#{Puzzle.find_by_sequence(greater_than.min).id}"
           end
         end
+        @attack="<span class='blocky red'></span>"*@game.puzzle.encyclopedia_entry.attack
+        @defense="<span class='blocky yellow'></span>"*@game.puzzle.encyclopedia_entry.defense
+        @speed="<span class='blocky green'></span>"*@game.puzzle.encyclopedia_entry.speed
+        @magic="<span class='blocky blue'></span>"*@game.puzzle.encyclopedia_entry.magic
 
-        render :text => "#{@game.solved}||#{@game.puzzle.explanation if @game.solved}||#{@redirection if @game.solved}"
+        @display="#{@game.puzzle.encyclopedia_entry.description}<br/><table class='creatoentry_stats'><tr><td>Attack</td><td><div class='blocky_back'>"+@attack+"</div></td></tr><tr><td>Defense</td><td><div class='blocky_back'>"+@defense+"</div></td></tr><tr><td>Speed</td><td><div class='blocky_back'>"+@speed+"</div></td></tr><tr><td>Magic</td><td><div class='blocky_back'>"+@magic+"</div></td></tr></table>"
+
+        render :text => "#{@game.solved}||#{@display if @game.solved}||#{@redirection if @game.solved}"
     end
   end
 

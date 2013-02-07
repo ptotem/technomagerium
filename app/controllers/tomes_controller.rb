@@ -1,7 +1,7 @@
 class TomesController < ApplicationController
   def show
     @tome=Tome.find(params[:id])
-    unless current_user.user_state.tome==@tome
+    unless current_user.user_state.tome==@tome or current_user.user_state.tome.sequence> @tome.sequence
       current_user.user_state.tome_id=@tome.id
     end
     current_user.user_state.bookmark=StoryPage.last.num
