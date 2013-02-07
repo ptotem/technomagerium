@@ -62,7 +62,7 @@ function solved() {
         success:function (returning_data) {
 
             $('#actual_content').css("height", "200px");
-            show_unlocked("lore", returning_data.split("||")[1]);
+            show_unlocked("explanation", returning_data.split("||")[1]);
             $('#target_back').fadeOut();
             $('#reward_table').fadeOut();
             $('#content_block').css({
@@ -75,7 +75,7 @@ function solved() {
             $('#puzzlename').animate({
                 'color':'white'
             });
-            $('#game_wrapper').append("<div class='next_puzzle'><a href='"+returning_data.split("||")[2]+"'><img src='/assets/continue.png'></a></div>")
+            $('#game_wrapper').append("<div class='next_puzzle'><a href='" + returning_data.split("||")[2] + "'><img src='/assets/continue.png'></a></div>")
             $('.next_puzzle').animate({
                 "right":"145px"
             }, 'fast');
@@ -220,6 +220,10 @@ function show_unlocked(name, data) {
     } else {
         if (name == "chance") {
             index = 3;
+        } else {
+            if (name == "explanation") {
+                index = 4;
+            }
         }
     }
 
@@ -242,6 +246,9 @@ function show_unlocked(name, data) {
                 });
                 break;
             }
+            case 4:
+                $('#actual_content').append(data);
+                break;
         }
 
         $('#content_block').fadeIn('slow');

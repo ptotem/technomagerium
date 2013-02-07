@@ -373,7 +373,7 @@ img.wallet_icon {
 }
 
 .next_puzzle {
-  bottom: 50px;
+  bottom: 30px;
   color: white;
   font-size: 36px;
   position: absolute;
@@ -478,4 +478,10 @@ img.wallet_icon {
 
 .green {
   background: #c1c24b
+}
+.explanation_back{
+  padding:20px;
+  background: black;
+  opacity:0.8;
+  border-radius: 10px;
 }

@@ -161,15 +161,9 @@ class GamesController < ApplicationController
       when "explanation"
         @tome_completion = @game.puzzle.tome.puzzles.count - current_user.games.where('solved=?', true).map { |g| g.puzzle }.select { |p| p.tome_id==@game.puzzle.tome.id }.count
         if @tome_completion==0
-          @puzzle_count=Tome.where('chapter=?', @game.puzzle.tome.chapter).all.map { |t| t.puzzles.count }.sum
-          @game_count=Tome.where('chapter=?', @game.puzzle.tome.chapter).all.map { |t| t.puzzles }.flatten.map { |p| p.games.where(user_id: current_user.id) }.flatten.select { |g| g.solved }.count
-          if @puzzle_count==@game_count
-            @redirection="/library/#{@game.puzzle.tome.chapter+1}"
-          else
-            @redirection="/knowledge/#{Tome.where('chapter=?', @game.puzzle.tome.chapter).where(theme: "").first.id}"
-          end
-          unless current_user.user_state.tome==Tome.find_by_sequence(@game.puzzle.tome.sequence+1)
-            current_user.user_state.tome_id=Tome.find_by_sequence(@game.puzzle.tome.sequence+1).id
+          @redirection="/knowledge/#{Tome.where('chapter=?', @game.puzzle.tome.chapter).where(theme: "").first.id}"
+          unless current_user.user_state.tome==Tome.find_by_chapter_and_sequence(@game.puzzle.tome.chapter, @game.puzzle.tome.sequence+1) or Tome.find_by_chapter_and_sequence(@game.puzzle.tome.chapter, @game.puzzle.tome.sequence+1).blank?
+            current_user.user_state.tome_id=Tome.find_by_chapter_and_sequence(@game.puzzle.tome.chapter, @game.puzzle.tome.sequence+1).id
             current_user.user_state.save
           end
         else
@@ -192,9 +186,9 @@ class GamesController < ApplicationController
         @speed="<span class='blocky green'></span>"*@game.puzzle.encyclopedia_entry.speed
         @magic="<span class='blocky blue'></span>"*@game.puzzle.encyclopedia_entry.magic
 
-        @display="#{@game.puzzle.encyclopedia_entry.description}<br/><table class='creatoentry_stats'><tr><td>Attack</td><td><div class='blocky_back'>"+@attack+"</div></td></tr><tr><td>Defense</td><td><div class='blocky_back'>"+@defense+"</div></td></tr><tr><td>Speed</td><td><div class='blocky_back'>"+@speed+"</div></td></tr><tr><td>Magic</td><td><div class='blocky_back'>"+@magic+"</div></td></tr></table>"
+        @display="<div class='explanation_back'>#{@game.puzzle.encyclopedia_entry.description}<br/><table class='creatoentry_stats'><tr><td>Attack</td><td><div class='blocky_back'>"+@attack+"</div></td></tr><tr><td>Defense</td><td><div class='blocky_back'>"+@defense+"</div></td></tr><tr><td>Speed</td><td><div class='blocky_back'>"+@speed+"</div></td></tr><tr><td>Magic</td><td><div class='blocky_back'>"+@magic+"</div></td></tr></table></div>"
 
-        render :text => "#{@game.solved}||#{@display if @game.solved}||#{@redirection if @game.solved}"
+        render :text => "#{@game.solved}||"+@display+"||#{@redirection if @game.solved}"
     end
   end
 
@@ -215,9 +209,11 @@ class GamesController < ApplicationController
             end
             StoryPage.create!(user_id: @user.id, num: (StoryPage.find_all_by_user_id(@user.id).last.num+1 rescue 1), progress: (@game.puzzle.tome.sequence+1), chapter_break: true)
             @last_page=StoryPage.find_all_by_user_id(@user.id).last.num
-            @next_tome=Tome.find_by_sequence_and_chapter(@game.puzzle.tome.sequence+1, @game.puzzle.tome.chapter)
-            @next_tome.beginning.split("||").each_with_index do |e, index|
-              StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)
+            unless Tome.find_all_by_chapter(@game.puzzle.tome.chapter).map { |t| t.sequence }.max== @game.puzzle.tome.sequence
+              @next_tome=Tome.find_by_sequence_and_chapter(@game.puzzle.tome.sequence+1, @game.puzzle.tome.chapter)
+              @next_tome.beginning.split("||").each_with_index do |e, index|
+                StoryPage.create!(user_id: @user.id, num: (@last_page+index+1), progress: e)
+              end
             end
           end
         end
