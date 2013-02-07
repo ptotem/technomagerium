@@ -1,9 +1,9 @@
 <style type="text/css">
-  a {
-      text-decoration: none;
-      font-weight: bold;
-      color:black;
-  }
+    a {
+        text-decoration: none;
+        font-weight: bold;
+        color: black;
+    }
 </style>
 <div id="main_wrapper">
   <%= image_tag "library.jpg", :class => "absolute_background", :style => "opacity:0.5" %>
@@ -21,7 +21,13 @@
                   <h2>Table of Contents</h2>
                   <ul style="list-style-type:none;margin-left: -30px;">
                     <% @tome.puzzles.each_with_index do |puzzle, index| %>
-                        <li><%= link_to puzzle.name, "#", :onclick => "flip_the_pages('#{index}')" %><%= image_tag("complete.png", :style => "vertical-align:middle; width:32px") if puzzle.games.where(user_id: current_user.id).first.solved %></li>
+                        <li><%= link_to puzzle.name, "#", :onclick => "flip_the_pages('#{index}')" %>
+                          <%= unless puzzle.games.where(user_id: current_user.id).first.blank? %>
+                              <%= if puzzle.games.where(user_id: current_user.id).first.solved %>
+                                  <%= image_tag("complete.png", :style => "vertical-align:middle; width:32px") %>
+                              <% end %>
+                          <% end %>
+                        </li>
                     <% end %>
                   </ul>
                 </td>
@@ -84,16 +90,16 @@
         var Page = (function () {
 
             config = {
-                        $bookBlock:$('#bb-bookblock'),
-                        $navNext:$('#bb-nav-next'),
-                        $navPrev:$('#bb-nav-prev'),
-                        $navJump:$('#bb-nav-jump'),
-                        bb:$('#bb-bookblock').bookblock({
-                            speed:800,
-                            shadowSides:0.8,
-                            shadowFlip:0.7
-                        })
-                    },
+                $bookBlock:$('#bb-bookblock'),
+                $navNext:$('#bb-nav-next'),
+                $navPrev:$('#bb-nav-prev'),
+                $navJump:$('#bb-nav-jump'),
+                bb:$('#bb-bookblock').bookblock({
+                    speed:800,
+                    shadowSides:0.8,
+                    shadowFlip:0.7
+                })
+            },
                     init = function () {
 
                         initEvents();
@@ -154,7 +160,7 @@
     })
 
     function flip_the_pages(index) {
-            config.bb.jump(parseInt(index)+2);
+        config.bb.jump(parseInt(index) + 2);
     }
 
 
