@@ -43,7 +43,8 @@
           },
           function(response) {
               if (!response || response.error) {
-                  alert('Error occurred');
+                  alert('response');
+                  alert('response.error');
                } else {
                   alert('Creatomes was successful! Action ID: ' + response.id);
                }
