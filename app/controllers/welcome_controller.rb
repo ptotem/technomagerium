@@ -18,7 +18,7 @@ class WelcomeController < ApplicationController
 
     @graph = Koala::Facebook::API.new("AAAB7MQaJdbMBAAwYykwBEbOh4Lsq1PWFlt2TQkoHidhAvtLlxca1gJCbOp8pkpNx6PvhDr5EHuJjNCwmt90UQJnKvL9ZCGIZB9kWlJCwZDZD")
 
-    @profile = @graph.get_object("me")
+    #@profile = @graph.get_object("me")
     #@friends = @graph.get_connections("me", "friends")
     #@graph.put_connections("me", "feed", :message => "Testing a facebook app. Please ignore.")
 
@@ -32,21 +32,21 @@ class WelcomeController < ApplicationController
 
 
   end
-  def put_wall_post(message, attachment = {}, profile_id = "me")
-        # Writes a wall post to the given profile's wall.
-        #
-        # We default to writing to the authenticated user's wall if no
-        # profile_id is specified.
-        #
-        # attachment adds a structured attachment to the status message being
-        # posted to the Wall. It should be a dictionary of the form:
-        #
-        #     {"name": "Link name"
-        #      "link": "http://www.example.com/",
-        #      "caption": "{*actor*} posted a new review",
-        #      "description": "This is a longer description of the attachment",
-        #      "picture": "http://www.example.com/thumbnail.jpg"}
-
-        self.put_object(profile_id, "feed", attachment.merge({:message => message}))
-      end
+  #def put_wall_post(message, attachment = {}, profile_id = "me")
+  #      # Writes a wall post to the given profile's wall.
+  #      #
+  #      # We default to writing to the authenticated user's wall if no
+  #      # profile_id is specified.
+  #      #
+  #      # attachment adds a structured attachment to the status message being
+  #      # posted to the Wall. It should be a dictionary of the form:
+  #      #
+  #      #     {"name": "Link name"
+  #      #      "link": "http://www.example.com/",
+  #      #      "caption": "{*actor*} posted a new review",
+  #      #      "description": "This is a longer description of the attachment",
+  #      #      "picture": "http://www.example.com/thumbnail.jpg"}
+  #
+  #      self.put_object(profile_id, "feed", attachment.merge({:message => message}))
+  #    end
 end
