@@ -169,15 +169,5 @@
         })();
         Page.init();
 
-        $('img.iconic').load(
-                function () {
-                    $(this).data('height', this.height);
-                    $(this).data('width', this.width);
-                }).bind('mouseenter mouseleave', function (e) {
-                    $(this).stop().animate({
-                        height:$(this).data('height') * (e.type === 'mouseenter' ? 2 : 1),
-                        width:$(this).data('width') * (e.type === 'mouseenter' ? 2 : 1)
-                    });
-                });
     })
 </script>
