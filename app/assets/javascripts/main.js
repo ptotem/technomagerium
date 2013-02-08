@@ -75,7 +75,7 @@ function solved() {
             $('#puzzlename').animate({
                 'color':'white'
             });
-            $('#game_wrapper').append("<div class='next_puzzle'><a href='"+returning_data.split("||")[2]+"'><img src='/assets/continue.png'></a></div>")
+            $('#game_wrapper').append("<div class='next_puzzle'><a href='" + returning_data.split("||")[2] + "'><img src='/assets/continue.png'></a></div>")
             $('.next_puzzle').animate({
                 "right":"145px"
             }, 'fast');
@@ -94,7 +94,8 @@ function check_combo(checker) {
                 solved();
                 $('#magic_wallet').text(returning_data.split("||")[1]);
                 $('#techno_wallet').text(returning_data.split("||")[2]);
-//                $('#game_wrapper').prepend("<span class='callout' id='nowork'><img src='/assets/donecallout.png'></span>");
+                postGame();
+//  $('#game_wrapper').prepend("<span class='callout' id='nowork'><img src='/assets/donecallout.png'></span>");
             } else {
                 $('#game_wrapper').prepend("<span class='callout' id='nowork'><img src='/assets/callout.png'></span>");
                 setTimeout(function () {

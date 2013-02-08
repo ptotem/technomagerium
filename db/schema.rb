@@ -93,7 +93,6 @@ ActiveRecord::Schema.define(:version => 20130206071128) do
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
     t.integer  "sequence"
-    t.boolean  "open"
     t.boolean  "openable"
     t.integer  "chapter",                 :default => 1
     t.text     "beginning"
@@ -121,8 +120,8 @@ ActiveRecord::Schema.define(:version => 20130206071128) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "power",                  :default => 1000
-    t.integer  "mana",                   :default => 1000
+    t.integer  "power",                  :default => 0
+    t.integer  "mana",                   :default => 0
     t.integer  "score",                  :default => 0
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
