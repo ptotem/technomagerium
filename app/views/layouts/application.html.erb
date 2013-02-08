@@ -17,19 +17,37 @@
   <%= csrf_meta_tags %>
 
   <script type="text/javascript">
+//    function postGame()
+//    {
+//        FB.api(
+//          '/me/creatomes:complete',
+//          'post',
+//          { Creation: 'http://apps.facebook.com/135450493285811' },
+//          function(response) {
+//             if (!response || response.error) {
+//                alert('Error occurred');
+//             } else {
+//                alert('Creatomes was successful! Action ID: ' + response.id);
+//             }
+//          });
+//    }
+
     function postGame()
     {
         FB.api(
-          '/me/creatomes:complete',
+          'me/creatomes:complete',
           'post',
-          { Creation: 'http://apps.facebook.com/135450493285811' },
+          {
+            creation: "http://samples.ogp.me/140292219468305"
+          },
           function(response) {
-             if (!response || response.error) {
-                alert('Error occurred');
-             } else {
-                alert('Creatomes was successful! Action ID: ' + response.id);
-             }
-          });
+              if (!response || response.error) {
+                  alert('Error occurred');
+               } else {
+                  alert('Creatomes was successful! Action ID: ' + response.id);
+               }
+          }
+        );
     }
   </script>
 </head>
