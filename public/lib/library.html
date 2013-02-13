@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<head>
+    <title>The Creatomes: A game of magic, technology and creation</title>
+    <script data-main="/js/core/initializer.js" src="/js/bin/require-jquery.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.roundabout.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.roundaboutshapes.min.js"></script>
+    <link rel="stylesheet" href="/css/initializer.css">
+</head>
+<body>
+<div id="main_wrapper">
+    <img class="absolute_background" src="library.jpg" alt="">
+
+    <div id="tomeset">
+        <div id="library_wallet" style="color: white;">
+            <span id="magic_wallet"></span>
+            <img src="magic.png">
+            <img src="techno.png">
+            <span id="techno_wallet"></span>
+            <span id="help" style="cursor:pointer;">
+            <img src="help.png" onclick="show_help()">
+            </span>
+        </div>
+
+        <div id="help_arrow"><img src="arrowe.png" alt=""></div>
+
+        <ul class="tomes">
+            <% @tomes.each do |tome| %>
+            <% if tome.theme.blank? %>
+            <li><%= link_to image_tag(tome.avatar.url), knowledge_path(tome) %></li>
+            <% else %>
+            <li><%= link_to image_tag(tome.avatar.url), tome_show_path(tome) %></li>
+            <% end %>
+            <% end %>
+        </ul>
+        <a href="#" class="next_round"><img src="rotate.png" alt=""></a>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    function initialize() {
+        if (localStorage.help_on) {
+            show_help();
+        }
+        $('#magic_wallet').html(localStorage.magic_wallet);
+        $('#techno_wallet').html(localStorage.techno_wallet);
+        $('ul.tomes').roundabout({
+            btnNext:".next_round"
+        });
+    }
+
+    function show_help() {
+        $("#help").animate({"opacity":"0"}, function () {
+            $('#help_arrow').show().animate({
+                'left':"200px"
+            }, 1000, "easeOutBounce", function () {
+                $('#help_arrow').append('<div class="library_help">Click on the spinner to rotate through the tomes</div>');
+                $('.library_help').delay(2000).fadeOut("slow", function () {
+                    $('#help_arrow').animate({
+                        'top':"150px"
+                    }, 1000, "easeOutBounce", function () {
+                        $('#help_arrow').append('<div class="library_help">Click on a tome when it is in the center to open it</div>');
+                        $('.library_help').delay(2000).fadeOut("slow", function () {
+                            $('#help_arrow').animate({
+                                'top':"40px",
+                                'left':"340px"
+                            }, function () {
+                                $('#help_arrow').append('<div class="library_help">This is your current mana store. You gain mana by solving the tomes. You can spend this mana to buy clues when you get stuck on a creation puzzle.</div>');
+                                $('#help_arrow').delay(4000).fadeOut("slow", function () {
+                                    $('#help_arrow').animate({
+                                        'top':"320px",
+                                        'left':"-100px"
+                                    }, function () {
+                                        $('.library_help').remove();
+                                        setTimeout(function () {
+                                            $("#help").css("opacity", "1");
+                                        }, 2000);
+
+                                    });
+                                });
+                            })
+                        });
+                    })
+                });
+            });
+        })
+    }
+</script>
+
+<style type="text/css">
+    #help_arrow {
+        position: absolute;
+        top: 320px;
+        left: -100px;
+    }
+</style>
