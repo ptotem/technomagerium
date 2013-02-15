@@ -17,39 +17,27 @@
                   Start
                 </span>
                     <div id="prologue" style="display: none; font-size:14px;padding: 20px;width: 400px; ">
-                      Dust.
+                      Light the fire. Blow the wind. Create ripples in the water. Smelt the iron. Tear the leather. Axe
+                      down the wood. Bring to life the dead and the undead. And in doing thus, recreate the universe. If
+                      not as we’d known it, ‘tleast as we’d dream it.
                       <br>
                       <br>
-                      That was all that remained. The universe, his beautiful creation, had ended. So utterly and
-                      completely,
-                      that it
-                      was like it never existed.
+                      Play this exciting and challenging puzzle game by taking on the role of The Creator and his tribe of Eternals. Purchase the
+                      clues in each puzzle with the mana and power you earn, put the correct elements together and
+                      produce a creation. Unlock tomes and parts of the story of the universe you are creating as you
+                      solve more puzzles.
                       <br>
                       <br>
-                      The Creator sighed. He had really hoped it would last longer than a few aeons this time around.
-                      But his
-                      creation
-                      had disappointed him. Over the ages, he had allowed the Races knowledge, in the hope that they
-                      would be
-                      creators
-                      themselves. But in that knowledge, the Races only saw power. Power that bred greed, a greed
-                      which couldn't be
-                      contained. The struggle to gain control of the universe had led to the creation of
-                      unfathomable
-                      weapons,
-                      and unending wars. Until all that was left was empty space and the dust of once
-                      powerful Races
-                      floating around the universe.
-                      <br>
-                      <br>
-                      Dust. The Creator walked slowly once again to the abandoned library at the edge of time. Dust was
-                      enough
-                      to start
-                      with...
                     </div>
+              <br>
             </span>
 
     </a>
+
+    <div id="fbliker" style ="position:absolute;left:-450px;bottom:200px;padding:10px; background: white;">
+      <fb:like send="true" width="420" show_faces="true"></fb:like>
+    </div>
+
     <%= link_to image_tag("gate.png"), '/users/auth/facebook', :style => "position:absolute;right:40px;bottom:10px;display:none;", :id => "gate" %>
   </div>
 </div>
@@ -58,7 +46,7 @@
 <script type="text/javascript">
     $(function () {
         setTimeout(function () {
-            $('#main_wrapper').fadeIn("slow")
+            $('#main_wrapper').fadeIn("slow");
         }, 500);
     });
 
@@ -68,12 +56,15 @@
             "left":"-10px"
         }, function () {
             $('#portal').animate({
-                "bottom":"160px",
-                "height":"330px",
+                "bottom":"260px",
+                "height":"230px",
                 "opacity":"0.8"
             }, function () {
                 $('#prologue').fadeIn();
                 $('#gate').show();
+                $('#fbliker').animate({
+                    "left":"15px"
+                },'fast');
             })
         })
     }

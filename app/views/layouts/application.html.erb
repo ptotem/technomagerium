@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:fb="http://ogp.me/ns/fb#" xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US"  xmlns:fb="https://www.facebook.com/2008/fbml">
-<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# creatomes: http://ogp.me/ns/fb/creatomes#">
+<html xmlns:fb="http://ogp.me/ns/fb#">
+<head>
   <title>The Creatomes: A game of magic, technology and creation</title>
-  <meta property="fb:app_id" content="135450493285811" />
+
   <meta property="og:title" content="The Creatomes" />
-  <!--<meta property="og:type" content="game" />-->
-  <meta property="og:type"   content="creatomes:creation" />
-  <meta property="og:url" content="http://apps.facebook.com/135450493285811" />
+  <meta property="og:type" content="game" />
+  <meta property="og:url" content="http://creatomes.ptotemy.com/users/sign_in" />
   <meta property="og:image" content="http://photos-f.ak.fbcdn.net/photos-ak-snc7/p235x350/v27562/87/336809659766163/app_112_336809659766163_1561688805.jpg" />
   <meta property="og:site_name" content="The Creatomes" />
   <meta property="fb:admins" content="666106288" />
@@ -16,44 +15,36 @@
   <link href='http://fonts.googleapis.com/css?family=Englebert' rel='stylesheet' type='text/css'>
   <%= include_gon %>
   <%= csrf_meta_tags %>
-
-  <script type="text/javascript">
-//    function postGame()
-//    {
-//        FB.api(
-//          '/me/creatomes:complete',
-//          'post',
-//          { Creation: 'http://apps.facebook.com/135450493285811' },
-//          function(response) {
-//             if (!response || response.error) {
-//                alert('Error occurred');
-//             } else {
-//                alert('Creatomes was successful! Action ID: ' + response.id);
-//             }
-//          });
-//    }
-
-    function postGame()
-    {
-        FB.api(
-          'me/creatomes:complete',
-          'post',
-          {
-            creation: "http://apps.facebook.com/135450493285811"
-          },
-          function(response) {
-              if (!response || response.error) {
-                  alert('response');
-                  alert('response.error');
-               } else {
-                  alert('Creatomes was successful! Action ID: ' + response.id);
-               }
-          }
-        );
-    }
-  </script>
 </head>
 <body>
+<script>
+  window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : '135450493285811', // App ID from the App Dashboard
+      channelUrl : '//creatomes.ptotemy.com/channel.html', // Channel File for x-domain communication
+      status     : true, // check the login status upon init?
+      cookie     : true, // set sessions cookies to allow your server to access the session?
+      xfbml      : true  // parse XFBML tags on this page?
+    });
+
+    // Additional initialization code such as adding Event Listeners goes here
+
+  };
+
+  // Load the SDK's source Asynchronously
+  // Note that the debug version is being actively developed and might
+  // contain some type checks that are overly strict.
+  // Please report such bugs using the bugs tool.
+  (function(d, debug){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document, /*debug*/ false));
+</script>
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -62,25 +53,6 @@
   js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=135450493285811";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-
-<script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '135450493285811', // App ID
-        status     : true, // check login status
-        cookie     : true, // enable cookies to allow the server to access the session
-        xfbml      : true  // parse XFBML
-      });
-    };
-
-    // Load the SDK Asynchronously
-    (function(d){
-      var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-      js = d.createElement('script'); js.id = id; js.async = true;
-      js.src = "//connect.facebook.net/en_US/all.js";
-      d.getElementsByTagName('head')[0].appendChild(js);
-    }(document));
-</script>
 
 <%= yield %>
 
