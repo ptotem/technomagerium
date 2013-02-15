@@ -22,8 +22,6 @@ require(script_set, function ($) {
             initialize_routes();
             Path.listen();
             initialize();
-            console.log(list[0]);
-            console.log(list[1]);
         });
     });
 });

@@ -23,15 +23,7 @@
 
         <div id="help_arrow"><img src="arrowe.png" alt=""></div>
 
-        <ul class="tomes">
-            <% @tomes.each do |tome| %>
-            <% if tome.theme.blank? %>
-            <li><%= link_to image_tag(tome.avatar.url), knowledge_path(tome) %></li>
-            <% else %>
-            <li><%= link_to image_tag(tome.avatar.url), tome_show_path(tome) %></li>
-            <% end %>
-            <% end %>
-        </ul>
+        <ul class="tomes"></ul>
         <a href="#" class="next_round"><img src="rotate.png" alt=""></a>
     </div>
 </div>
@@ -45,6 +37,15 @@
         }
         $('#magic_wallet').html(localStorage.magic_wallet);
         $('#techno_wallet').html(localStorage.techno_wallet);
+
+        $.each(list[0],function(index,value){
+            if(value.theme!=''){
+                $('ul.tomes').append('<li><a href=""><img src="/img/tome_icons/'+value.name.split(" ")[3].toLowerCase()+'.png"></a></li>')
+            }
+            else{
+                $('ul.tomes').append('<li><a href="/#/knowledge/'+localStorage.chapter+'"><img src="/img/tome_icons/thestory.png"></a></li>')
+            }
+        });
         $('ul.tomes').roundabout({
             btnNext:".next_round"
         });

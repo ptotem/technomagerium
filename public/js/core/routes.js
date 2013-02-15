@@ -11,9 +11,15 @@ function initialize_routes() {
 
     // Route to the Library with id being the chapter
 
-    Path.map("#/library/:id").to(function () {
-        window.location="/lib/library.html?="+this.params["id"]
-    }).enter(clearPanel);
+    Path.map("#/library/:id").to(
+        function () {
+            window.location = "/lib/library.html?=" + this.params["id"]
+        }).enter(clearPanel);
+
+    Path.map("#/knowledge/:chapter_id").to(
+        function () {
+            window.location = "/lib/knowledge.html?=" + this.params["chapter_id"]
+        }).enter(clearPanel);
 
 //    Path.root("#/posts");
 }

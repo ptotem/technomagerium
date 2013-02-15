@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<head>
+    <title>The Creatomes: A game of magic, technology and creation</title>
+    <script data-main="/js/core/initializer.js" src="/js/bin/require-jquery.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.amodernizr.custom.79639.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.bookblock.js"></script>
+    <link rel="stylesheet" href="/css/initializer.css">
+</head>
+<body>
+<div id="main_wrapper">
+    <img class="absolute_background" src="library.jpg" style="opacity: 0.5">
+
+    <div id="thestorybook">
+        <section class="main">
+            <div class="bb-custom-wrapper">
+                <a class="closer pnbuttons" href="#"><img src="close.png"></a>
+
+                <div id="bb-bookblock" class="bb-bookblock">
+                    <div class="bb-item">
+                        <% if story_page.chapter_break %>
+                        <%= image_tag Tome.find(story_page.progress).cover_page.url %>
+                        <% if Tome.find(story_page.progress).theme.blank? %>
+                        <% unless current_user.user_state.bookmark==0 %>
+                        <%= link_to image_tag("bookmark.png"), "#", :style =>
+                        "position:absolute;bottom:20px;right:100px;", :id => "bookmark" %>
+                        <% end %>
+                        <% else %>
+                        <%= link_to image_tag("skipper.png"), "#", :style =>
+                        "position:absolute;bottom:100px;right:100px;" %>
+                        <% end %>
+                        <% else %>
+                        <table class="bb-table-story">
+                            <tr>
+                                <td><%= raw story_page.progress.split('|p|')[0] %></td>
+                                <td><%= raw story_page.progress.split('|p|')[1] %></td>
+                            </tr>
+                        </table>
+                        <% end %>
+                    </div>
+                    <% end %>
+                    <div class="bb-item" id="next_pager">
+                        <a href="<%= @redirection %>"><%= image_tag "continue_page.jpg" %></a>
+                    </div>
+                </div>
+                <nav>
+                    <a id="bb-nav-prev" class="pnbuttons" href="#"
+                       onclick="$('.pnbuttons').fadeOut(100).delay(1000).fadeIn()"><%= image_tag "prev.png" %></a>
+                    <a id="bb-nav-next" class="pnbuttons" href="#"
+                       onclick="$('.pnbuttons').fadeOut(100).delay(1000).fadeIn()"><%= image_tag "next.png" %></a>
+                </nav>
+            </div>
+        </section>
+        <% unless EncyclopediaEntry.first.blank? %>
+        <%= link_to image_tag("encyclopedia.png", :style => "position:absolute;right:-60px;top:240px;"),
+        creatopedia_path(@tome) %>
+        <% end %>
+    </div>
+
+
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    function initialize() {
+        $.each(list[0], function (index, value) {
+            if (value.theme != '') {
+                $('ul.tomes').append('<li><a href=""><img src="/img/tome_icons/' + value.name.split(" ")[3].toLowerCase() + '.png"></a></li>')
+            }
+            else {
+                $('ul.tomes').append('<li><a href="/#/knowledge/' + localStorage.chapter + '"><img src="/img/tome_icons/thestory.png"></a></li>')
+            }
+        });
+        var Page = (function () {
+            var config = {
+                        $bookBlock:$('#bb-bookblock'),
+                        $navNext:$('#bb-nav-next'),
+                        $navPrev:$('#bb-nav-prev'),
+                        $navJump:$('#bookmark'),
+                        bb:$('#bb-bookblock').bookblock({
+                            speed:800,
+                            shadowSides:0.8,
+                            shadowFlip:0.7
+                        })
+                    },
+                    init = function () {
+                        initEvents();
+                    },
+                    initEvents = function () {
+
+                        var $slides = config.$bookBlock.children(),
+                                totalSlides = $slides.length;
+
+                        // add navigation events
+                        config.$navNext.on('click', function () {
+
+                            config.bb.next();
+                            return false;
+
+                        });
+
+                        config.$navPrev.on('click', function () {
+
+                            config.bb.prev();
+                            return false;
+
+                        });
+
+                        config.$navJump.on('click', function () {
+
+                            config.bb.jump(gon.bookmark);
+                            return false;
+
+                        });
+
+                        // add swipe events
+                        $slides.on({
+
+                            'swipeleft':function (event) {
+
+                                config.bb.next();
+                                return false;
+
+                            },
+                            'swiperight':function (event) {
+
+                                config.bb.prev();
+                                return false;
+
+                            }
+
+                        });
+
+                    };
+
+            return { init:init };
+
+        })();
+        Page.init();
+
+    }
+</script>
