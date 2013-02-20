@@ -1,65 +1,263 @@
-<div id="main_wrapper">
-  <div id="launch_page">
-    <%= image_tag "title.jpg", :class => "background" %>
-    <img id="parchment" src="/assets/parchment.png" alt="parchment" class="parchment">
-    <img id="catchphrase" src="/assets/catchphrase.png" alt="catchphrase" class="catchphrase">
-    <img id="sitename" src="/assets/sitename.png" alt="the technomagerium" class="sitename">
-    <a href="#" id="entering">
-      <%= image_tag "portal.gif", :id => "portal" %>
-      <img id="instruction" src="/assets/click.jpg" alt="instruction">
+<!--TODO: Sort out Table of contents and link up the pages-->
+<!--TODO: Fix the help -->
+<style type="text/css">
+
+    #help_arrow {
+        position: absolute;
+        top: 320px;
+        left: -100px;
+    }
+
+</style>
+<div id="main_wrapper" style="overflow: hidden">
+  <%= image_tag "library.jpg", :class => "absolute_background" %>
+  <div id="buttonset">
+    <a href="#">
+      <button class="styled_button fixed_size">Story</button>
+    </a>
+    <br>
+    <br>
+    <a href="#">
+      <button class="styled_button fixed_size">Creatopedia</button>
+    </a>
+    <br>
+    <br>
+    <a href="#">
+      <button class="styled_button fixed_size">Instructions</button>
     </a>
   </div>
-  <div id="welcome_note">
-    <% if current_user.sign_in_count==0 %>
-        You have <%= current_user.power %> Power and <%= current_user.mana %> Mana
-    <% else %>
-        <%= image_tag "creatome.gif", :style => "float:left; margin-left:0px;margin-right:20px;margin-top:15px;width:222px;border-radius:10px" %>
-        <br>
-        Everything has an end. And the universe was no exception.
-        <br>
-        <br>
-        And so it came to pass, that in the last days of the universe, I stood before the giant amber gates of
-        the library at the edge of creation. Here dwelt the Mystic and the Mechanic,
-        the ones charged to create everything anew. And I knew I was welcome, for I was
-        the one they had waited an eternity for.
-        <br>
-        <br>
-        <span style="font-size: 24px;font-weight: bold">For I was the bearer of the Creatomes, the seeds of creation...</span>
-    <% end %>
-  </div>
-  <div id="welcome_menu">
-    <%= link_to image_tag("start.png"), library_path %>
-  </div>
+  <div id="tomeset">
+    <div id="library_wallet">
+      <span id="magic_wallet"><%= current_user.mana %></span> <%= image_tag "magic.png" %><%= image_tag "techno.png" %>
+      <span id="techno_wallet"><%= current_user.power %></span>
+      <span id="help" style="cursor:pointer;margin-left: 10px;"><%= image_tag "help.png", :onclick => "show_help()" %></span>
+    </div>
 
+    <div id="help_arrow"><%= image_tag "arrowe.png" %></div>
 
+    <div id="bookshelf">
+      <img src="/assets/plank.png" style="position:absolute;left:360px; top:180px;" id="shelf">
+      <% @tomes.each do |tome| %>
+          <%= link_to image_tag(tome.avatar.url, :class => "book", :onclick => "if ($(this).hasClass('takenout')){$('.absolute_background').animate({'opacity':'0.2'});$('.takenout').hide();$('#shelf').hide();$('.book').hide();$('#thebook_#{tome.id}').show();}"), "#" %>
+          <div id="thebook_<%= tome.id %>" style="display: none" class="thebook">
+            <section class="main">
+              <div class="bb-custom-wrapper">
+                <%= link_to image_tag("close.png"), "#", :class => "closer pnbuttons", :onclick => "$('#thebook_#{tome.id}').hide();$('.absolute_background').animate({'opacity':'1'});$('.takenout').fadeIn();$('#shelf').fadeIn();$('.book').fadeIn();" %>
+                <div id="bb-bookblock_<%= tome.id %>" class="bb-bookblock">
+                  <div class="bb-item">
+                    <table class="bb-table">
+                      <tr>
+                        <td></td>
+                        <td>
+                          <h2>Table of Contents</h2>
+                          <ul style="list-style-type:none;margin-left: -30px;">
+                            <% tome.puzzles.each_with_index do |puzzle, index| %>
+                                <li><%= link_to puzzle.name, "#" %>
+                                  <% unless puzzle.games.where(user_id: current_user.id).first.blank? %>
+                                      <% if puzzle.games.where(user_id: current_user.id).first.solved %>
+                                          <%= image_tag("complete.png", :style => "vertical-align:middle; width:32px") %>
+                                      <% end %>
+                                  <% end %>
+                                </li>
+                            <% end %>
+                          </ul>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <% tome.puzzles.each do |puzzle| %>
+                      <div class="bb-item">
+                        <table class="bb-table">
+                          <tr>
+                            <td><%= image_tag puzzle.avatar.url %></td>
+                            <td>
+                              <h2 style="margin: 10px;">
+                                <%= puzzle.name %>
+                                <div id="reward_table">
+                                  <%= puzzle.mana_reward unless puzzle.mana_reward==0 %> <%= image_tag "magic.png" unless puzzle.mana_reward==0 %><%= image_tag "techno.png" unless puzzle.power_reward==0 %> <%= puzzle.power_reward unless puzzle.power_reward==0 %>
+                                </div>
+                                <% if @game=Game.find_by_puzzle_id_and_user_id(puzzle.id, current_user.id) %>
+                                    <% if @game.solved %>
+
+                                        <div style="font-size: 14px;padding: 10px;"><%= raw @game.puzzle.explanation %></div>
+                                        <br>
+                                        <a href="/play/<%= puzzle.id %>">
+                                          <button class="styled_button">View This!</button>
+                                        </a>
+                                    <% else %>
+                                        <a href="/play/<%= puzzle.id %>">
+                                          <button class="styled_button">Create This!</button>
+                                        </a>
+                                    <% end %>
+                                <% else %>
+                                    <a href="/play/<%= puzzle.id %>">
+                                      <button class="styled_button">Create This!</button>
+                                    </a>
+                                <% end %>
+                              </h2>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <nav>
+                        <a id="bb-nav-prev_<%= tome.id %>" class="prev pnbuttons" href="#" onclick="$('.pnbuttons').fadeOut(100).delay(1000).fadeIn()"><%= image_tag "prev.png" %></a>
+                        <a id="bb-nav-next_<%= tome.id %>" class="next pnbuttons" href="#" onclick="$('.pnbuttons').fadeOut(100).delay(1000).fadeIn()"><%= image_tag "next.png" %></a>
+                      </nav>
+                  <% end %>
+
+                </div>
+              </div>
+            </section>
+          </div>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-
 <script type="text/javascript">
+    var Page = [];
+    var config = [];
+    var init = [];
+    var initEvents = [];
+    var $this = [];
     $(function () {
         setTimeout(function () {
-            $('#main_wrapper').fadeIn("slow")
+            $('#main_wrapper').fadeIn("slow", function () {
+                if (gon.help_on) {
+                    show_help();
+                }
+                arrange_books($('.book').size(), 200, 510, 290);
+                $('#shelf').on('click', function (e) {
+                    $('#buttonset').fadeIn();
+                    return_book();
+                });
+                $('.bb-bookblock').each(function (index) {
+                    $this[index] = $(this);
+                    Page[index] = (function () {
+
+                        config[index] = {
+                            $bookBlock:$this[index],
+                            $navNext:$this[index].find('.next'),
+                            $navPrev:$this[index].find('.prev'),
+                            bb:$this[index].bookblock({
+                                speed:800,
+                                shadowSides:0.8,
+                                shadowFlip:0.7
+                            })
+                        },
+                                init[index] = function () {
+                                    initEvents[index]();
+
+                                },
+                                initEvents[index] = function () {
+//                                    alert(config[index].$bookBlock.attr('id'));
+                                    // add navigation events
+                                    config[index].$navNext.on('click', function () {
+
+                                        config[index].bb.next();
+                                        return false;
+
+                                    });
+
+                                    config[index].$navPrev.on('click', function () {
+
+                                        config[index].bb.prev();
+                                        return false;
+
+                                    });
+
+                                };
+
+                        return { init:init[index] };
+
+                    })();
+                    Page[index].init();
+                });
+
+
+            });
         }, 500);
 
-        $("#entering").click(function () {
-            $(this).fadeOut();
-            $('.background').fadeOut();
-            $('#catchphrase').fadeOut();
-            $('#parchment').animate({
-                "top":"0px",
-                "left":"0px",
-                "width":"740px",
-                "height":"560px"
+    });
+
+    function arrange_books(count, ht, x, y) {
+        $('.book:not(.arranging):last').css({
+            "height":ht,
+            "left":x + "px",
+            "top":y + "px"
+        }).addClass('arranging').show();
+        if (count > 0) {
+            arrange_books(count - 1, ht * 0.95, x - (0.15 * ht - 2), y - (0.05 * ht - 10))
+        } else {
+            $('.arranging').removeClass('arranging');
+            book_behavior();
+        }
+    }
+
+    function book_behavior() {
+        $('.book').on('click', function (e) {
+            $('#buttonset').fadeOut();
+            if (!$(this).hasClass('takenout')) {
+                e.preventDefault();
+                $this = $(this);
+                $(this).animate({
+                            'left':"-=400px",
+                            'height':"+=100px",
+                            'top':"-=100px"
+                        },
+                        function () {
+                            return_book();
+                            $this.addClass('takenout');
+                        }
+                )
+            }
+        });
+    }
+
+    function return_book() {
+        $('.takenout').animate({
+            'height':"-=100px",
+            'left':"+=400px",
+            'top':"+=100px"
+        }, function () {
+            $(this).removeClass('takenout');
+        });
+    }
+
+    function show_help() {
+        $("#help").animate({"opacity":"0"}, function () {
+            $('#help_arrow').show().animate({
+                'left':"200px"
+            }, 1000, "easeOutBounce", function () {
+                $('#help_arrow').append('<div class="library_help">Click on the spinner to rotate through the tomes</div>');
+                $('.library_help').delay(2000).fadeOut("slow", function () {
+                    $('#help_arrow').animate({
+                        'top':"150px"
+                    }, 1000, "easeOutBounce", function () {
+                        $('#help_arrow').append('<div class="library_help">Click on a tome when it is in the center to open it</div>');
+                        $('.library_help').delay(2000).fadeOut("slow", function () {
+                            $('#help_arrow').animate({
+                                'top':"40px",
+                                'left':"340px"
+                            }, function () {
+                                $('#help_arrow').append('<div class="library_help">This is your current mana store. You gain mana by solving the tomes. You can spend this mana to buy clues when you get stuck on a creation puzzle.</div>');
+                                $('#help_arrow').delay(4000).fadeOut("slow", function () {
+                                    $('#help_arrow').animate({
+                                        'top':"320px",
+                                        'left':"-100px"
+                                    }, function () {
+                                        $('.library_help').remove();
+                                        setTimeout(function () {
+                                            $("#help").css("opacity", "1");
+                                        }, 2000);
+
+                                    });
+                                });
+                            })
+                        });
+                    })
+                });
             });
-            $('#sitename').animate({
-                "top":"30px",
-                "left":"50px"
-            })
-            $('#welcome_note').fadeIn('slow');
-            $('#welcome_menu').fadeIn('slow');
-
         })
-
-    })
+    }
 </script>
-

@@ -16,7 +16,6 @@ class Tome < ActiveRecord::Base
       word_count=self.beginning.split.size
       pages=(word_count/n).ceil+1
       pieces=[]
-      #TODO: Widow and Orphan Protection
       pages.times do |s|
         pieces<<self.beginning.gsub(/\r?\n/, "<br/>").split(/\s+/, n*(s+1)+1)[n*s...n*(s+1)].join(' ')
       end

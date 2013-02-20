@@ -11,10 +11,10 @@
     margin: 0;
 }
 
-#thebook {
+.thebook {
     position: absolute;
-    top: 20px;
-    left: 30px;
+    top: 40px;
+    left: 20px;
 }
 
 #thestorybook {
@@ -188,14 +188,14 @@
     background: #fff;
 }
 
-#bb-nav-prev {
+.prev {
     position: absolute;
     left: 5px;
     top: 375px;
     z-index: 999;
 }
 
-#bb-nav-next {
+.next {
     position: absolute;
     left: 505px;
     top: 375px;

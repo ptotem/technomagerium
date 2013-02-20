@@ -63,6 +63,15 @@ a:active, a:focus {
   border-radius: 20px;
 }
 
+#buttonset{
+  position: absolute;
+  left:50px;
+  top:180px;
+}
+.fixed_size{
+  width:250px;
+}
+
 .parchment {
   position: absolute;
   top: 150px;
@@ -153,6 +162,7 @@ a:active, a:focus {
 }
 
 .absolute_background {
+  height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
@@ -387,22 +397,20 @@ img.wallet_icon {
   border-radius: 10px;
 }
 
-.roundabout-holder {
-  list-style: none;
+#bookshelf {
   padding: 0;
   margin: 0;
-  height: 5em;
-  width: 40em;
-}
-
-.roundabout-moveable-item {
-  height: 4em;
-  width: 4em;
+  height: 18em;
+  width: 30em;
+  float:left;
+  margin-left: 30px;
+  position: relative;
   cursor: pointer;
 }
 
-.roundabout-in-focus {
-  cursor: auto;
+.book{
+  position: absolute;
+  display: none;
 }
 
 .tomes {
